@@ -1,0 +1,696 @@
+#For History
+
+> git log 
+
+Fortunately for us, there's git log. Think of Git's log as a journal that remembers all the changes we've committed so far, in the order we committed them.
+
+
+#Pushing Remotely
+
+adding repositori
+
+>git remote add origin https://estasesunaurl.com
+
+>git push -u origin master
+
+The name of our remote is origin and the default local branch name is master. The -u tells Git to remember the parameters, so that next time we can simply run git push and Git will know what to do. Go ahead and push it!
+
+> git diff 
+
+Another great use for diff is looking at changes within files that have already been staged. Remember, staged files are files we have told git that are ready to be committed.
+
+
+>git diff --staged
+
+Good, now go ahead and run git diff with the --staged option to see the changes you just staged. You should see that octodog.txt was created.
+
+#Unstage files
+
+>git reset octofamily/octodog.txt
+
+You can unstage files by using the git reset command. Go ahead and remove octofamily/octodog.txt.
+
+#Undo
+
+>git checkout -- octocat.txt
+
+git reset did a great job of unstaging octodog.txt, but you'll notice that he's still there. He's just not staged anymore. It would be great if we could go back to how things were before octodog came around and ruined the party.
+
+Files can be changed back to how they were at the last commit by using the command: git checkout -- <target>. Go ahead and get rid of all the changes since the last commit for octocat.txt
+
+
+#Removing all the things
+
+>git rm '*.txt'
+
+Ok, so you're in the clean_up branch. You can finally remove all those pesky octocats by using the git rm command which will not only remove the actual files from disk, but will also stage the removal of the files for us.
+
+You're going to want to use a wildcard again to get all the octocats in one sweep, go ahead and run:
+
+#After BugFix Switch and merche
+
+Cambiandose a la rama principal
+>git checkout <master>
+
+Haciendo merge con la rama en que se hizo los cambio
+>git merge <clean_up>
+
+Borrando la rama donde se habian hecho los cambios
+>git branch -d <clean_up>
+
+Para subir los cambios
+>git push 
+
+
+#Unastagin files
+
+>git reset HEAD <filename> 
+HEAD: make reference to our last commit on the current branch
+
+#Regresar cambios de un archivo
+
+>git checkout -- <filename>
+
+blow away all changes since last commit
+
+#Agregar archivo y hacer commit al mismo tiempo
+
+>git commit -a -m "asdasd"
+
+#Undoing a commit 
+
+>git reset --soft HEAD^
+
+go back to the commit before head
+
+#Adding a file to a last commit
+
+> git commit --amend -m "Modify readme & todo .txt" 
+
+Podemos especificar un nuevo mensaje del commit
+
+amend =  add to the last commit
+
+#BLOW AWAY LAST COMMIT
+
+>git reset --hard HEAD^
+
+undo last commit and all changes
+
+#BLOW AWAY LAST 2 COMMITS
+
+>git reset --hard HEAD^^
+
+undo last two commits and all changes
+
+
+#Mostrar repositorios remotos
+
+>git remote -v
+
+######################### HEROKU ######################################
+
+>heroku create
+>git remote -v 
+	Visualiza que noe screaron un repo con ssh
+to push to heroku
+
+>git push heroku master
+--> trigger deploy
+
+
+######################### HEROKU ######################################
+
+
+#Crear y moverte a un branch
+
+>git checkout -b 'admin'
+
+
+#Git fetch 
+
+>git fetch
+
+Se trae todo los cambios pero no hace merge
+fetch does not update any of our local code
+
+## MERGEEEEEEEEEEEEEEEeee
+
+if automatic merge failed
+u can do git status and see wich files need to be changed
+ <<<<<<< HEAD 
+ The cake is a lie <- Local version(version actual en mi maquina)
+ ===================
+ The cake istelling the truth!  <--- La version que me traje
+ >>>>>>>>>>>>>>>>>
+74x76c76x47c6x4764a74s7476a6sd5a8sd
+
+luego hacer 
+git commit -a
+
+Se le pone un nombre por defecto
+
+#### REMOTE BRANCH
+
+Por que usarlo?
+--Si dura mas de un dia y quieres hacer un backup de lo que estas haciendo remotamente
+--Si quieren trabajar varias personas en una misma funcionalidad
+
+>git checkout -b shopping_cart
+>git push origin shopping_cart
+
+
+# See remote branch
+
+>git branch -r
+
+list all remote branches
+
+>git checkout <remote_branch>
+se setea el tracking a la remote_branch
+
+>git remote show origin
+muestra las ramas remotas y las cuales le seguimos el tracking 
+las configuradas para pull
+las que esta out_of_date localmente
+
+#Removing a remote branch
+
+>git push origin :<remote_branch>
+
+luego eliminar la local
+>git branch -d <remote_branch>
+
+no te dejara si tiene cambios que necesitas commitear en algun lugar
+si de verdad se quiere eliminar se pasa D
+
+>git branch -D <remote_branch>
+
+Si alguien intenta hacer push en una rama eliminada
+
+>git remote show origin
+Muestra las ramas remotas si alguna esta en 'stale' es que fue eliminada
+
+to clean up deleted remote branches
+>git remote prune origin 
+
+
+####### HEROKU
+heroku only deploys master if we have a staging branch
+were heroku is
+we will have to do 
+
+> git push heroku-staging stagin:master
+####### HEROKU
+
+##Tags
+
+list all tags
+>git tag
+
+checkout a tag
+>git checkout v0.0.1
+
+create a tag
+>git tag -a v0.0.3 -m "version 0.3.3"
+
+push a tag, hay que especificarlo
+>git push --tags
+
+
+############# Rebase
+
+hacemos primero 
+>git fetch 
+para jalase todos los cambios sin hace merge
+
+>git rebase 
+Este hace trec cosas
+-Mueve todos los cambios de master que no estan en origin/master a un area temporal
+-Run all origin/master commits one by one
+-Run all commits in the temporary area, one at a time
+
+
+Local branch rebase
+
+>git checkout <otra_rama>
+>git rebase master
+
+se le agregara los commits de master a <otra_rama>
+
+>git checkout master
+>git merge <otra_rama>
+
+al realizar esto ya no habra un conflicto de merge
+que ha que resolver por uno mismo sino que hara 
+un fast foward merge
+
+SI hay CONFLICTOS en que se cambiaron cosas en un mismo archivo
+arreglar los errores y luego correr
+>git add <archivo_mergiado>
+>git rebase --continue
+
+Otras opciones 
+skip patch
+>git rebase --skip
+
+to make rebase never happend
+>git rebase --abort
+
+###################### LOOOOOG #######################3
+
+#colorizing the log
+>git config --global color.ui true
+aplica color al hash del commit
+
+>git log --pretty=oneline
+hash Update index
+
+#LOG FORMAT
+>git log --pretty= format: "%h %ad- %s [%an]"
+
+%ad author date
+%an author name
+%h SHA hash
+%s subject
+%d ref name
+
+#Para ver que se cambio en cada commit
+>git log --online -p
+
+#Show how many insertions and deleteions
+>git log --oneline --stat
+
+#See merge bubles in a graph way
+>git log --oneline --graph t
+
+
+#log for time 
+>git log --until=1.minute.ago
+
+>git log --since=1.day.ago
+
+>git log --since=1.hour.ago
+
+>git log --since=1.month.ago --until=2.weeks.ago
+
+>git log --since=2000-01-01 --until=2012-12-21
+
+## DIFF eraly commits
+
+>git diff HEAD == git diff
+
+>git diff HEAD^ parent of latest commit
+
+>git diff HEAD^^ grandparent of the latest commit
+
+>git diff HEAD~5 five commits ago
+
+>git diff HEAD^..HEAD second most recent commit vs most recent
+
+#between branches
+
+gif diff <branch.a> <branch.b>
+
+#como en log tambien se pueden hacer ver diferencias entre tiempos
+>git diff --since=1.month.ago --until=2.weeks.ago
+
+##BLAME
+
+para ver los cambios que hizo cada quien en le archivo
+
+>git blame index.html --date short
+
+comit hash (author fecha linea) contenido
+
+
+##Excluding files
+
+include tehm in 
+
+.git/info/exclude
+
+##Delete a file
+
+>git rm file.ext
+commit and done
+
+##Untrack files
+>git rm --cached development.log
+
+>git status
+deleted but no deleted from your file system
+
+##Merge tool
+
+>git config --global merge.tool <tool>
+
+#Aliases
+
+>git config --global alias.mylog \
+"log --pretty=format:'%h %s [%an]' --graph"
+>git config --global alias.lol "log --graph --decorate --pretty=oneline --abbrev-commit --all"
+
+
+################################### GIT REAL 2 ##########################################
+
+##Rebase recap
+mismos commits en dos branches
+
+>git checkout <branch>
+
+>git rebase master
+
+se unen en un temp llos commits iguales 
+
+## Interactive rebase
+
+>git rebase -i HEAD~3
+commands
+p, pick = use commit
+r, reword = use commit but edit the commit message
+e, edit = use commit nnbut stop for amending
+s, squash = use commit, but meld into previous commit
+f, fixup = like squash but discard this commit's log message
+x, exec = run command (the rest of the line) using shell
+
+alter every commit after the one you specify  
+
+#Cambiar de lugares los commits
+>git rebase -i HEAD~3 
+movemos las lineas de los commit en el orden que queramos ponerlo
+cabe destacar que las lineas estan ordenadas de mas viejo a mas nuevo
+
+#cambiar nombre
+reword 123098 nombre actual
+al salvar sale otro editor donde podemos guardar el nuevo nombre del commit 
+
+########Lvl2 
+
+## Stashing
+
+Usado para guardar tus cambios actuales en un estado para commitearlos luego
+
+>git stash save
+
+save in a temporary space 
+
+//haces lo que tengas que hacer te mueves al master blablabla
+
+regresar los cambios
+
+Regresas a tu branch
+>git stash save
+
+#Agregar un mensaje al save 
+>git stash save "Add gerbils page, start index."
+
+
+#Para ver los stash apilados
+>git list 
+
+# Para verlos mas definidos
+>git list --stat 
+
+#Drop stashes
+
+>git stash drop == >git stash drop stash@{0}
+pop up form the stack
+
+
+>git stash pop = >git stash apply
+				 >git stash drop 
+
+#Stash conflicts
+>git stash apply
+error
+>git reset --hard HEAD
+
+>git stash apply
+ok
+
+ Con pop si hay conflicto the stash wont be dropped automatically
+
+#Save working directory
+>git stash save --keep-index
+
+#Include untrack files
+>git stash save --include-untracked 
+
+#Stash show 
+
+>git stash show stash@{0}
+
+--git stash list y show pueden usar los parametro de git log
+
+#show files diff
+>git stash show --patch
+
+#Branching 
+crea una nueva rama and drop the stash automatically
+>git stash branch gerbil-toys stash@{0}
+
+
+#BORRA TODO
+>git stash clear
+
+
+########Lvl3
+
+#PURGING HISTORY
+
+#Primero se hace un backup
+>git clone petshop petshop-filter
+
+#Tree filter
+>git filter-branch --tree-filter <command> .... 
+
+command must operate in staging area
+
+ex si subiste algo y no quieres que este mas
+>git filter-branch --tree-filter 'rm -f passwords.txt'
+remover archivos video ex 'find . -name "*.mp4" -exec rm {} \;'
+
+run commit in all branches
+>git filter-branch --tree-filter 'rm -f passwords.txt' -- --all 
+
+solo en el head el -f es para que si retorna fail por no encontrar el archivo aun asi el filtro no falle 
+>git filter-branch --tree-filter 'rm -f passwords.txt' -- --HEAD
+
+operate in staging area
+>git filter-branch --index-filter 'git rm --cached --ignore-unmatch password.txt'
+--ignore-unmatch like -f to not fail
+
+Delete emptuy commits
+>git filter-branch -f --prune-empty -- --all
+
+
+Se pueden hacer cosa mas elaborada como estas 
+>git filter-branch --tree-filter 'rm -f passwords.txt' --prune-empty -- --all 
+
+>git filter-branch -f --index-filter 'git rm --cached --ignore-unmatch master_username.txt'
+
+
+########Lvl4
+
+Line endings
+
+PROBLEMA: cuando se trabaja en equipos de win y osx el formato de linea al final es diferente 
+			una persona puede ver asd 			
+								  asd
+								  asd mientras que una persona en win veria asdasdasd para arreglar
+			esto se especifican unas conversiones de los archivos
+
+osx LF = /n
+win CR/LF = /r/n
+
+On OSX
+Changes CR/LF to LF on commit
+>git config --global core.autocrlf input
+
+On win
+Changes LF to CR/LF on checkout
+ config --global core.autocrlf true
+
+File Attributes 
+conversion settirns
+
+text=auto : Choose conversion automatically
+text : treat files as text OS's line endings on checkout, back to LF on commit
+text eol= crlf : EndOfLine convert to specified format on checkout,
+text eol= lf   : back to LF on commit
+binary : trate files as binary - do no conversion
+
+Some typical rules
+
+* text=auto : by default, auto-convert lines endings
+
+*.html text :treat HTML and CSS files as text (not needed if you have the one above)
+*.css text
+
+*.jpg binary : treat images files as binary (asegurarse de que trate las imagenes como archivos binarios)
+*.png binary
+
+*.sh text = eol=lf    :keep shell scripts in Unix format,
+*.bat text = eol=crlf :batch files in windows format
+
+#Cherry pick
+tenemos dos ramas una en produccion y otra rama development
+queremos agregar una funcionalidad de dev en produccion pero es un commit en un mar de commits
+para eso utilizamos cherry pick para seleccionar ese commit y colocarlo en la rama de produccion
+
+git log --oneline
+
+primero nos movemos a la rama de produccion 
+>git checkout production 
+
+segudno usamos cherry pick y le pasamos el numero del commit
+>git cherry-pich <numero del commit>
+
+edit commit message
+>git cherry-pich --edit <numero del commit>
+
+sale una consola para editar el commit se guarda y ya 
+
+#Tomar varios commit y unirlos
+>git cherry-pich --no-commit <numero del commit> <numero del commit>
+--no-commit :toma los cambios los hace en el HEAD pero no hace commit de ellos  
+ahora lo que hay que hacer es un commit manualmente 
+
+#Track cherry pick
+>git cherry-pich -x <numero del commit>  
+
+Para saber quien hizo el cherry picking 
+>git cherry-pich --signoff <numero del commit>  
+--signoff : adds current user's name to commit message
+
+########Lvl5 
+SUBMODULES
+
+Compartir un archivo entre varios proyectos y mantenerlo versionado para cada uno
+si quiesiera compartir el ccs/js de un proyecto con otro usamos un submodulo un repositorio git
+dentro del repositorio git
+
+Primero crear el repositorio
+en git /github
+
+luego correr el comando 
+
+>git submodule add <direccion>:arch.git
+>git submodule add git@emxaple.com:css.git
+
+>git commit -m "Add css submodule."
+>git push 
+
+Update submodule
+
+cd css 
+>git checkout master
+make changes
+>git commit -am "Update menu fomnt."
+>git push
+
+#$%Necesitamos pushear our parent repo
+
+cd ..
+>git  add css
+>git commit -am "Update menu font in css."
+>git push
+
+#Submodule init
+--Cuando se descarga un repositorio hay que iniciar los submodulos por que sino estos estaran vacios
+
+>git submodule init
+>git submodule update :esto hara pull down de esos submodulos
+
+#Pull submodules
+--Al hacer pull y git diff se puede ver que los hash del submodulo son diferente cuadno pasa esto hay que actualizarlos
+
+>git submodule update 
+
+#Modify submodules 
+--Commmit aislado submodulo
+if you pushed the repo pero no te cambiaste de rama quedara aislado el commit
+Para solucionar esto
+
+>git checkout master
+>git merge <hashcommit>
+
+luego hay que pushear el parento repo #$%
+
+ Paso 1 /submodule $git push
+ Paso 2 / $git push  :parent repository 
+
+Options to not forget
+
+>git push --recurse-submodules=check 
+--recurse-submodules=check  :will abort a push if you haven't pushed a submodule
+
+>git push --recurse-submodules=on-demand
+--recurse-submodules=on-demand   :to push all repositories (even submodules)
+  
+
+### Lvl 6
+
+REFLOG
+
+#Lost data
+--si hacemos un hard reset y eliminamos un commit que despues si queremos para reobtenerlo
+revisamos el segundo log que tiene git ya que en el primero no saldar este log es local
+
+>git reflog 
+hash    index    why 
+454cas HEAD@{0}: reset: moving to 4123
+1e6231 HEAD@{0}: commit: loquediceelcommit
+
+para devolver el cambio
+
+>git reset --hard 1e62 
+o
+>git reset --hard HEAD@{1}
+
+-- reflog es solo local  
+
+Delete Branches Recover
+
+>git branch -d aviary
+
+>git branch -D aviary
+
+podemos restaurarla con reflog pero mejor usar un comando mas detallado
+
+>git log --walk-reflogs
+
+--walk-reflogs :to see the reflog info in full log format
+
+Creamos una nueva rama con el hash o con el HEAD@{} del reflog
+
+>git branch aviary 280e
+
+>git branch aviary HEAD@{1}
+
+
+####PAginas cheveres
+
+
+Git immersion guia paso a paso 
+
+http://gitimmersion.com/lab_01.html
+
+Git cheatsheet
+
+http://ndpsoftware.com/git-cheatsheet.html
+
+Git ready tips and tricks
+
+http://gitready.com/
+
+
+like gitflow 
+
+http://nvie.com/posts/a-successful-git-branching-model/
+http://scottchacon.com/2011/08/31/github-flow.html
+http://aprendegit.com/que-es-git-flow/
+http://aprendegit.com/git-flow-la-rama-develop-y-uso-de-feature-branches/
+
+Hacer discover DevTools

@@ -1,2 +1,0 @@
-# cursos
-Notas de cursos
