@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PHP Demo</title>
+	<title>PHP Demoo</title>
 </head>
 <body>
 <?php
