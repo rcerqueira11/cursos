@@ -1,0 +1,174 @@
+Rename file .html -> .php
+
+codeblock <?php ?> tell the server we wanna execute this in php
+
+print-> echo 'Hello World'; 
+all lines end in ;
+
+Define variable 
+$name = 'Hoba';
+''-> comas simples mejor que ""
+"" son usadas para verificacion de string
+
+Variables 
+- no pueden comenzar con un numero
+- no se pueden usar "-" ab-c
+- necesitan comenzar ajuro con un numero
+
+
+String and Data
+String concatenation = .
+
+echo 'Meteor Name: ' . $name
+string evaluation with ""
+	echo "Meteor name: $name";
+
+Arrays
+$meteors = array()
+$meteors = []
+
+$meteors = array('H')
+$meteors = ['H']
+$meteors = array('H','B','C')
+
+Imprimir Arregls
+print_r($meteors);
+
+Añadir nuevos items
+$meteors[] = 'Hevens Garden'
+$meteors[] = 'Hell canon'
+
+Acces to the dara
+echo $meteors[0];
+
+
+Override the dara
+echo $meteors[0] = 'Los Angeles';
+
+Associative array
+=> <- assosiation operator
+$meteors = array(
+	'Id' => 600000,
+	'Cape York' => 5300000,
+
+);
+
+Imprimir asso-arrays
+echo $meteors['Id'];
+echo $meteors['Cape York'];
+
+Añadir nuevos items
+$meteors['Hevens Garden'] =  3000000
+
+
+Multidimensional array
+
+$game = array(
+	'tabletop' => array(
+		'sorry',
+		'life',
+		'scrable',
+
+
+	),
+
+	'card' => array(
+		'poker',
+		'blackjack',
+		
+	),
+
+
+);
+
+Accesing Data
+print_r($games['tabletop']);  
+echo $games['tabletop'][0];
+print_r for an array
+echo for a single value
+
+Override the dara
+$games['tabletop'][0] = 'rummy';
+
+Arrays Functions
+
+Count
+	echo count($people)
+
+Implode = joins all the arguments of the array into a string
+	1param = join argument of the array
+	2param = nombre de variable del arreglo
+
+	echo implode(' ',$people);
+
+Randomize the array
+shuffle($people);
+
+Sort Array
+
+Alphabetically 
+	asort($people);
+
+OPERATORS
+
+Compare operators
+
+not equal !=
+Equal 5=='5' -> True
+Identical(type and value) 5 === 5 -> False
+
+Control flow
+if ($year >= 2001) {
+	//do something ;
+} elseif ($year >= 1984){
+	//other thing;
+}else {
+	//other action ;
+}
+
+Logical operators
+and= $a && $b
+Or = $a || $b
+Not = !$b 
+
+
+// echo 'asdads' . ($asd['asd'][1]-$year) . 'aosid'
+// usar parentesis
+
+LOOPS
+$i = 1;
+
+while($i <= 12 ){
+	
+	$value =  $i * 12;
+	echo "$i times 12 is $value";
+	$i++;
+}
+
+for ( $i = 1; $i <= 12; $i++){
+	$value = $i * 12;
+	echo "$i imes 12 is $value";
+}
+
+foreach loop -> for each item in our array
+
+foreach($meteors as $meteor){
+	echo $meteor
+}
+
+
+Multidimensional array loop
+
+foreach($meteors as $key => $value){
+	echo "$key weighs $value grams.";
+}
+
+
+for ($i=0 ; $i < count($cities); $i++){
+ 	echo '<li>' . $cities[$i] . '</li>';
+}
+
+
+GET POST
+Print all data in POST 
+$_POST

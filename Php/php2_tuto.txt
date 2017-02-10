@@ -1,0 +1,105 @@
+Get Request
+- Show query strings and values in url
+
+
+<form class="" action="state.php" method="post">
+
+
+Acceder a la data de POST
+Superglobal variables $_POST
+
+var_dump($_POST); 
+devuelve un array 
+
+echo $_POST['indic'];
+
+Evitar variables inexistentes chequear si el server request method es ==== POST
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+	
+	echo $_POST['indic'];
+}
+
+## Lvl 2
+Creating a folder for partial HTML files
+
+Hello
+|_app
+|_views
+	|_content.php
+	|_footer.php
+	|_header.php
+|_public
+	|_index.php
+
+
+-cortamos el header del index.php y lo colocamos en el header.php
+- Ahora hay que incluir el header en el index.php
+
+<?php
+	include('../app/views/header.php');
+?>
+
+.. :se incluyen para moverse atras un directorio ya que el index se encuentra en el public
+
+hacemos lo mismo con el contenido todo codigo html
+teniendo ahora
+
+<?php
+	include('../app/views/header.php');
+	include('../app/views/content.php');
+?>
+
+y luego para el footer quedando el archivo index.php como 
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PHP Demo</title>
+</head>
+<body>
+<?php
+	include('../app/views/header.php');
+	include('../app/views/content.php');
+	include('../app/views/footer.php');
+?>
+</body>
+</html>
+
+## Creamos una nueva carpeta llamada src y un nuevo archivo llamado app.php los archivos con puro php no necesitan un close tag -> ?>
+
+Hello
+|_app
+	|_src
+		|_app.php
+|_views
+	|_content.php
+	|_footer.php
+	|_header.php
+|_public
+	|_index.php
+
+incluimos app.php con require
+si lo ponemos include sino esta lanza un warning si lo hacemos con require lanza un fatal error
+
+<?php
+	require __DIR__ . '/../app/src/app.php';
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PHP Demo</title>
+</head>
+<body>
+<?php
+	include('../app/views/header.php');
+	include('../app/views/content.php');
+	include('../app/views/footer.php');
+?>
+</body>
+</html>
+
+the main php logic is required
+while the html is included
