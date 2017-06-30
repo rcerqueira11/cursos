@@ -1,0 +1,90 @@
+SVG
+En vez de tener un png con cada parte y arreglarlo en el html se puede tener un svg
+
+Getting SVG assets 
+se puede crear con ilustrator
+y a cada layer se le pone un nombre descriptivo
+este nombre sera el id cuando se guarde como svg
+
+<g id="left-arm">
+	<path id="fill" d="M123...."
+	<path id="outline" d="M123...."
+
+</g>
+
+<xml verions="1.0" encoding="uft-8"?>
+ <svg x="0px" y="0px" viewBox="0 91 612 612"
+	 <style type="text/css">...</style>
+	 <g id="donut">
+		 <g id="right-arm">..</g>
+		 <g id="left-arm">..</g>
+		 <g id="right-leg">..</g>
+		 <g id="left-leg">..</g>
+		 <g id="donut_body">..</g>
+	 </g>
+ </svg>
+the svg can be dropedn in the html file wherever you are loading normally other images
+	
+change the color of a specific id
+
+<g id="donut">
+		 <g id="right-arm">..</g>
+		 <g id="left-arm">..</g>
+		 <g id="right-leg">..</g>
+		 <g id="left-leg">..</g>
+		 <g id="icing-fill">..</g>
+	 </g>
+style
+
+#icing-fill {
+	fill: #DD3D93; -> esto no se podia hacer con png
+}
+
+tambien podemos animarlo
+
+@keyframes darken {
+	0% {fill: #FCA9B7;}
+	100% {fill: #DD3D93;}
+}
+
+#icing-fill {
+	animation: darken 3s infinite;
+}
+
+SVG USE fill INSTEAD onf background-color
+
+svg has some unique css propiertues that can be animated.
+
+enable-background
+fill
+fill-opacity
+filter
+mas 
+stroke 
+stroke-dasharray
+stroke-dashoffset
+viewport-fill
+viewport-fill-opacity
+
+check full list in 
+http://go.codeschool.com/svg-css-properties
+
+Animating multiple properties in a key frame
+
+Algunos browsers no funciona center en trasnform-origin por lo cual es bueno utilizar pixels
+
+
+SVG YOU  AND ME
+
+<svg 
+height="300" width="400" <!--  this define our view port where the svg is gonna be -->
+whe need to let the browser know that we are gonna use something else than html so
+xmlns="http://www.w3.org/2000/svg"
+version="1.1"
+
+
+	>
+
+
+
+</svg>

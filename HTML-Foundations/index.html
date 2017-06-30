@@ -1,0 +1,139 @@
+
+<h1>Reciper world</h1>
+<h2>magis cake</h2>
+<h3></h3>
+<h3>Ingredients</h3>
+
+
+#oder list tag
+<ol>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ol>
+
+1.
+2.
+3.
+4.
+5.
+
+a anchor
+
+taget atributte dice en donde debe abrir esa pagina cuando el link sea clikeado
+
+target = "_blank" => abrir la pagina en una nueva tab
+target = "_self" => remplazar la pagina abierta por la del link
+default target "_self"
+
+absolute path
+<a href="https://exaple.com/legal.html"></a>
+
+relative
+<a href="legal.html" ></a>
+si no se coloca ningun protocol/server el browser asume que el protocolo y el servidor son los mismos que estas utilizando actualmente
+
+2 -css
+
+<style type="text/css">
+	
+
+p{
+	text-decoration: underline; 
+	/*pone una linea debajo*/
+}
+
+sintax: 
+selector {
+	property: value;
+}
+
+/*descendent selector */
+
+ul li {
+	font-size: 24px;
+}
+
+/*esto aplicara solo para los hijos de ul */
+
+psudo-selector son aquellos que modifican la vista de nuestro tag al realizar cierto tipo de accion
+
+a{
+	text-decoration: none;
+}
+
+a:hover{
+	text-decoration:underline;
+	color: darkred;
+}
+
+/*first-child*/
+/*cambia solo el primer hijo, en este caso el primer item de la lista */
+ul li:first-child {
+	font-size: 24px;
+}
+
+</style>
+
+blocklevel tags son aquellos que abarcan todo el width del container
+inline level tags son los que se acomodan con el alredor tipo los <a></a>
+
+to make a block taga a inline hay que colocarle el atributo in line
+
+<style type="text/css">
+	ul li {
+		display: inline;
+	}
+</style>
+
+box model describe los espacio entre los tags esta compuesto de 4 cosas
+
+<li>Content area: contiene el contenido, text, img</li>
+<li>Padding: top, bottom, right ,left added to the content</li>
+<li>Border:  top, bottom, right ,left added to the padding</li>
+<li>Margin se le puede agregar al  top, bottom, right, left del border</li>
+
+<!-- padding -->
+<style type="text/css">
+	h2{
+				top  right bottom left
+		padding: 6px 3px 0 0;
+	}
+
+</style>
+<!-- border -->
+<style type="text/css">
+	h2{
+				
+		border-width: 6px;
+		border-style: solid;
+		border-color: black;
+	}
+
+	o
+
+	h2{
+				width sytle color
+		border: 6px solid black;
+	}
+
+</style>
+<!-- margin -->
+<style type="text/css">
+	h2{
+				
+		margin-top: 6px;
+		margin-right: 0;
+		margin-bottom: 6px;
+		margin-left:  0;
+	}
+
+	o
+
+	h2{
+				top  right bottom left
+		margin: 6px 0 6px 0;
+	}
+
+</style>

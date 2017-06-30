@@ -1,0 +1,116 @@
+TRANSITIONS
+
+Change color take place over a period of time
+CTA (Call to action): primaty goal for a user on a site
+
+trasiciones pueden ser desde un hex rgb
+
+DEF: transition: <property> <duration>;
+fastest transition tu human eye is .2565
+.btn {
+			background-color: #00A0D6;
+			transition: background-color 0.4s;
+		}
+		.btn:hover{
+			background-color: #007DA7;
+		}
+se pueden hacer varias transiciones separadas por ,
+transition: background-color 0.4s, color 0.4s;
+
+se puede poner general para todos con la propiedad all
+transition: all 0.4s;
+
+En realidad hay 4 valores para la transiciones
+transition: <property> <duration> <timing-function> <delay>;
+<property> : default to all
+<duration> : 
+<timing-function> : defaults to ease
+<delay> : defaults 0
+
+transition: all 0.4s; puede ser tambien transition: 0.4s;
+
+Generalmente para cada explorador es necesario su prefijo
+
+chrome_safari = -webkit-transition: background-color .4s;
+mozilla = -moz-transition: background-color .4s;
+internet explorer = -ms-transition: background-color .4s;
+opera = -o-transition: background-color .4s;
+transition: background-color .4s;
+
+which propierties need prefixes and when?
+u can check it in caniuse.com
+
+
+TRASTIONING POSITION
+Transition in hidden content
+
+1. Create 2 inner spans to hold the current 
+	and additional information to be shown on th button hover
+2. Style the initial and hover states of the button
+3. Create a transiton between initial and hover states
+
+TRANSITION VISIBILITY
+.modal,
+	.modal-overlay{
+		visibility: hidden;
+		opacity: 0;
+	}
+	/*la clase active es agregada cuando el boton es clickeado*/
+	.modal-active,
+	.modal-overlay.active{
+		visibility: visible;
+		opacity: 1;
+	}
+
+opacity:0 esconde los elemento pero tiene todavia el mismo width y height 
+visibility:hidden hace los elementos transparentes
+
+why not use display none?
+	- this remove the elemento from the DOM so there is no transition 
+
+
+TRANSFORM
+
+-ROTATE
+.modal-close:hover{
+	transform: rotate(360deg);
+}
+
+rotate take any number value with deg or turn unit 1turn = 360deg
+transform: rotate(1turn)
+
+Need transition to see the movement otherwise it just rotate inmediatly to the new state
+
+#Timing FUNCTION
+ease default
+linear
+ease-in
+ease-out: the icon does at the end slower the animation
+initial
+inherit
+ease-in-out
+cubic-bezier
+
+-SCALE TRANSLATE
+scale: to stretch an element based on the value multiplier
+if only 1 values is provided, it will scale the element in both directions by that value
+
+transform: scale(2); make twice as big
+
+transform: scale(4,2); stretch horizontally by 4, stretch vertically by 2
+se puede especificar por separado
+scaleY(value)
+scaleX(value)
+
+cuando se escala algo mantiene su box-model size original
+una forma facil de arreglar esto es especificar un nuevo origen
+
+transform-origin: center left;  
+	-center = y origin 
+	-left = x origin 
+- transform origion puede especificarse como center,right,top or in pixels
+
+Translate: to move something
+transform: translateX(3px); will move right 3px
+transform: translateY(-3px); will move up 3px
+transform: translate(3px); will move up 3px for x and y

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+			visibility: hidden;
+		}
+		to {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	@keyframes slideUp{
+		from{
+			transform: translateY(400px);
+		}
+		to{
+			transform: translateY(-300px);
+		}
+
+
+	}
+
+	/*animacion para los campos del modal*/
+	@keyframes slideUpSmall{
+		from {transform: translateY(80px);}
+		to {transform: translateY(0);}
+
+	}
+
+	/*agregamos los cambios las clases del inputs de modal y el header*/
+
+	.modal-header h3 {
+		animation: slideUpSmall 0.25s 0.75s forwards,
+					fadeIn 0.25s 0.75s forwards;
+	}
+
+	.modal-active .form-field {
+		animation: slideUpSmall 0.25s 0.8s forwards,
+					fadeIn 0.25s 0.8s forwards;
+	}
+
+
+	.modal-overlay.active{
+		animation: fadeIn .25s;
+	}
+
+	.modal.active {
+		animation: slideUp .65s .5s cubic-bezier(0.17,0.89,0.32,1.28) forwards,
+			fadeIn .65 .5s forwards
+	}
+
+
+
+
+
+	</style>
+</head>
+<body>
+
+<!-- toda la broma morada atras -->
+<div class="modal-overlay"></div> 
+
+<div class="modal">
+	<div class="modal-header">
+		<a class="modal-close">&times;</a>
+		<h3>Purchase Sweet Lands</h3>
+	</div>
+	<div class="modal-content">
+		<form class="form" action="">
+			
+		</form>
+	</div>
+
+
+</div>
+
+
+</body>
+</html>
+

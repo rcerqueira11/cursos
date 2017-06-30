@@ -1,0 +1,135 @@
+when to use padding?
+padding is used to control the size of a box without adjusting
+the size of the content inside the box
+
+Margin shourl be used to control the space between boxes
+
+to reset layouts of the page
+
+html, body, h1, h2,
+h3, p, ol, ul, li, a {
+	padding: 0;
+	border: 0;
+	margin: 0;
+}
+
+to make some approach
+
+Esto agrega un espacio de los bordes de body con respecto a la pag
+body {
+	padding: 20px 20px 20px 20px;
+}
+
+
+Agregar un poco de espacio arriba y abajo de los tags
+h1{
+	margin: 10px 0 15px 0;
+}
+
+h2{
+	margin: 10px 0 20px 0;
+}
+
+h3{
+	margin: 15px 0 15px 0;
+	border-bottom: 1px solid #CCCCCCC; #sirve para colocarle una peque;a linea abajo
+	padding-bottom: 3px; #por si la linea esta muy pegada al contenido se le puede agregar un poco de espacio con padding ya que este esta dentro del border
+}
+
+padding works with ident li
+
+ul {
+	padding: 0 0 0 50px;
+}
+
+ol {
+	padding: 0 0 0 50px;
+}
+
+
+3 CSS
+
+Para diferencia cada ul con un padding diferente se le agregan clases
+
+<ul class="nav"> <li></li> </ul>	
+
+.nav {
+	padding-left: 0; #le quita el padding izquierdo a la lista de navegacion
+}
+
+fin all a tags tat are children of any tag with class of "nav"
+.nav a{
+	color: #0000af;
+	text-decoration: none;
+}
+
+
+Declarar los class generales antes de los especificos sino el class general sobreescribira los paramentros
+del class especifico
+
+links css
+
+<link 
+type="text/css" //let the browser know that we're going to load a css file'
+rel="stylesheet" //relationship tells to the html that it should relate to this css and apply it to the page
+href="" //this works as a tag so we should specify the relaive o static path>
+
+to delete puntos de los li
+
+.recipes {
+	list-style-type: none;
+	padding: 0;
+}
+
+to add some border around
+.recipes li{
+	border: 1px solid #b56663;	
+	padding-left: 15px;
+}
+
+change a
+
+.recipes a{
+	color: #7facaa;
+	text-decoration: none;
+}
+
+
+divs and layouts
+
+div = division -> group related content into sections 
+
+<div class="header"></div>
+
+.header {
+	padding: 10px 10px 10px 10px;
+	background-color: #b56663 
+}
+
+.header a{
+	color: #ffffff;
+}
+
+<div class="main-content"></div>
+#div fixed size
+.main-content{
+	width: 500px;
+}
+
+
+center tag two diferente ways
+
+if center entire block level tag  and is fixed with: u can set left and right margin to auto
+auto means take as much space as you can 
+.main-content{
+	width: 500px;
+	margin: 30px auto 0 auto;
+}
+
+if center children inside a block level tag : set the text-aling of the children to center 
+
+.h1{
+	text-aling: center;
+}
+
+COURSE JOURNEY INTO MOBILE

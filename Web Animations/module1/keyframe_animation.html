@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	@keyframes swing {
+		0% {transform: rotate(0deg);}
+		100% {transform: rotate(-10deg);}
+
+	}
+
+    #left-arm {
+    	/*acuralmente esta center center hay que cambiar el transform-origin: */
+    	transform-origin: top center;
+    	animation: swing 2s 0s infinite ease;
+    }	
+
+    #right-arm {
+    	/*acuralmente esta center center hay que cambiar el transform-origin: */
+    	transform-origin: top center;
+    	animation: swing 2s 0s infinite ease;
+    }	
+
+	</style>
+</head>
+<body>
+
+<!-- toda la broma morada atras -->
+<div class="modal-overlay"></div> 
+
+<div class="modal">
+	<div class="modal-header">
+		<a class="modal-close">&times;</a>
+		<h3>Purchase Sweet Lands</h3>
+	</div>
+	<div class="modal-content">
+		<form class="form" action="">
+			
+		</form>
+	</div>
+
+
+</div>
+
+
+</body>
+</html>
+

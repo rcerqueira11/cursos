@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	@keyframes flyoff {
+		0% {transform: rotate(0deg);}
+		10% {transform: rotate(30deg);}
+		20% {transform: rotate(0deg);}
+		30% {transform: rotate(-30deg);}
+		40% {transform: rotate(0deg);}
+		/*start to desaparecerlo*/
+		45% {opacity: 1;} 
+		50% {
+			transform: rotate(100deg) scale(3);
+			opacity: 0;
+		}
+		100% {
+			opacity: 0;
+			transform: scale(1);
+		}
+	}
+
+	#sprinkles {
+		transition: transform 2s;
+		transform-origin: 302px 337px;
+		animation: flyoff 3s infinite ease-in;
+	}
+
+	@keyframes shake {
+		0% {transform: rotate(0deg);}
+		10% {transform: rotate(30deg);}
+		20% {transform: rotate(0deg);}
+		30% {transform: rotate(-30deg);}
+		40% {transform: rotate(0deg);}
+		50% {transform: rotate(100deg);}
+	}
+
+	#icing-fill{
+		animation: darken 3s infinite ease-out,
+					shake 3s infinite ease-out;
+		transform-origin: 302px 337px;
+	}
+	
+	#icing-outline{
+		animation: shake 3s infinite ease-out;
+		transform-origin: 302px 337px;
+	}
+
+
+
+
+
+	</style>
+</head>
+<body>
+
+<!-- toda la broma morada atras -->
+
+<div class="modal-overlay"></div> 
+
+<div class="modal">
+	<div class="modal-header">
+		<a class="modal-close">&times;</a>
+		<h3>Purchase Sweet Lands</h3>
+	</div>
+	<div class="modal-content">
+		<form class="form" action="">
+			
+		</form>
+	</div>
+
+
+</div>
+
+
+</body>
+</html>
+

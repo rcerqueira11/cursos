@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	.modal,
+	.modal-overlay{
+		visibility: hidden;
+		opacity: 0;
+		transition: opacity .5s, visibility .5s;
+		/*transition: all .5s;*/
+	}
+	/*la clase active es agregada cuando el boton es clickeado*/
+	.modal.active,
+	.modal-overlay.active{
+		visibility: visible;
+		opacity: 1;
+	}
+	
+	</style>
+</head>
+<body>
+
+<!-- toda la broma morada atras -->
+<div class="modal-overlay"></div> 
+
+<div class="modal">
+	<div class="modal-header">
+		<a class="modal-close">&times;</a>
+		<h3>Purchase Sweet Lands</h3>
+	</div>
+	<div class="modal-content">
+		<form class="form" action="">
+			
+		</form>
+	</div>
+
+
+</div>
+
+
+</body>
+</html>
+

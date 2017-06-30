@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.btn {position: relative;}
+		.content {position: absolute;}
+		/*absolutes mean position me relative to my neatest positiond parent or document in this case the botton */
+		.top {top:0;}
+		.bottom {top: 100px ;}
+
+		.btn:hover .top{top: -100px}
+		.btn:hover .bottom:{top: 0px}
+
+		/*luego de esto queda trasition top propierty top 0.3s*/
+
+		.content {
+			position: relative;
+			transition: top 0.3s;
+			/*para ocular el que se mueve hacia arriba*/
+			overflow: hidden;
+		}
+		.btn {
+			background-color: #00A0D6;
+			color: #FFFFFF;
+			transition: background-color 0.4s, color 0.4s;
+		}
+		.btn:hover{
+			color: #E3E3E3;
+			background-color: #007DA7;
+		}
+	</style>
+</head>
+<body>
+<section>
+	<a href="#" class="btn buy-button">
+		<span class="top content">Buy Now!</span>
+		<span class="botton content">On sale $59</span>
+	</a>
+</section>
+</body>
+</html>
+

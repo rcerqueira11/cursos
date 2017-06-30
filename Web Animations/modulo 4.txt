@@ -1,0 +1,315 @@
+TRANSITIONS
+
+Change color take place over a period of time
+CTA (Call to action): primaty goal for a user on a site
+
+trasiciones pueden ser desde un hex rgb
+
+DEF: transition: <property> <duration>;
+fastest transition tu human eye is .2565
+.btn {
+			background-color: #00A0D6;
+			transition: background-color 0.4s;
+		}
+		.btn:hover{
+			background-color: #007DA7;
+		}
+se pueden hacer varias transiciones separadas por ,
+transition: background-color 0.4s, color 0.4s;
+
+se puede poner general para todos con la propiedad all
+transition: all 0.4s;
+
+En realidad hay 4 valores para la transiciones
+transition: <property> <duration> <timing-function> <delay>;
+<property> : default to all
+<duration> : 
+<timing-function> : defaults to ease
+<delay> : defaults 0
+
+transition: all 0.4s; puede ser tambien transition: 0.4s;
+
+Generalmente para cada explorador es necesario su prefijo
+
+chrome_safari = -webkit-transition: background-color .4s;
+mozilla = -moz-transition: background-color .4s;
+internet explorer = -ms-transition: background-color .4s;
+opera = -o-transition: background-color .4s;
+transition: background-color .4s;
+
+which propierties need prefixes and when?
+u can check it in caniuse.com
+
+
+TRASTIONING POSITION
+Transition in hidden content
+
+1. Create 2 inner spans to hold the current 
+	and additional information to be shown on th button hover
+2. Style the initial and hover states of the button
+3. Create a transiton between initial and hover states
+
+TRANSITION VISIBILITY
+.modal,
+	.modal-overlay{
+		visibility: hidden;
+		opacity: 0;
+	}
+	/*la clase active es agregada cuando el boton es clickeado*/
+	.modal-active,
+	.modal-overlay.active{
+		visibility: visible;
+		opacity: 1;
+	}
+
+opacity:0 esconde los elemento pero tiene todavia el mismo width y height 
+visibility:hidden hace los elementos transparentes
+
+why not use display none?
+	- this remove the elemento from the DOM so there is no transition 
+
+
+TRANSFORM
+
+-ROTATE
+.modal-close:hover{
+	transform: rotate(360deg);
+}
+
+rotate take any number value with deg or turn unit 1turn = 360deg
+transform: rotate(1turn)
+
+Need transition to see the movement otherwise it just rotate inmediatly to the new state
+
+#Timing FUNCTION
+ease default
+linear
+ease-in
+ease-out: the icon does at the end slower the animation
+initial
+inherit
+ease-in-out
+cubic-bezier
+
+-SCALE TRANSLATE
+scale: to stretch an element based on the value multiplier
+if only 1 values is provided, it will scale the element in both directions by that value
+
+transform: scale(2); make twice as big
+
+transform: scale(4,2); stretch horizontally by 4, stretch vertically by 2
+se puede especificar por separado
+scaleY(value)
+scaleX(value)
+
+cuando se escala algo mantiene su box-model size original
+una forma facil de arreglar esto es especificar un nuevo origen
+
+transform-origin: center left;  
+	-center = y origin 
+	-left = x origin 
+- transform origion puede especificarse como center,right,top or in pixels
+
+Translate: to move something
+transform: translateX(3px); will move right 3px
+transform: translateY(-3px); will move up 3px
+transform: translate(3px); will move up 3px for x and y
+
+
+
+KEYFRAMES
+
+keyframe animation is what should happen over the course of the animation
+wich porperties should change, how, and when.
+
+two parts
+1. Create the animation
+2. Assign the animation
+
+in other to created we use this recipe
+
+@keyframes <name-animation>{
+	<step 1> {<property>: <value>;}
+	<step 2> {<property>: <value>;}
+	
+}
+
+ejemplo 
+@keyframes swing {
+		0% {transform: rotate(0deg);}
+		100% {transform: rotate(-10deg);}	
+	}
+
+se pueden usar porcentajes o keyword 
+- form is shortcut for 0%
+- to is shortcut fot 100%
+
+uso 
+
+#left-arm {
+    	animation: swing 2s 0s infinite ease;
+    	animation: <nombre_animacion> <duracion> <delay> <iteration> <timing funtion>;
+    }	
+
+duracion siempre tiene que venir antes de delay 
+si se tienen dos numero el primero siempre sera duracion
+
+sea mas normal
+	@keyframes swing {
+		0% {transform: rotate(0deg);}
+
+		25% {transform: rotate(-10deg);}
+		50% {transform: rotate(0deg);}
+		75% {transform: rotate(10deg);}
+
+		100% {transform: rotate(0deg);}
+
+	}
+
+si quisieramos que la anmiacion durara 2sg
+se puede trabajar con 
+0 0.5 1 1.5 2
+
+en cambio si quisieramos que al principio fuera mas rapida la animacion y luego normal = similiar a ease-out 
+	@keyframes swing {
+		0% {transform: rotate(0deg);}
+
+		10% {transform: rotate(-10deg);}
+		20% {transform: rotate(0deg);}
+		30% {transform: rotate(10deg);}
+
+		100% {transform: rotate(0deg);}
+
+	}
+
+como hay cosas similares se pueden condensar en uno solo separandolos por ,
+
+	@keyframes swing {
+		0%,50%,100% {transform: rotate(0deg);}
+
+		25% {transform: rotate(-10deg);}
+		75% {transform: rotate(10deg);}
+
+	}
+
+arms movins sync two option
+1. write two differents swings for each arms
+	one with 10deg
+	the other with -10
+2. use delay on 1 arm to start halfway through
+
+@keyframes swing {
+  0% {
+    transform: rotate(-30deg);
+  }
+  
+  50% {
+    transform: rotate(30deg);
+  }
+
+  100% {
+    transform: rotate(-30deg);
+  }
+}
+
+#sweetlandia {
+  animation: swing 2s infinite ease-in-out;
+}
+
+
+ADVANCED KEY FRAMES ANIMATIONS	
+.modal-overlay.active{
+		animation: fadeIn .25s <fill-mode>;
+
+	}
+fill mode default is "non"e so its return to its original state after the animation
+in other to stay as the last state we need to set fill-mode: forwards
+
+to make an effet of 
+start fast 
+overshoot
+ease down to final spot u can use 
+cubic-bezier(0.17,0.89,0.32,1.28)
+
+Cubic-bezier is a curve that shows how a property changes over time
+cubic-bezier(x1,y1,x2,y2)
+
+linear, ease todas esas funciones estan hechas en base a cubic baziers at hear
+
+
+linear = cubic-bazier(0,0,1,1)
+
+SVG
+En vez de tener un png con cada parte y arreglarlo en el html se puede tener un svg
+
+Getting SVG assets 
+se puede crear con ilustrator
+y a cada layer se le pone un nombre descriptivo
+este nombre sera el id cuando se guarde como svg
+
+<g id="left-arm">
+	<path id="fill" d="M123...."
+	<path id="outline" d="M123...."
+
+</g>
+
+<xml verions="1.0" encoding="uft-8"?>
+ <svg x="0px" y="0px" viewBox="0 91 612 612"
+	 <style type="text/css">...</style>
+	 <g id="donut">
+		 <g id="right-arm">..</g>
+		 <g id="left-arm">..</g>
+		 <g id="right-leg">..</g>
+		 <g id="left-leg">..</g>
+		 <g id="donut_body">..</g>
+	 </g>
+ </svg>
+the svg can be dropedn in the html file wherever you are loading normally other images
+	
+change the color of a specific id
+
+<g id="donut">
+		 <g id="right-arm">..</g>
+		 <g id="left-arm">..</g>
+		 <g id="right-leg">..</g>
+		 <g id="left-leg">..</g>
+		 <g id="icing-fill">..</g>
+	 </g>
+style
+
+#icing-fill {
+	fill: #DD3D93; -> esto no se podia hacer con png
+}
+
+tambien podemos animarlo
+
+@keyframes darken {
+	0% {fill: #FCA9B7;}
+	100% {fill: #DD3D93;}
+}
+
+#icing-fill {
+	animation: darken 3s infinite;
+}
+
+SVG USE fill INSTEAD onf background-color
+
+svg has some unique css propiertues that can be animated.
+
+enable-background
+fill
+fill-opacity
+filter
+mas 
+stroke 
+stroke-dasharray
+stroke-dashoffset
+viewport-fill
+viewport-fill-opacity
+
+check full list in 
+http://go.codeschool.com/svg-css-properties
+
+Animating multiple properties in a key frame
+
+Algunos browsers no funciona center en trasnform-origin por lo cual es bueno utilizar pixels
