@@ -133,3 +133,58 @@ if center children inside a block level tag : set the text-aling of the children
 }
 
 COURSE JOURNEY INTO MOBILE
+
+IMAGES
+
+content images: imagenes que son necesarias para la pagina tipo la imagen de un producto que se vende
+layouts images: imagenes que aparecen en el fondo de la pagina y no son necesarias para entender el contenido de la pagina 
+user-interface images: helps you to know how to navigate, but not required to understand the content of the page
+
+content images
+<img> tag does not have a close tag
+<img src="cake.png"> -> relative path
+
+<img src="images/cake.png"> 
+
+
+alt atribute= una descripcion de la imagen que se esta viendo 
+why? = Accessibility not everyone can see the image, sreen reader rely on alt tags to describe image to visitors 
+<img src="images/cake.png" alt="Magic Cake Photo"> 
+
+display foto lado a lado
+
+.photos{
+	list-style-type: none;
+	padding: 0;
+}
+
+.photos li{
+	display: inline;
+	padding-left:11px;
+}
+
+use img as a site logo 
+we can replace h1 tag for a img tag
+<h1>Recipe world</h1>
+<img src="images/logo.png" alt="Recipe World Logo">
+para centrarla no se pude hacer con text-aling ya que es un inline-level tag
+asi que setiamos la imagen con margin auto y display block
+
+.header img{
+	display:block;
+	margin: 0 auto 0 auto;
+}
+
+background images
+u must set a background color just in case the image fails to load
+
+bodt{
+	background-color: #5f5f5f;
+	#background-image: url(relative_path); no es necesario las comas dentro del url
+	background-image: url(images/gobbler.png);
+	#background-position: can be used to positon de imagen in the container 
+						atributes ([top,center,bottom] [left,center,right])
+	background-position: top left;	 
+	# to repeat we used background-repeat: repeat
+	background-repeat: repeat; [repeat-y, repeat-x, no-repeat]
+}

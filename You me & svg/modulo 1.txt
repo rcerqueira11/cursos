@@ -45,6 +45,7 @@ tambien podemos animarlo
 @keyframes darken {
 	0% {fill: #FCA9B7;}
 	100% {fill: #DD3D93;}
+	focodelantero-izquierdo
 }
 
 #icing-fill {
