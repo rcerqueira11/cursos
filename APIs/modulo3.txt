@@ -1,0 +1,229 @@
+Usando Express
+
+$ npm install express
+
+si necesitamos especificar una version se puede hacer asi 
+
+$ npm install express@4.9  #Latest version of de 4.9 branch
+$ npm install express@3.15.2 
+
+
+app.js
+var express = require('express');
+
+calling express function give us an application instance
+var app = express() #express application instance in app variable
+
+app.get funtion creates a route that accepts http GET request
+
+app.get( 
+	'/' url,
+	function(request,response) esta funcion correra cada vez que haya un get en el root '/',
+	{
+		response.send('Hello world');
+
+	}
+
+app.listen(3000)
+
+)
+
+express tambien tiene
+app.post
+app.put
+app.patch
+app.delete
+
+
+app.listen funtion take an optional callback, which is called once the app is ready to start taking requests 
+
+app.listen(3000, function(){
+	console.log('Listening on port 3000');
+});
+
+para correrlo usamos
+
+node <archivo>
+
+y para probarlo podemos verificar con curl
+
+curl http://localhost:3000/
+recibiendo como respuesta 
+Hello world}
+
+[change on code require a server restart]
+
+express --- extends ---> node
+__proto__: #inherit looks like in js
+request is httpIncomingMessage.prototype
+response is ServerResponse.prototype 
+
+this extension allow us to call node funciton from our express app 
+
+[the send funciton converts Objects and Array intoJson]
+
+in express if we want to serialize the response int json 
+
+para probarlo usamos curl y agregamos -i para decirle que imprima el los response headers
+
+curl -i http://localhost:3000/blocks
+
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8  -> destacar que esta en json 
+Content-Length: 30
+ETag: W/"1e-wU0D3gXB1Mea+aJuOozsznUeBuQ"
+Date: Sat, 22 Jul 2017 07:58:00 GMT
+Connection: keep-alive
+
+["Fixed","Movable","Rotating"]
+
+
+json funcitons same response as send, for objects and arrays
+
+
+Respond with html
+
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 39
+ETag: W/"27-ptloeeraOk2lq4n91idW8Zasd1k"
+Date: Sat, 22 Jul 2017 08:06:35 GMT
+Connection: keep-alive
+
+<ul><li>Fixed</li><li>Movable</li></ul>
+
+this is not typicaly use in express
+if you want to do rendering check server aplications as EJS or Jade
+
+Redirectin to realive path 
+we use the redirect funtion pasing the redirection path as argumente
+
+response.redirect('/parts')
+
+if we do a curl we get 
+
+HTTP/1.1 302 Moved Temporarily <--
+X-Powered-By: Express
+Location: /parts <-- http spects 302 requieres a location header to be set 
+Vary: Accept
+Content-Type: text/plain; charset=utf-8
+Content-Length: 28
+Date: Sat, 22 Jul 2017 08:10:01 GMT
+Connection: keep-alive
+
+Found. Redirecting to /parts
+
+
+we need to make it permanent redirect
+you can pass the status code as the 
+first parameter
+
+response.redirect(301,'/parts')
+
+if we curl 
+HTTP/1.1 301 Moved Permanently
+X-Powered-By: Express
+Location: /parts
+Vary: Accept
+Content-Type: text/plain; charset=utf-8
+Content-Length: 40
+Date: Sat, 22 Jul 2017 08:14:14 GMT
+Connection: keep-alive
+
+Moved Permanently. Redirecting to /parts
+
+says move permanently
+
+
+MIDDELWARE
+
+rich javascript applciation 
+allows more interactive experience on the web
+
+
+client -> Initial Reques -> server
+client <- index.html is returned <- server
+client -> AJAX request -> server
+client <- JSON with data is returned <- server
+
+and the cliente renders 
+
+
+to serve index.html from express we create 
+the get root and in the response we use sendFile
+
+response.sendFile(__dirname + '/public/index.html')
+
+__dirname = returns current path of the application 
+
+we causes tha the index.html be serve
+
+app.get( '/',function(request,response){
+		response.sendFile(__dirname + '/public/index.html')
+	});
+
+
+another way to write this functionality is with the express static middelware
+
+app.use(express.static('public'))
+
+
+
+middelware 
+are functions added to the stack functions executed sequentially that access request and response 
+
+middelwares can do validation, authentication, data parsing etc 
+middelware A [validation]
+middelware B [authentication]
+middelware C [data parsing]
+			 [route]
+
+
+when next is called, process move to the next middelware [app.use]
+
+app.use(function(request,response,next_function){
+	...
+	next();
+});
+
+we use next() to the next middelware an so on, until we want to response to the client
+this can be done by another middelware 
+
+app.use(function(request,response,next){
+	...
+	respond.send('done');
+	if we use a next(); here it will be dead code becouse of the send before it, this will get some source rare errors
+});
+
+
+[source code from static dont use ;]
+
+LOGGER MIDDELWARE [CREATE OUR OWN]
+
+we create logger.js
+and we create a funtion in it 
+to make this function accesible for all outside we assing it to module.export in order to export it as a Node module and make it accessible forom other files
+
+[this module system follows the CommonJs specifications]
+
+to know when it finished
+ya que los middelware son secuenciales
+podemos usar el listener
+
+response.on('finish',function(){
+	
+});
+
+to use it in app.js
+./ means is a local module
+var logger = require('./logger');
+app.use(logger);
+
+Consejo para logger usando morgan
+
+https://github.com/expressjs/morgan
+
+READING FROM URL 
+
