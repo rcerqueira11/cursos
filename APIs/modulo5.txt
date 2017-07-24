@@ -289,3 +289,133 @@ if we wan tto show just a key
 Object.keys returns an array wit the objects properties
 
 app.param() =  function maps placeholders to callback functions
+
+POST
+
+POST to /blocks
+name= "Flying"
+description = "able to move through air"
+
+201 Created "Flying"
+
+creamos el formulario y añadimos un listener al form element on submit 
+
+before we can read data that is send form clients we need to install the body-parser middelware
+
+npm install body-parser
+
+luego lo agregamos
+
+var bodyParser = require('body-parser');
+var parseUrlencode= bodyParser.urlencode({ extended: false})
+
+extended: false => this option force to use 
+the node native queryparse module querystring
+
+the return value ob bodyParse is a middelware funtion who is stored in parseUrlencode
+
+app.post('/blocks',parseUrlencode, function(request,response){
+	
+});
+
+routes can take multiple handles as argumens and will call them sequentialy
+
+using multiple routes handeles is useful for re-using middleware tha load resouses, performa validation, authentications, etc..
+
+app.post('/blocks',parseUrlencode, function(request,response){
+	var newBlock = request.body;
+	blocks[newBlock.name] = newBlock.description;
+	response.status(201).json(newBlock.name);
+});
+
+DELETE
+
+DELETE /block/Flying
+
+200 OK
+
+creamos el evento
+
+$('.block-list').on('click','a[data-block]',function(event){
+// primero agregamos una confirmacion
+	if (!confirm('Are you sure?')){
+		return false;
+	}
+	// the link element that was clicked
+	var target = $(event.currentTarget);
+
+	$.ajax({
+		type: 'DELETE',
+		//reads the block name form the link's data-block attribute
+		url: '/blocks/' +target.data('block')
+	}).done(function(){
+		target.parents('li').remove();
+	});
+
+});
+
+luego en app.js
+
+creamos el delete
+
+app.delete('/blocks/:name',function(request,response){
+	
+});
+
+Refactor Routes
+
+repetition in routes names
+to avoid this duplications we create something calle routes instances 
+
+var blocksRoute = app.route('/blocks');
+returns route object that handles all requeto to the /blocks path
+
+no path argument is needed foro route handlers belonging to the same route instance
+
+blocksRoute.get(function(request,response){
+	
+})
+
+blockRoute.post(parseUrlencoded, function(request,response){
+	
+})
+
+we can still eliminate blocksRoute variable
+using Chaining: functions that can eliminate intermediate variables and help our code stay more deable
+
+app.route('/blocks') //sin ;
+	.get(function(request,response){
+	
+	})
+	.post(parseUrlencoded, function(request,response){
+	
+	})
+
+
+app.route('/blocks/:name') 
+
+	.get(function(request,response){
+	
+	})
+
+	.delete(function(request,response){
+	
+	})
+
+ROUTE FILES
+
+we can make routes to modules and then import them
+
+var blocks = require('./routes/blocks');
+app.use('/blocks',blocks);
+we create a dedicated folder routes 
+we require the express module in the module file and a router instance
+mounted as a middelware
+
+var router = express.Router()
+to acces from a app.js file we asigned to module.exports = router;
+exports routes as a node module.
+
+all(function)
+
+all request for a given path 
