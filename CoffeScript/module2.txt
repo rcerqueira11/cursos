@@ -197,10 +197,10 @@ $("#tabs #error a").click (e) ->
 	e.preventDefault()
 
 #jq
-$("#confirm").queue( funtion (e){
+$("#confirm").queue( funtion (){
 	$(this).dequeue();
 });
 
 #coffee
-$("#confirm").queue (e) ->
+$("#confirm").queue ->
 	$(@).dequeue()
