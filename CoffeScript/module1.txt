@@ -1,0 +1,141 @@
+Lest amoutn of code to solve problems
+Readable and Understandable
+Easy to maintain 
+
+
+Oficcial coffescript web page
+
+http://jashkenas.github.com/coffe-script/
+
+VARIABLES
+
+message = "Ready for som Coffee?"
+alert(message)
+
+in js
+var message;
+message = "Ready for som Coffee?";
+alert(message);
+
+-in cf no necesitmos hace declaraciones de variables
+-no necesitamos ;
+
+FUNCIONES
+
+#Js 
+
+Named Funtions
+funtion coffe(){
+	return confirm("Ready for some coffee?");
+}
+Funtion Expressions
+var coffer= function (){
+	return confirm("Ready for some coffee?");
+}
+
+both run by just coffe();
+
+#Coffe
+
+
+coffee= ->
+	confirm "Ready for some cofffe?"
+
+
+- instead of {} u ident
+- -> converts to function()
+- Always has a return value
+- the last item in your function is the return value
+
+example
+
+#COFFEE
+coffee= ->
+	answer = confirm "Ready for some cofffe?"
+	"Your answer is " + answer
+	#same as interpolate string 
+	"Your answer is #{answer}"
+
+#JS
+var coffe;
+coffe = funtion (){
+	var answer;
+	answer = confirm("Ready for some Coffee?");
+	return "Your answer is " + answer;
+}
+
+#ADD FUNCTION PARAMETHERS
+
+coffe = (message) ->
+	answer = confirm message
+	"Your answer is #{answer}"
+
+#calling funtion 
+coffe = ->   coffe()
+coffe = (message)->   coffe("Yo")
+				 ->   coffe "Yo" 
+#parentesis son opcionales
+
+coffe = (message, other)->   coffe("Yo",2)
+				 		->   coffe "Yo", 2 
+
+example
+
+coffe = (message) ->
+	answer = confirm message
+	"Your answer is #{answer}"
+
+alert coffee("ready for some coffee?")
+
+#good practise usar parentesis excepto en la funcion mas afuera
+
+
+#OPTIONAL PARAMETERS
+
+#if i want a default message
+
+coffe = (message = "Ready for some Coffee?") ->
+	answer = confirm message
+	"Your answer is #{answer}"
+
+alert coffe() dice mensaje por defecto
+alert coffe("Want some decaf?") dice mensaje pasado
+
+this in js is
+var coffee;
+coffee = funtion (message){
+	var answer;
+	if(message == null){
+		message = "Ready for some Coffee?";
+	}
+	answer = confirm(message);
+	return "Your answer is " + answer;
+}
+
+
+#INSTALL COFFEE SCRIPT
+install Node.js
+install npm
+$npm install -g coffee-script
+
+#to convert a coffee file into js
+
+coffes -c test.coffe create test.js
+
+#si vamos hacer muchos cambios colocamos w para cada vez que se salve recompila al .js
+
+coffes -cw test.coffe create test.js
+
+# si tenemos varios archivos all.coffee in teh src dir into the js dir
+
+$ coffee -c src -o js
+
+# si estamos trabajando sobre varios archivos all.coffee in teh src dir into the js dir
+
+$ coffee -wc src -o js
+
+in sublime there is a plug in
+
+http://github.com/jashkenas/coffee-script-tmbundle
+
+if i write it and press command b it will show me a new window with the js file 
