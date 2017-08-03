@@ -204,3 +204,30 @@ $("#confirm").queue( funtion (){
 #coffee
 $("#confirm").queue ->
 	$(@).dequeue()
+
+
+#jq
+
+function showNumberOfFlights(e){
+	var num_flights = $(this).data('flights');
+	$(this).append("<span>" + num_flights);
+	$("#tabs span.tooltip").show();
+}
+
+#coffee
+
+showNumberOfFlights = (e) ->
+	num_flights = $(@).data 'flights'
+	$(@).append "<span>#{num_flights}</span>"
+	$("#tabs span.tooltip").show()
+
+multiple functions misma $()
+
+$('selector').hover(
+  ->
+    $(@).find('span').show();
+  ->
+    $(@).find('span').hide();
+ )
+
+ #Pendiente de los ident
