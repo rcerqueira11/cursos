@@ -18,5 +18,5 @@ git commit -m "$Comentario"
 echo "git push"
 git push
 
-echo "Ready to ヾ(⌐■_■)ノ
+echo "Ready to ヾ(⌐■_■)ノ"
 
