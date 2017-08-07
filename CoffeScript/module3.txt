@@ -1,0 +1,358 @@
+Lest amoutn of code to solve problems
+Readable and Understandable
+Easy to maintain 
+
+
+Oficcial coffescript web page
+
+http://jashkenas.github.com/coffe-script/
+
+VARIABLES
+
+message = "Ready for som Coffee?"
+alert(message)
+
+in js
+var message;
+message = "Ready for som Coffee?";
+alert(message);
+
+-in cf no necesitmos hace declaraciones de variables
+-no necesitamos ;
+
+FUNCIONES
+
+#Js 
+
+Named Funtions
+funtion coffe(){
+	return confirm("Ready for some coffee?");
+}
+Funtion Expressions
+var coffer= function (){
+	return confirm("Ready for some coffee?");
+}
+
+both run by just coffe();
+
+#Coffe
+
+
+coffee= ->
+	confirm "Ready for some cofffe?"
+
+
+- instead of {} u ident
+- -> converts to function()
+- Always has a return value
+- the last item in your function is the return value
+
+example
+
+#COFFEE
+coffee= ->
+	answer = confirm "Ready for some cofffe?"
+	"Your answer is " + answer
+	#same as interpolate string 
+	"Your answer is #{answer}"
+
+#JS
+var coffe;
+coffe = funtion (){
+	var answer;
+	answer = confirm("Ready for some Coffee?");
+	return "Your answer is " + answer;
+}
+
+#ADD FUNCTION PARAMETHERS
+
+coffe = (message) ->
+	answer = confirm message
+	"Your answer is #{answer}"
+
+#calling funtion 
+coffe = ->   coffe()
+coffe = (message)->   coffe("Yo")
+				 ->   coffe "Yo" 
+#parentesis son opcionales
+
+coffe = (message, other)->   coffe("Yo",2)
+				 		->   coffe "Yo", 2 
+
+example
+
+coffe = (message) ->
+	answer = confirm message
+	"Your answer is #{answer}"
+
+alert coffee("ready for some coffee?")
+
+#good practise usar parentesis excepto en la funcion mas afuera
+
+
+#OPTIONAL PARAMETERS
+
+#if i want a default message
+
+coffe = (message = "Ready for some Coffee?") ->
+	answer = confirm message
+	"Your answer is #{answer}"
+
+alert coffe() dice mensaje por defecto
+alert coffe("Want some decaf?") dice mensaje pasado
+
+this in js is
+var coffee;
+coffee = funtion (message){
+	var answer;
+	if(message == null){
+		message = "Ready for some Coffee?";
+	}
+	answer = confirm(message);
+	return "Your answer is " + answer;
+}
+
+
+#INSTALL COFFEE SCRIPT
+install Node.js
+install npm
+$npm install -g coffee-script
+
+#to convert a coffee file into js
+
+coffes -c test.coffe create test.js
+
+#si vamos hacer muchos cambios colocamos w para cada vez que se salve recompila al .js
+
+coffes -cw test.coffe create test.js
+
+# si tenemos varios archivos all.coffee in teh src dir into the js dir
+
+$ coffee -c src -o js
+
+# si estamos trabajando sobre varios archivos all.coffee in teh src dir into the js dir
+
+$ coffee -wc src -o js
+
+in sublime there is a plug in
+
+http://github.com/jashkenas/coffee-script-tmbundle
+
+if i write it and press command b it will show me a new window with the js file 
+
+
+#APPLIED JQUERY
+
+#jq
+
+jQuery(function($){
+	
+	funtion changeTab(e){
+		e.preventDefault();
+		$("#tabs li a.active").removeClass("active");
+		$(this).addClass("active");
+
+	}
+
+	$("#tabs ul li a").click(changeTab);
+})
+
+#coffee
+
+jQuery ($) ->  or $ -> //si es la unica libreria en nuestro codigo que usa $
+
+$ -> 
+	changeTab = (e) ->
+		e.preventDefault()
+		$("#tabs li a.active").removeClass("active")
+		$(this).addClass("active")
+	$("#tabs ul li a").click(changeTab)
+
+we can remove the parentesis
+$ -> 
+	changeTab = (e) ->
+		e.preventDefault()
+		$("#tabs li a.active").removeClass active
+		$(this).addClass active 
+	$("#tabs ul li a").click changeTab
+
+@ = this
+
+$ -> 
+	changeTab = (e) ->
+		e.preventDefault()
+		$("#tabs li a.active").removeClass active
+		$(@).addClass active 
+	$("#tabs ul li a").click changeTab
+
+other examples
+
+#jq
+$("#tabs #error a").click( funtion (e){
+	e.preventDefault();
+});
+
+#coffee
+$("#tabs #error a").click (e) ->
+	e.preventDefault()
+
+#jq
+$("#confirm").queue( funtion (){
+	$(this).dequeue();
+});
+
+#coffee
+$("#confirm").queue ->
+	$(@).dequeue()
+
+
+#jq
+
+function showNumberOfFlights(e){
+	var num_flights = $(this).data('flights');
+	$(this).append("<span>" + num_flights);
+	$("#tabs span.tooltip").show();
+}
+
+#coffee
+
+showNumberOfFlights = (e) ->
+	num_flights = $(@).data 'flights'
+	$(@).append "<span>#{num_flights}</span>"
+	$("#tabs span.tooltip").show()
+
+multiple functions misma $()
+
+$('selector').hover(
+  ->
+    $(@).find('span').show();
+  ->
+    $(@).find('span').hide();
+ )
+
+ #Pendiente de los ident
+
+
+ # CONDIONAL & OPERATORS
+
+ #js
+
+ 	if (age<18){
+ 		aleter('Under ager');
+ 	} else {
+ 		alert('of age');
+ 	}
+
+ #coffee
+
+ 	if age<18
+ 		alert 'Under ager'
+ 	else
+ 		alert 'of age'
+
+ 	or in single line
+
+ 	alert 'Under ager' if age < 18
+ 		
+ 	if age < 18 then alert 'Under ager' else alert 'of age'
+
+ 	#no ternary operators '?'
+ 	
+
+#Operators
+
+ CoffeeScript        JavaScript
+ 	==    is 			===
+ 	!=	  isnt 			!==
+ 	not 				 !
+ 	and 				 &&
+ 	or  				 ||
+  true yes on 			true
+  false no off 			false
+
+# examples
+
+#CS
+if paid() and coffee() is on then pour()
+
+addCaffeine() if not Decaf() = addCaffeine() unless Decaf()
+
+
+#JS
+if (paid() && coffee() === true){
+	pour();
+}
+
+
+#JS 
+	if(2< newLevel && newLevel < 5){
+		alert("In Range!");
+	}
+#CS
+	if 2 < newLevel < 5
+		alert "In Range!"
+
+
+#Switch Statements
+
+#js
+ 
+var message = (function(){
+	switch (cupsOfCofffee){
+		case 0:
+			return 'Asleep';
+		case 2:
+			return 'Eyes Open';
+		case 2:
+			return 'Buzzed';
+		case defaulr:
+			return 'Dangerous';
+	}
+})();
+
+#coffe
+
+message = switch cupsOfCofffee
+	when 0 then 'Asleep'
+	when 1 then 'Eyes Open'
+	when 2 then 'Buzzed'
+	else 'Dangerous'
+
+#Existential Operators
+ check if isnt define and isnt null
+
+#js
+
+if (typeof cupsOfCofffee !== "undefined" && cupsOfCofffee !== null){
+	alert('it exists');
+}
+
+#cs
+
+if cupsOfCofffee?
+	alert 'it exists!'
+
+alert 'it exists' if cupsOfCofffee?
+
+#set cupsOfCofffee to Zero unless previously set
+
+if not cupsOfCofffee?
+	cupsOfCofffee = 0
+
+cupsOfCofffee = 0 unless cupsOfCofffee?
+
+mas simple aun
+
+cupsOfCofffee ?=0
+
+
+# call function on object only if it exists
+
+if coffeePot?
+	coffeePot.brew()
+
+coffeePot?.brew()
+
+#only call function if it exists
+
+vehicle.start_engine?.().shift_gear?() 
