@@ -1,0 +1,820 @@
+Lest amoutn of code to solve problems
+Readable and Understandable
+Easy to maintain 
+
+
+Oficcial coffescript web page
+
+http://jashkenas.github.com/coffe-script/
+
+VARIABLES
+
+message = "Ready for som Coffee?"
+alert(message)
+
+in js
+var message;
+message = "Ready for som Coffee?";
+alert(message);
+
+-in cf no necesitmos hace declaraciones de variables
+-no necesitamos ;
+
+FUNCIONES
+
+#Js 
+
+Named Funtions
+funtion coffe(){
+	return confirm("Ready for some coffee?");
+}
+Funtion Expressions
+var coffer= function (){
+	return confirm("Ready for some coffee?");
+}
+
+both run by just coffe();
+
+#Coffe
+
+
+coffee= ->
+	confirm "Ready for some cofffe?"
+
+
+- instead of {} u ident
+- -> converts to function()
+- Always has a return value
+- the last item in your function is the return value
+
+example
+
+#COFFEE
+coffee= ->
+	answer = confirm "Ready for some cofffe?"
+	"Your answer is " + answer
+	#same as interpolate string 
+	"Your answer is #{answer}"
+
+#JS
+var coffe;
+coffe = funtion (){
+	var answer;
+	answer = confirm("Ready for some Coffee?");
+	return "Your answer is " + answer;
+}
+
+#ADD FUNCTION PARAMETHERS
+
+coffe = (message) ->
+	answer = confirm message
+	"Your answer is #{answer}"
+
+#calling funtion 
+coffe = ->   coffe()
+coffe = (message)->   coffe("Yo")
+				 ->   coffe "Yo" 
+#parentesis son opcionales
+
+coffe = (message, other)->   coffe("Yo",2)
+				 		->   coffe "Yo", 2 
+
+example
+
+coffe = (message) ->
+	answer = confirm message
+	"Your answer is #{answer}"
+
+alert coffee("ready for some coffee?")
+
+#good practise usar parentesis excepto en la funcion mas afuera
+
+
+#OPTIONAL PARAMETERS
+
+#if i want a default message
+
+coffe = (message = "Ready for some Coffee?") ->
+	answer = confirm message
+	"Your answer is #{answer}"
+
+alert coffe() dice mensaje por defecto
+alert coffe("Want some decaf?") dice mensaje pasado
+
+this in js is
+var coffee;
+coffee = funtion (message){
+	var answer;
+	if(message == null){
+		message = "Ready for some Coffee?";
+	}
+	answer = confirm(message);
+	return "Your answer is " + answer;
+}
+
+
+#INSTALL COFFEE SCRIPT
+install Node.js
+install npm
+$npm install -g coffee-script
+
+#to convert a coffee file into js
+
+coffes -c test.coffe create test.js
+
+#si vamos hacer muchos cambios colocamos w para cada vez que se salve recompila al .js
+
+coffes -cw test.coffe create test.js
+
+# si tenemos varios archivos all.coffee in teh src dir into the js dir
+
+$ coffee -c src -o js
+
+# si estamos trabajando sobre varios archivos all.coffee in teh src dir into the js dir
+
+$ coffee -wc src -o js
+
+in sublime there is a plug in
+
+http://github.com/jashkenas/coffee-script-tmbundle
+
+if i write it and press command b it will show me a new window with the js file 
+
+
+#APPLIED JQUERY
+
+#jq
+
+jQuery(function($){
+	
+	funtion changeTab(e){
+		e.preventDefault();
+		$("#tabs li a.active").removeClass("active");
+		$(this).addClass("active");
+
+	}
+
+	$("#tabs ul li a").click(changeTab);
+})
+
+#coffee
+
+jQuery ($) ->  or $ -> //si es la unica libreria en nuestro codigo que usa $
+
+$ -> 
+	changeTab = (e) ->
+		e.preventDefault()
+		$("#tabs li a.active").removeClass("active")
+		$(this).addClass("active")
+	$("#tabs ul li a").click(changeTab)
+
+we can remove the parentesis
+$ -> 
+	changeTab = (e) ->
+		e.preventDefault()
+		$("#tabs li a.active").removeClass active
+		$(this).addClass active 
+	$("#tabs ul li a").click changeTab
+
+@ = this
+
+$ -> 
+	changeTab = (e) ->
+		e.preventDefault()
+		$("#tabs li a.active").removeClass active
+		$(@).addClass active 
+	$("#tabs ul li a").click changeTab
+
+other examples
+
+#jq
+$("#tabs #error a").click( funtion (e){
+	e.preventDefault();
+});
+
+#coffee
+$("#tabs #error a").click (e) ->
+	e.preventDefault()
+
+#jq
+$("#confirm").queue( funtion (){
+	$(this).dequeue();
+});
+
+#coffee
+$("#confirm").queue ->
+	$(@).dequeue()
+
+
+#jq
+
+function showNumberOfFlights(e){
+	var num_flights = $(this).data('flights');
+	$(this).append("<span>" + num_flights);
+	$("#tabs span.tooltip").show();
+}
+
+#coffee
+
+showNumberOfFlights = (e) ->
+	num_flights = $(@).data 'flights'
+	$(@).append "<span>#{num_flights}</span>"
+	$("#tabs span.tooltip").show()
+
+multiple functions misma $()
+
+$('selector').hover(
+  ->
+    $(@).find('span').show();
+  ->
+    $(@).find('span').hide();
+ )
+
+ #Pendiente de los ident
+
+
+ # CONDIONAL & OPERATORS
+
+ #js
+
+ 	if (age<18){
+ 		aleter('Under ager');
+ 	} else {
+ 		alert('of age');
+ 	}
+
+ #coffee
+
+ 	if age<18
+ 		alert 'Under ager'
+ 	else
+ 		alert 'of age'
+
+ 	or in single line
+
+ 	alert 'Under ager' if age < 18
+ 		
+ 	if age < 18 then alert 'Under ager' else alert 'of age'
+
+ 	#no ternary operators '?'
+ 	
+
+#Operators
+
+ CoffeeScript        JavaScript
+ 	==    is 			===
+ 	!=	  isnt 			!==
+ 	not 				 !
+ 	and 				 &&
+ 	or  				 ||
+  true yes on 			true
+  false no off 			false
+
+# examples
+
+#CS
+if paid() and coffee() is on then pour()
+
+addCaffeine() if not Decaf() = addCaffeine() unless Decaf()
+
+
+#JS
+if (paid() && coffee() === true){
+	pour();
+}
+
+
+#JS 
+	if(2< newLevel && newLevel < 5){
+		alert("In Range!");
+	}
+#CS
+	if 2 < newLevel < 5
+		alert "In Range!"
+
+
+#Switch Statements
+
+#js
+ 
+var message = (function(){
+	switch (cupsOfCofffee){
+		case 0:
+			return 'Asleep';
+		case 2:
+			return 'Eyes Open';
+		case 2:
+			return 'Buzzed';
+		case defaulr:
+			return 'Dangerous';
+	}
+})();
+
+#coffe
+
+message = switch cupsOfCofffee
+	when 0 then 'Asleep'
+	when 1 then 'Eyes Open'
+	when 2 then 'Buzzed'
+	else 'Dangerous'
+
+#Existential Operators
+ check if isnt define and isnt null
+
+#js
+
+if (typeof cupsOfCofffee !== "undefined" && cupsOfCofffee !== null){
+	alert('it exists');
+
+}
+
+#cs
+
+if cupsOfCofffee?
+	alert 'it exists!'
+
+alert 'it exists' if cupsOfCofffee?
+
+#set cupsOfCofffee to Zero unless previously set
+
+if not cupsOfCofffee?
+	cupsOfCofffee = 0
+
+cupsOfCofffee = 0 unless cupsOfCofffee?
+
+mas simple aun
+
+cupsOfCofffee ?=0
+
+
+# call function on object only if it exists
+
+if coffeePot?
+	coffeePot.brew()
+
+coffeePot?.brew()
+
+#only call function if it exists
+
+vehicle.start_engine?.().shift_gear?() 
+
+
+
+#ARRAYS OBJECTS AND ITERATIONS
+
+#Ranges
+
+#cf 
+	range = [1..4]
+	range = [1...4] #everything but the last item
+#js
+	var range = [1,2,3,4];
+	var range = [1,2,3];
+
+
+Ejem
+
+	start = 5
+	end = 10
+	range = [start..end]
+	return [5,6,7,8,9,10]
+
+	#Subset
+		range[1..4] 
+		retorna [6,7,8,9]
+
+		range[1...range.length] = range[1..-1]
+		retorna [6,7,8,9,10]
+
+#Arrays
+
+#se puede crear normal o con espacios quitando las comas
+storeLocations =  ['orlando','winter','sandford']
+
+storeLocations =[
+	'orlando'
+	'winter'
+	'sandford'
+]
+
+Loops
+
+#cf
+storeLocations.forEach(location,index) ->
+	alert "Location: #{location}"
+
+mas usado en cf es
+
+	for location in storeLocations
+		alert "Location: #{location}"
+tambien se puede usar como 
+
+	alert "Location: #{location}" for location in storeLocations
+		
+#js
+
+storeLocations.forEach(function(location,index){
+	return alert("Location: " + location);
+});
+
+
+#List Comprehensions 
+
+si quisieramos añadir ",FL" en cada storeLocations
+hacemos:
+
+storeLocations =  ['orlando','winter','sandford']
+
+"#{loc}, FL" for loc in storeLocations
+
+storeLocations =  ['orlando, FL','winter, FL','sandford, FL']
+
+#Override
+
+si quisieramos sobreescribir nuestro arreglo orginal
+es muy imporante mantener los parentesis
+
+
+storeLocations = ("#{loc}, FL" for loc in storeLocations)
+
+sin los parentesis seria el ultimo valor pero como esta entre parentesis genera el arreglo y lo manda a nuestra variable
+
+#filter expressions
+
+geoLocate(loc) for loc in storeLocations when loc isnt 'sanford'
+
+si queremos crear un nuevo arreglo sin sandford
+
+newLocs = []
+
+for loc in storeLocations
+	newlocs.push loc if loc isnt 'sanford'
+
+tambien podemos usar una List Comprehensions
+
+newlocs = (loc for loc in storeLocations when loc isnt 'sandoford')
+
+
+#Splats - for variables number of arguments
+
+searchLocations = (brand, cities...) ->
+	"looking for #{brand} in #{cities.join(',')}"
+
+searchLocations 'Starducks', 'Orlando'
+	ret looking for Starducks in Orlando
+
+searchLocations 'Starducks', 'Orlando', 'Winter'
+	ret looking for Starducks in Orlando, Winter
+
+ use it to call a function
+
+ params = ['Starducks','Orlando','Winter']
+ searchLocations(params...)  == searchLocations 'Starducks', 'Orlando', 'Winter'
+
+
+#Object -list of keys and values (hash)
+
+coffee = {name: 'French', strength: 1}
+
+#curl braces are optional
+
+coffee = name: 'French', strength: 1
+
+#can be writed without the coma
+
+coffee = 
+	name: 'French'
+	strength: 1
+
+#we can encapsule an function inside an object
+
+#cf
+coffee = 
+	name: 'French'
+	strength: 1
+	brew: -> alert("brewing #{@name}")  @name= referencia al valor french en este caso
+	pour: (ammount=1) ->
+		if amount is 1
+			"Poured a single cup"
+		if amount is 1
+			"Poured #{amount} cup"
+
+calling with coffee.brew()
+
+#js
+
+var coffee = {
+	name: 'French',
+	strength: 1,
+	brew: function(){
+		return alert("brewing" + this.name);
+	}
+	pour: function(amount){
+		if (amount == null) amount = 1;
+		if (amount === 1){
+			return "Poured a single cup"
+		} else {
+			return "Poured "+ amount +" cups";
+		}
+	}
+};
+
+idented issue
+
+#cf 
+	coffee = 
+		name: 'French'
+	strength: 1
+
+#js
+
+	coffee = {
+		name: 'French'
+	};
+	({
+		strength: 1
+	}) 
+
+#Complex Objects
+
+coffees =
+	french:
+		strength: 1	
+		in_stock: 20
+	italian:
+		strength: 2
+		in_stock: 12
+	decaf:
+		strength: 0
+		in_stock: 8
+
+cuantos cafes italianos quedan?
+coffees.italian.in_stock  ret 12
+
+in js
+
+var coffees = {
+	french: {
+		strength: 1,
+		in_stock: 20
+	}
+	italian: {
+		strength: 2,
+		in_stock: 12
+	}
+	decaf: {
+		strength: 0,
+		in_stock: 8
+	}
+};
+
+
+#Object Iteration with of
+
+guardamos el key in coffee y el resto en attrs
+
+"#{coffee} has #{attrs.in_stock}" for coffee, attrs of coffee
+
+aqui con objetos se utiliza OF en vez de IN como en la List Comprehensions
+
+otra forma de escribirlo es 
+
+for coffee, attrs of coffee
+ 	"#{coffee} has #{attrs.in_stock}"
+
+
+no imprimir aquellos que no tienen nada en stock
+
+to_print = for coffee, attrs of coffees when attrs.in_stock > 0
+	"#{coffee} has #{attrs.in_stock}"
+to_print.join " , "
+
+in js
+
+var attrs, coffee, to_print;
+
+to_print = (function(){
+	var _results;
+	_results= [];
+
+	for (coffee in coffees){
+		attrs = coffees[coffee];
+		if (attrs.in_stock > 0) _results.push("" + coffee + " has " + attrs.in_stock);
+	}
+	return _results;
+})();
+
+to_print.join(" , ")
+
+
+
+
+#JQUERY 2
+
+#Object Simplicity
+
+#biding
+
+#js
+	$("#tabs ul li a").bind({
+		click: changeTabe,
+		mouseenter: showNumberOfFlights,
+		mouseleave: hideNumbreOfFlights
+	})
+
+#cf
+
+	$("#tabs ul li a").bind
+		click: changeTabe
+		mouseenter: showNumberOfFlights
+		mouseleave: hideNumbreOfFlights
+
+#A complex example
+
+#js
+function showFlights(activeDiv){
+	$("#tabs div").hide();
+
+	if(fetchingFlights) { 
+		fetchingFlights.abort();
+
+	}
+
+	fetchingFlights = $.ajax('/flights',{
+		data: {date: activeDiv},
+		cache: false,
+		error: funcion(result){
+			if(results.statusText != "abort"){
+				$("#tabs #error").show()
+			}
+		} 
+	});
+}
+
+
+#cs
+
+showFlights = (activeDiv) ->
+	$("#tabs div").hide();
+
+	if fetchingFlights 
+		fetchingFlights.abort()
+
+	fetchingFlights = $.ajax '/flights'
+		data:
+			date: activeDate
+		cache: false
+		error: (result) ->
+			if results.statusText isnt "abort"
+				$("#tabs #error").show()
+
+#mind bending comprehensions
+
+#js
+
+var filterFlights = []
+
+$.each(currentFlights, funtion(index,flight){
+	if (stops= '2+' || flight.routing == 0) {
+		filteredFlights.push(flight)
+	}
+})
+
+#cf
+
+filterFlights = []
+
+$.each currentFlights, (index,flight) ->
+	if stops is '2+' or flight.routing is 0
+		filteredFlights.push flight
+
+"best way"
+
+filterFlights = (flight for flight in currentFlights when stops is '2+' or flight.routing is 0 )
+
+
+#ORIENTATING OBJECTS
+
+coffee = 
+	name: 'French'
+	strength: 1
+	brew: -> alert("brewing #{@name}")  @name= referencia al valor french en este caso
+	pour: (ammount=1) ->
+		if amount is 1
+			"Poured a single cup"
+		if amount is 1
+			"Poured #{amount} cup"
+
+if we wanna create a class
+
+class Coffee
+	
+	constructor: (name,strength=1) ->
+		@name = name
+		@strength = strength
+
+same as
+
+class Coffee
+	
+	constructor: (@name,@strength=1) ->
+
+	brew: -> alert("brewing #{@name}")  @name= referencia al valor french en este caso
+	pour: (ammount=1) ->
+		if amount is 1
+			"Poured a single cup"
+		if amount is 1
+			"Poured #{amount} cup"
+
+french = new Coffee("French",2)
+
+french.brew()
+
+#inheritance
+
+class MaxgoodHouse extends coffee
+	#we can override the constructor
+
+	constructor: (@name,@strength=0) ->
+		@brand = "Maxgood House"
+
+boring = new MaxgoodHouse("Boring")
+boring.brew()
+
+we can override functions
+class MaxgoodHouse extends coffee
+	#we can override the constructor
+
+	constructor: (@name,@strength=0) ->
+		@brand = "Maxgood House"
+
+	brew: -> alert "Brewing #{@brand} #{@name}"
+
+	#call funtion from the parent
+	pour: (amount=1) ->
+		"#{super(amount)}, but it sucks"
+
+
+boring = new MaxgoodHouse("Boring")
+boring.brew()
+
+
+class Coffe
+	constructor: (@name, @strength=1, @inventory=0)
+
+	#error becouse of the this(@)
+	puorClick: ->
+		$("#pour-#{@name}").click (event) ->
+			if @inventory isnt 0
+				@inventory -= 1
+				alert "Poured a cup of #{@name}"
+
+	#solution => (bids to current value of this)
+
+	puorClick: ->
+		$("#pour-#{@name}").click (event) =>
+			if @inventory isnt 0
+				@inventory -= 1
+				alert "Poured a cup of #{@name}"
+
+
+#using class for encapsulation
+
+#js
+var selectFlights = {
+	fetchingFlights : null,
+
+	init : funtion() {
+		$("#tabs ul li a").bind({
+			click: this.changeTab
+		})
+
+		$("#tabs #error a").click(funtion (event){
+			e.preventDefault();
+			this.showFlights($("tans li a.active").attr("href"));
+		});
+	},
+
+	showFlights: funtion(activeDiv){},
+	changeTab: function(event) {}
+}
+
+
+#cf
+
+class SelectFlights
+	constructor: (@fetchingFlights=null) ->
+
+	$("#tabs ul li a").bind
+		click: @changeTab
+	
+
+	$("#tabs #error a").click (event) =>
+		event.preventDefault();
+		@showFlights $("tans li a.active").attr("href")
+
+	showFlights: (activeDiv) ->,
+	changeTab: (event) =>
+}
+
+selectFlights = new SelectFlights()

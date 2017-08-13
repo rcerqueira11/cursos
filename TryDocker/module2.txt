@@ -1,0 +1,156 @@
+#Create container
+
+To start running a container, type docker container run followed by the name of the image used to make the container, then a colon : followed by the version number of the image used to make the container.
+
+$ docker container run httpd:2.4.
+
+
+#Mapping Ports 1 
+
+There we go, our first container!
+
+But there's a little problem: We should be able to access the default index.html page on that server by visiting http://localhost:80/index.html, but when we do that we just get an error that we can't connect to port 80. Fortunately, we can solve this by adding a -p flag with some port numbers after it to the run command. 
+
+$ docker container run -p 80:80 httpd:2.4.
+
+
+#Mapping Ports 2 
+
+Let's look at that flag and the numbers after it a bit more. The -p means "publish ports". The first number is the port on the host we want to open up, and the second number is the port in the container we want to map it to.
+
+Port 80 is a standard port for handling web requests, but we could map any port on the host to the container. Let's try mapping 9999 on the host to 80 on the container.
+
+$ docker container run -p 9999:80 httpd:2.4.
+
+
+#Accessing a Container 
+
+Now when we try to access http://localhost:80/index.html we'll get an error, but if we try to access http://localhost:9999/index.html then we'll see the default "It works" page! This is a really useful feature of Docker — the ability to map any port on the host (your computer) to any port on the container.
+
+Accessing the default page is cool, but what about getting into a running container and looking around? The docker container exec command lets us run commands against a running container. But before we can run a command, we need to know the ID of the container.
+
+
+$ docker container ls
+
+
+Each container gets a unique ID, and Docker also assigns them a random name. You can use either the container ID or the container name whenever you're running a command that needs you to specify a container. In this course, every container you create has the name elegant_noether, so try executing the command below on that container.
+
+$ docker container exec elegant_noether du -mh.
+
+
+#Attaching a Shell to a Container 250 PTS 
+
+Running commands is cool, but we can also attach a shell to those containers and browse them just like they were a full operating system — which they kind of are. The -i and -t flags can be passed to the exec command to keep an interactive shell open, and you can specify the shell you want to attach after the container ID. Here we'll attach a standard Bash shell.
+
+$ docker container exec -it elegant_noether /bin/bash
+
+We're in! From the perspective of the terminal window we're just navigating a normal Unix system, so any commands we type will run inside of that system. Try typing that same command we just ran with exec from inside the container.
+
+$ du -mh
+
+# Installing Things in Containers
+
+Another thing we can do once we’re in a container’s shell is install new programs, or packages, that aren’t part of the base image. Let’s install the fortunes package.
+
+
+$ docker container exec -it elegant_noether /bin/bash
+
+$ apt-get install -y fortunes 
+to install the fortunes package.
+
+$ /usr/games/fortune. 
+If we see a random fortune displayed then we know the installation worked!
+
+
+# Update the ENV in a Container
+
+It’s kind of annoying to have to type /usr/games/ before the fortune command, so let’s update the PATH environment variable in the container so that we don’t have to type all of that anymore.
+
+$ docker container exec -it elegant_noether /bin/bash
+
+$ PATH=$PATH:/usr/games/
+
+$ export PATH
+
+$ fortune
+
+
+DOCKERFILES
+
+dockerfiles is a file with multiple instruccions u can run with one command
+
+
+#Your First Dockerfile 
+
+In the previous level we created containers from pre-built base images. If we want to customize a base image before creating a container, we should use a Dockerfile.
+
+The filename is important — it's always Dockerfile with a capital D.
+
+We've created an empty Dockerfile that we can fill in.
+
+#1
+
+The first line of a Dockerfile is usually the FROM keyword followed a base image name. Every other instruction in the Dockerfile following the FROM instruction will create a new image that blends together everything in the base plus the modifications we're making in the rest of the Dockerfile.
+
+Type FROM httpd:2.4 as the first line of the Dockerfile. This will base our custom image off of version 2.4 of the httpd image
+
+$ FROM httpd:2.4
+
+#2
+
+Next, we can use the Dockerfile to expose a port inside of its associated container. Note that we'll still need to map ports between the host and container when we run docker container run, but this line will let the image know which ports inside of the container should become available.
+
+Type EXPOSE 80 on line 2.
+
+$ EXPOSE 80
+
+# 3
+
+Remember how in the last level we had to docker container exec to install fortunes? Well, with a Dockerfile we can run any commands as the image is being built with the RUN command.
+
+Type RUN apt-get update on line 3 and RUN apt-get install -y fortunes on line 4.
+
+$ RUN apt-get update
+$ RUN apt-get install -y fortunes
+
+We can even combine multiple run statements on a single line, which is sometimes preferred to separate lines.
+
+Remove the code on lines 3 and 4 and replace them with RUN apt-get update && apt-get install -y fortunes.
+
+$ RUN apt-get update && apt-get install -y fortunes
+
+#5
+
+Since we can distribute Dockerfiles to other developers, it's a good idea to put our contact information in them with the LABEL instruction. LABEL accepts key-value pairs in the form of key="value". Let's label the maintainer of this image.
+
+Type LABEL maintainer="moby-dock@example.com". (Did you know Moby Dock is the name of the Docker whale?)
+
+$ LABEL maintainer="moby-dock@example.com"
+
+
+#Building an Image From a Dockerfile 
+
+Great, the Dockerfile is ready to go. We can use that Dockerfile to build a new image with the docker image build command. The --tag command is a useful option to pass to docker build that lets us specify the name of our new image followed by a version number.
+
+#1
+
+Run the docker image build command with the --tag option and name the image web-server followed by a : and the number 1.0. (The number that comes after the colon sets the version number of the image.)
+
+End the command with a single . so it knows to look for the Dockerfile in the same folder that the command is run in.
+
+$ docker image build --tag web-server:1.0 .
+
+#2
+
+Now type docker image ls to get a list of all images on your computer. In this list, we'll see our newly created web-server image.
+
+$ docker image ls
+
+#Running a Container From a Custom Image
+
+Now we can create a container with the new web-server image
+
+Let's create a container with the new image we just made that meets the following criteria:
+
+Uses the web-server version 1.0 image
+Maps port 80 on the host to 80 on the container.
