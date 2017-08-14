@@ -207,3 +207,99 @@ const ALLOW_EDIT = false;
 -> use consta when new variables are not expecte to be reassigned new values 
 
  
+#FUNCTIONS
+
+#issues with flexible funtion arguments
+
+loadProfiles(); or loadProfiles(undefinded); -> TypeError: cannot read property 'lenght' of undefined
+
+js lo permite pero vemos el error por el userNames.lenght
+
+
+# manual argumet checks don't scale wll
+
+function loadProfiles(userNames){
+	let names = typof username !== "undefined" ? userNames: [];
+	#works but doesn't scale well to multiple arguments
+	let namesLength = names.length
+
+#solution: use default parameter values
+
+function loadProfiles(userNames = []){
+	let namesLength = userNames.length;
+	console.log(namesLength);
+}
+
+loadProfiles(); or loadProfiles(undefinded); -> 0
+
+#The options Object
+
+setPageThread("New Version out Soon!",{
+	popular : true,
+	expires: 1000,
+	activeClass: "is-page-thread"
+});
+
+option object with 3 properties
+
+function setPageThread(name, options = {}){
+	let popular = options.popular;
+	let expires = options.expires;
+	let activeClass = options.activeClass;
+}
+
+the options object makes ir hard to know what options a function accepts, unclear just by looking at its signature 
+
+#solution name paramether for optional setting makes it easier to understan how a function should be invoked 
+
+
+function setPageThread(name, { popular, expires, activeClass }){
+	console.log("Name: ", name)
+	console.log("Popular: ", popular)
+	console.log("Expires: ", expires)
+	console.log("Active: ", activeClass)
+	#local variables
+}
+now we know which arguments are available
+
+if we call the function with all argument everything go ok
+
+#omitting certain arguments on call
+
+if we call the function we less paramethers
+
+setPageThread("New Version out Soon!",{
+	popular: true;
+})
+
+return ->
+
+Name: New Version out Soon!
+Popular: true
+Expires: undefined
+Active: undefined
+
+#don't omit all named arguments on call
+
+setPageThread("New Version out Soon!");
+return -> error, the error depends 
+
+#solution setting a default for named parameters
+
+function setPageThread(name, { popular, expires, activeClass } = {}){
+	console.log("Name: ", name)
+	console.log("Popular: ", popular)
+	console.log("Expires: ", expires)
+	console.log("Active: ", activeClass)
+	#local variables
+}
+
+now we can call this without his second parameter
+
+setPageThread("New Version out Soon !");
+
+return -> 
+Name: New Version out Soon!
+Popular: undefined
+Expires: undefined
+Active: undefined
