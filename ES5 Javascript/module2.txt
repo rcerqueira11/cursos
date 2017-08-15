@@ -303,3 +303,64 @@ Name: New Version out Soon!
 Popular: undefined
 Expires: undefined
 Active: undefined
+
+
+#REST PARAMETER, SPREAD OPERATOR, ARROW FUNCTION
+
+#adding tags to a thread
+
+"funtions with variable list of arguments
+
+displayTags("songs");
+displayTags("songs", "lyrics");
+displayTags("songs", "lyrics","bands");
+-> variadic functios can accept any numbers of arguments 
+
+#issues with the arguments object
+
+like array but not an array 
+
+function _displayTags(){
+	for(let i in arguments){
+		let tag = arguments[i];
+		_addToTopic(tag); 
+	}
+}
+issues:
+	- hard to tell which parameter this function expects
+	-where this arguments come from?
+
+if we add an argument 
+
+function _displayTags(targetElement){
+	
+	let target = _findElement(targetElement);
+
+	for(let i in arguments){
+		let tag = arguments[i];
+		_addToTopic(tag); 
+	}
+}
+
+-> we'll break the loop, since the first argument is no longer a tag
+
+solution: using rest parameters allows to represent an indefinite nubres of argumens as an array. this way, changes to function signature are less likely to break code
+
+
+function _displayTags(...tags){
+	for(let i in tags){
+		let tag = tags[i];
+		_addToTopic(tag); 
+	}
+}
+
+#must always go last
+function _displayTags(targetElement, ...tags){
+	
+	let target = _findElement(targetElement);
+
+	for(let i in tags){
+		let tag = tags[i];
+		_addToTopic(tag); 
+	}
+}
