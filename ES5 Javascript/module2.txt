@@ -361,6 +361,63 @@ function _displayTags(targetElement, ...tags){
 
 	for(let i in tags){
 		let tag = tags[i];
-		_addToTopic(tag); 
+		_addToTopic(target,tag); 
 	}
+}
+
+Splitting arrays into individiual Arguments
+
+we need to convert an Array into individual arguments upon a function call
+
+getRequest("/topics/17/tags", function(data){
+	let tags = data.tags;
+	displayTags(tags); -> expect individual arguments no an array
+})
+
+how can we convert arrays ito individual elements o a function call?
+
+solution: spread operator (...tags) split an array argument into individual elements
+used in function INVOCATION no function DEFINITION
+displayTags(...tags) = displayTags(tag,tag,tag) 
+
+
+Rest an Spread look the same
+
+Rest parameter is used in funcition defnition
+Spread is use in function invocation
+
+#From functions to objects
+
+js objects can help us with the encapsulation, organization and testability of our code.
+
+we want to convert the code into something like this 
+
+let tagComponent = new TagComponent(targetDiv, "/topics/17/tags");
+tagComponent.render();
+
+lets see how we can implement TagComponent function!
+
+
+function TagComponent(target, urlPath){
+	this.targetElement = target;
+	this.urlPath = urlPath;
+}
+
+TagComponent.prototype.render = function(){
+	getRequest(this.urlPath, function(data){
+		//..
+		let tags = data.tags;
+		displayTags(this.targetElement, ...tags); -> this is wrong becouse of the scope of the TagComponent is not the same as the scope of the anonymous funciton this.targetElement = undefined
+	});
+}
+
+to preserve the scope we can use the Arrow Function =>
+: lexical binding = the bind to the scope from where they are define, not where the run 
+
+TagComponent.prototype.render = function(){
+	getRequest(this.urlPath, (data) => {
+		//..
+		let tags = data.tags;
+		displayTags(this.targetElement, ...tags); 
+	});
 }
