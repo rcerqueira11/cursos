@@ -419,5 +419,7 @@ TagComponent.prototype.render = function(){
 		//..
 		let tags = data.tags;
 		displayTags(this.targetElement, ...tags); 
-	});
+	});	
 }
+
+prueba2
