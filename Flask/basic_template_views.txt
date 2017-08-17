@@ -1,0 +1,41 @@
+
+index page
+    -generate hmtl with Jinj2
+    - add styling (css) usign static content
+
+simple form
+    - just html, no backend logic yet
+    -unifmor styling for both pages with template inheritance
+
+custome error pages
+
+to use debug
+we put flask in debug mode with 
+    app.run(debug=True)
+
+add style 
+
+we need to fix the url to static folder
+src="../static/css/
+src="../static/js/
+
+def render_template(template_name_or_list, **context):
+
+template_name_or_list: the name of the template to be rendered
+                        or an iterable with template names
+                        the first one existing will be rendered
+
+context: the variables that should be available in the 
+         context of the template
+
+
+Jinja2
+
+this enginge generate any kind of text file formats
+
+html = Jinj2 templates
+
+dot notation {{ var.x }}
+    lookup an attribute x on var
+    lookup an item x in var
+    not found? Empty output

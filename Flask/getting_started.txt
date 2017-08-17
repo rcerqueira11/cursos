@@ -1,0 +1,44 @@
+
+to install flask
+pip install flask
+
+notice it install jinja2
+
+run application
+
+python helloworld.py
+
+need in every flask application
+- the flask application
+    app = Flask(_name)__
+
+- a view funtion 
+    @app.route('/index')
+    decorator any incomming will be handle by this view funtion
+
+ app.url_map contains the mapping rules
+
+ Rule '/static/<filename>' (HEAD, OPTIONS, GET) -> static>]
+ manage the static files 
+
+/static/jelly_kid.png
+
+Flask use the
+model, template, view
+
+models:
+    holds data
+    usually represents rows in a database table
+    flask leave it to you
+    sqlite, sqlAlchemy
+
+template:
+    used to generate html
+    flask includes jinja2
+
+views:
+    generates a http response for a http request
+    mapped to one or more urls
+
+
+python-developers/toolkit
