@@ -39,3 +39,26 @@ dot notation {{ var.x }}
     lookup an attribute x on var
     lookup an item x in var
     not found? Empty output
+
+
+url_for(view)
+
+to static we change
+<link rel="stylesheet" href="../static/css/normalize.min.css">
+to 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.min.css') }}">
+        window.jQuery || document.write('<script src="{{ url_for('static', filename='js/vendor/jquery-1.11.2.min.js')}}"><\/script>')
+
+to use the 404 error page we use handler error
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+    
+to use the 500 error page we use handler error
+@app.errorhandler(500)
+def server_error(e):
+    return render_template('500.html'), 500
+
+
+Bootstrap
+    pypi.python.org/pypi/Flask-Bootstrap

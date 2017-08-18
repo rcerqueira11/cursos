@@ -1,0 +1,51 @@
+pypi.python.org/pypi/Flask-Bootstrap
+
+to the route accept methods we use 
+
+@app.route('/add', methods = ['GET','POST'])
+
+some of request objects attributes
+form: Form data from post or put requests
+args: contents of the query string. (The part in the url after the quesiton mark
+cookies: cookies transmitted with the request
+headers: the incoming request headers as a dictionary like objects
+files: Files uploaded as part of a POST or PUT request
+method: the current reques method (POST, GET etc)
+
+session: remember data between requests
+
+Using the session
+- need to set Flask.secret_key for creating cookies
+- store values in it like a dict
+
+Flashing messages: to retrieve a message to the user 
+- Use flash()
+- Available in template throught get_flashed_messages()
+
+to use secret_key
+
+generamos una key y luego
+
+app.config['SECRET_KEY'] = '\x05\xa5\xa6\xb8\xe8\x06\x0f\xa9\x98\xf4\xf8\xe5H\x92j9\xab\x16\xe5\xe0\xa8\x9e\xb9\x92'
+
+show flash message
+<article class="flashes">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{message}}</li>
+            {% endfor %}                    
+            </ul>
+        {% endif %}
+    {% end with %}
+        
+</article>
+
+
+for 
+
+jinja defines a llop variables inside for 
+
+with defines a variables block 
+{% with var = expresion %} ... {% endwith %}
