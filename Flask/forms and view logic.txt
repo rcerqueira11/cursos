@@ -49,3 +49,25 @@ jinja defines a llop variables inside for
 
 with defines a variables block 
 {% with var = expresion %} ... {% endwith %}
+
+
+to use wtfforms we installe them first
+pip install flask-wtf
+
+then we need to import them 
+
+from flask_wtf import Form
+from wtforms.fields import StringField
+from flask.ext.wtf.html5 import URLField
+from wtforms.validators import DataRequired, url 
+
+to keep clean and mantaniable the code we could create a 
+forms.py file
+
+
+form.validate_on_submit()
+valida el request http y si los datos son correctos
+
+return render_template('add.html', form = form)
+
+form to use it to generate html
