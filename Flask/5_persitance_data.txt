@@ -84,3 +84,20 @@ lazy:
             - usefull if you have many items
             - return a query object which you can further refine before loading intems
             - usually what you want if you expect more than a handful of items
+
+<parametro para el url>
+@app.route('/user/<username>')
+def user(username):
+
+
+first_or_404()
+get_or_404()
+
+Flask-sqlalchemy
+pythonhosted.org/Flask-SQLAlchemy
+goo.gl/nwxMzQ
+
+docs.sqlalchemy.org/en/latest
+
+flask-script
+flask-script.readthedocs.org/en/latest/
