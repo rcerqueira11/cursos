@@ -1,0 +1,96 @@
+authentication with Flask-Login 
+
+pip install flask-login
+
+init.py
+
+from flask_login import LoginManager
+
+#configure authentication
+loging_manager = LoginManager()
+loging_manager.session_protection = "strong"
+#redirecto to the view when user try to access a page that need authentication
+login_manage.login_view = "login" 
+
+#integrate login managet to our app
+loging_manager.init_app(app)
+
+
+Adapting the user class for login 
+
+from flask_login import UserMixin
+class User(db.Model, UserMixin):
+
+UserMixin
+
+tiene varios metodos
+    -is_active
+    -is_authenticated
+    -is_anonymus
+    -get_id
+
+Secuting views 
+
+declare user_loader
+@login_manager.user_loader
+def load_user(userid):
+    return User.query.get(int(userid))
+
+
+    Using the @login_required decorator
+
+    @app.route('/login', methods=['GET', 'POST'])
+def login():
+   form = LoginForm()
+   if form.validate_on_submit():
+       #login validate the user..
+       user = User.query.filter_by(username=form.username.data).first()
+       if user is not None:
+           login_user(user, form.remember_me.data)
+           flash("Logged in successfully as {}.".format(user.username))
+           return redirect(request.args.get("next") or url_for('index'))
+        flash ('Incorrect username or password.')
+        return render_template("login.html", form=form)
+
+request.args.get("next"): salva la pagina donde queriamos acceder para que cuando nos logueemos nos redirecione a dicha pagina
+
+inherit User from UserMixin
+
+Adding a loging views, form , template, logoutt
+
+Addng signup for new users
+
+@login_required mark to pages only user Logged can see 
+
+current_user = points to the current user
+
+log a user with login_user(user)
+    -optional remember me argument: remember(bool)
+
+
+
+
+logout_user()
+
+{% if current_user.is_authenticated() %}
+
+
+checking credentials
+
+from werkzeug.security import check_password_hash, generate_password_hash
+
+resources
+
+flask-login.readthedocs.org/en/latest
+
+flask_login
+    - user_loader
+    - UserMixin
+    - login_required
+    - current_user
+    - login_user()
+    - logout_user()
+
+password hashing
+
+signup
