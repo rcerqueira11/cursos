@@ -1,0 +1,86 @@
+ORM = sqlalchemy
+dbadm = flask-script
+
+pip install flask-sqlalchemy
+
+import and configure sqlalchemy
+
+from flask_sqlalchemy import SQLAchemy
+
+app.config['SLQALCHEMY_DATABASE_URI'] = 'sqlite:///path/to/dadatbase'
+db = SQLAchemy(app)
+
+classes represetna a database table
+colums are the attributes of the classes
+
+ id = db.Column(db.Integer, primary_key=True)
+    url = db.Column(db.Text, nullable=False)
+    date = db.Column(db.DateTime, default = datetime.utcnow)
+    description = db.Column(db.String(300))
+
+
+inherit from db.Model
+
+to make the db
+python
+>>>
+from thermos.thermos import db
+from thermos.models import User, Bookmark
+db.create_all()
+
+create an User
+
+u= User(username="reindert", email="info@example.com")
+
+para agregarlo a la bd
+
+
+db.session.add(u)
+db.session.commit()
+
+agregando un bookmark 
+db.session.add(Bookmark(url="http://wwww.pluralsight.com", date=datetime.utcnow()))
+
+Querys
+
+User.query.get(1)
+User.query.filter_by(username="reindert").all()
+User.query.filter_by(username="reindert").first()
+User.query.get(2)
+
+
+install flask script to manage.python
+
+pip install flask-script
+
+
+backref='user' define que el modelo a quien hacer referencia tendra el user object tambien
+asi no hay que trabajar con los id del usuario
+
+to add a one to may relation
+
+many side
+class Bookmark(db.Model): 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+one side
+class User(db.Model, UserMixin):
+    bookmark = db.relationship('Bookmark',backref='user', lazy = 'dynamic')
+
+db.relationship
+    -defines a one to many relation
+    -first argument give many side of the relation
+backref
+    -name of an attribute on the related object
+    give a back ref to the other model
+
+lazy:
+    -how to related rows should be loaded
+    options
+        - lazy = 'select' (default) : loas the data lazily using a standard select statement
+        - lazy = 'joined' : load the data in the same query as the parent using a JOIN statement
+        - lazy = 'subquery' : like 'joined' but use a subquery.
+        - lazy = 'dynamic'
+            - usefull if you have many items
+            - return a query object which you can further refine before loading intems
+            - usually what you want if you expect more than a handful of items

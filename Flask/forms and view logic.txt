@@ -75,3 +75,42 @@ form to use it to generate html
 render fields WTForms in Templates
 keyword argument will become HTML attributes
 {{ form.url(class="fancy") }}
+
+
+Esto se hace para no tener que hace el html por cada input field
+para que el codigo sea mas mantenible
+{% macro render_field(field) %}
+    <tr {% if field.error  %} class="error" {% endif %}>
+        <td>{{field.label}}</td>
+        aqui pasamo any remining keywords arguments to the field 
+        <td>{{ field(**kwargs)|safe}}</td>
+        |safe = jinja will not try to scape any espcial char in this output
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <ul>
+                {% for error in field.errors %}
+                    <li>{{error}}</li>
+                {% endfor %}
+            </ul>
+        </td>
+    </tr>
+{% endmacro %}
+
+para usar los macros hay que importarlos primero 
+
+{% from "form_macros.html" import render_field %}
+
+resources
+list of control structures
+jinja.pocoo.orf/docs/dev/templates/#list-of-control-structures
+
+flask-wtf
+http://goo.gl/EW1hdn
+
+wtforms
+http://goo.gl/ulTg3Z
+
+
+
