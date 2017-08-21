@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.j2": "html"
+    },
+    "python.linting.pylintEnabled": false
+}
