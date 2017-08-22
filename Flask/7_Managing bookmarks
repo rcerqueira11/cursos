@@ -33,3 +33,24 @@ left-> right
     - trim: quita los espacios en blanco
     - upper: pone todo en mayuscula
     - truncate: trunca un string a cierto numero de caracteres
+
+custom filters app.template_filter
+flask adds one tojson convert data passed to json  
+
+{% include "other.html" %}
+included template has acces to context variables
+
+{% with x=42 %}
+    creates a new scpe with variable x in it 
+
+Populate forms and modes
+
+form = BookmarkForm(obj=bookmark)
+    -use obj arg to populate a form with data from an object
+        - for example a model instance
+        - if request data is present, that will be used instead of obj
+
+copy all attributes from the form to the object
+
+form.populate_obj(bookmark)
+    -Use populate_obj to populate a model instance from an object
