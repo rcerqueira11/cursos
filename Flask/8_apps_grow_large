@@ -1,0 +1,100 @@
+Debugging
+Testing
+
+Split our modules in Blueprints
+
+Aplication Factory to dynamic configure our proyect for diferents escenarios
+
+debug toolbar 
+
+pip install debugtoolbar
+
+form flask_debugtoolbar import DebugToolbarExtension
+
+#enable debugtoolbar
+toolbar = DebugToolbarExtension(app)
+
+app.config['DEBUG'] = True
+
+toolbar
+    - template: show all the context variables of the template
+    - SQLAlchemy: show all the query made to present us this page
+
+to retrieve a module all tag related will be joined inmediatly
+
+
+Blueprints
+
+__init__.py 
+
+#importa Blueprint
+from flask import Blueprint
+
+#current name python module 
+auth = Blueprint('auth', __name__)
+
+from . import views
+
+
+views.py
+
+se importa el auth como si fuera el rol del app  
+
+from . import auth
+from .. import db
+from ..models import User
+.form module inside the Blueprint 
+from .form import LoginForm, SignupForm
+
+init__.py super externo
+
+from .auth import auth as auth_blueprint
+app.register_blueprint(auth_blueprint, url_prefix='/auth')
+
+need to change the configuration 
+
+<li><a href="{{ url_for('auth.signup')}}">Sign up</a></li>
+<li><a href="{{ url_for('auth.login')}}">Sign in</a></li>
+
+cambiar
+login_manager.login_view = "login"
+por 
+login_manager.login_view = "auth.login"
+
+- Blueprint how to construct or extend an application
+    -not an app, but app-like 
+    -can provide views and/or resources like static files or templates, or models, etc.
+
+- Purpose
+    - Break up growing application into modules with joined functionality 
+    - Re-usable modules that can be registered on multiple apps   
+
+- Blueprint don't have to be in their own pacakage 
+    - but most of the time, they will be (recomendable no hay razon para no hacerlo)
+    - a python package always have to have a init file 
+
+Creation of Blueprint
+- import the package
+    - from flask import Blueprint
+- create an instance
+    - auth = Blueprint('auth',__name__)
+- import any modules that are part of the blueprint package
+    - avoid multiple importations like .views import form no need to import it here
+
+- import .auth in the __init__.py of the application
+    - to avoid namaspace collation we rename it as auth_blueprint
+    - from .auth import auth as auth_blueprint
+
+- call app.register
+    - app.register_blueprint(auth_blueprint,url_prefix='/auth')
+    - url_prefix='/auth' define el prefijo para todas las urls del view /auth/login
+    - @auth.route
+    - url_for( "auth.login")
+    - reference a local views (from within the blueprint itself) .login  
+
+
+- para que diga que app esta dando el error 
+    - @main.app_errorhandler(404) se coloca el APP_
+
+- para los context procesors utilizamos
+    - @main.app_context_processor se coloca el APP_
