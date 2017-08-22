@@ -54,3 +54,147 @@ copy all attributes from the form to the object
 
 form.populate_obj(bookmark)
     -Use populate_obj to populate a model instance from an object
+
+
+Automate dabase migration
+
+pip install flask-migrate
+
+from thermos.models import User, Bookmark
+from flask.ext.migrate import Migrate, MigrateCommand
+
+migrate = Migrate(app,db)
+
+manager.add_command('db', MigrateCommand)
+
+python manage.py db 
+and hit enter you get a list of suported operations 
+
+initialize the migratiosn with init command you only do this once
+
+python manage.py db init
+
+ahora para agregar la primera migracion  hacemos
+
+python manage.py db migrate -m "initial"
+    - -m "nombre_migracion" es opcional
+
+the _initial.py file 
+contiene
+    -upgrade: que pasa del estado anterior a este nuevo estado de la bd
+    -downgrade: que pasa del estado actual de la bd al anterior de la bd
+
+generar las tablas
+
+python manage.py db upgrade
+
+many to many 
+
+low level table will never use id directly 
+tags = db.Table('bookmark_tag',
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
+    db.Column('bookmark_id', db.Integer, db.ForeignKey('bookmark.id'))
+)
+
+class Bookmark
+    _tags = db.relationship('Tag',secondary=tags, backref = db.backref('bookmarks', lazy='dynamic'))
+        -'Tag' : in '' becouse the tag table is defined below this one 
+        -secondary=tags: tells to use our join table tags
+        -backref = db.backref('bookmarks', lazy='dynamic'): add attribute bookmark to the other side of the relation 
+
+luego hacer una nueva migracion
+
+python manage.py db migrate -m "tags"
+
+
+to go to previews data of the database use:
+
+python manage.py db downgrade 
+
+to go to all back until initial we make
+python manage.py db downgrade --tag initial 
+python manage.py db upgrade 
+    - to latest version
+python manage.py db upgrade --tag tags
+
+
+to show tag
+change in the form
+change in the html
+change in the views
+
+
+tags = form.tags.data
+bm = Bookmark(user= current_user, url=url, description=description, tags=tags)
+===
+form.populate_obj(bookmark)
+
+
+_tags
+
+template execute in the server
+part in {} get executed first by jinjna2
+and is replaced by an stirng,
+the resulting page is sent to the browser 
+then the js is executed
+the js never see the expresion in {} 
+just the result
+
+var _tags = {{ all_tags()|map(attribute='name')|list|tojson|safe }};
+        all_tags(): return tags
+        maps: generator expresion by name returned to list 
+        list: which generate a list
+        tojson: generate a json from the list
+        safe: to no escape special characters
+
+to make something globaly available we use the 
+@app.context_processor 
+
+everything with this will be execute every time before a template renders
+    return dict(all_tags = Tag.all()) -> this will call all the parents
+    return dict(all_tags = Tag.all) like this u can use it when you need it, is a reference to the function
+
+
+review
+
+- inject variables int a template context
+    - A functon that returns a dict
+    - this function will be loaded before each template is loaded
+    - contexts of dict are added to template context
+    - Annotate with @app.context_processor
+
+- Calling super() inside a {% block %}
+    - will insert contents of parent block
+
+
+Delete
+
+def delete_bookmark(bookmark_id):
+    bookmark = Bookmark.query.get_or_404(bookmark_id)
+    if current_user != bookmark.user:
+        abort(403)
+    if request.method == "POST":
+        db.session.delete(bookmark)
+        db.session.commit()
+        flash("Deleted '{}'".format(bookmark.description))
+        return redirect(url_for('user',username=current_user.username))
+    else:
+        flash("Please confirm deleting the bookmark.")
+    return render_template('confirm_delete.html',form=form, nolinks=True)
+
+if not post on delete we go to a confirmation page to ask if he really wants to delete the 
+and the make the post to the views
+
+resources
+
+Migrate
+    - flask-migrate.readthedocs.org
+
+Moment
+    - https://github.com/miguelgrinberg/flask-moment
+
+Select2
+    - https://ivaynberg.github.io/select2/
+
+Jinja filters
+    - https://jinja.pocoo.org
