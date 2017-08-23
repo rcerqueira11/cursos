@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm as Form
 from wtforms.fields import StringField, PasswordField, BooleanField,SubmitField
 from wtforms.fields.html5 import URLField
 from wtforms.validators import DataRequired, url, Length, Email, Regexp, EqualTo, ValidationError
-from ..models import User
+from thermos.auth.models import User
 
 class LoginForm(Form):
     username = StringField('You Username: ', validators=[DataRequired()])

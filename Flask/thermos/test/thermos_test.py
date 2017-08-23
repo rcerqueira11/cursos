@@ -2,7 +2,8 @@ from flask import url_for
 from flask_testing import TestCase
 
 import thermos
-from thermos.models import User, Bookmark
+from thermos.auth.models import User
+from thermos.bookmarks.models import Bookmark
 
 class ThermosTestCase(TestCase):
 

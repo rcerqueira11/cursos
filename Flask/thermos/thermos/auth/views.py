@@ -5,7 +5,8 @@ from flask_login import login_required, login_user, logout_user, current_user
 
 from . import auth
 from .. import db
-from ..models import User, Bookmark
+from models import User, Bookmark
+from thermos.bookmark.models import Bookmark
 from .forms import LoginForm, SignupForm
 # from thermos import app, db, login_manager
 # from forms import BookmarkForm, LoginForm, SignupForm
