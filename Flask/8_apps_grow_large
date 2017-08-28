@@ -98,3 +98,70 @@ Creation of Blueprint
 
 - para los context procesors utilizamos
     - @main.app_context_processor se coloca el APP_
+
+
+
+app = create_app(os.getenv('THERMOS_ENV') or 'dev')
+    - obtiene el valor de la variable THERMOS_ENV
+    - en caso d eno conseguirla se coloca el dev
+
+in the commmand line set the THERMOS_ENV
+    - export THERMOS_ENV=dev
+
+
+Testing
+
+pip install flask-testing
+
+to change the behaivior when discovering unite test
+pip install nose
+
+
+self.client = self.app.test_client()
+    -lets us make request to our application
+    -keep tracking of cookies and etc so we can logged in 
+
+
+
+-remove all tags from boomark
+data = dict(
+        url = "http://test.example.com",
+        tags= ""
+    ),
+    follow_redirects = True
+    # after the redirect is sent to another page
+    # so we are gonna check if the status code   
+
+
+assert response.status_code == 200
+    - revisamos que el status code sea 200
+bm = Bookmark.query.first()
+    - obtenemos las bookmak de la bd
+
+assert not bm._tags
+    -chequeeamos que no hay bookmaks en la bm 
+
+
+Con nose descrubre todo los test automaticamente asi que podemos correrlo simplemente con:
+    - nosetests
+
+resources
+
+flask_debugtoolbar
+    -https://github.com/mgood/flask-debugtoolbar
+
+Flask-Testing
+    -https://pytohnhosted.org/Flask-Testing
+
+nose: test runners
+    -https://nose.readthedocs.org/en/latest/
+
+blueprint
+    - http://flask.pocoo.org/docs/latest/blueprints/
+
+Appfactories
+    -https://flask.pocoo.org/docs/latest/patterns/appfactories/
+
+Config
+    -https://flask.pocoo.org/docs/latest/config
+
