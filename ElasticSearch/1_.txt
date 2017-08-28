@@ -1,0 +1,124 @@
+first need to know the documents exist
+by running a crawler
+
+tokenize text into words
+    - split words    
+    - lowercased
+    - remover punctuation
+
+- word associate with frecuency in indexed documents
+- the have the source of the documents in wich this words where found
+the word is map to one or more source document
+
+dictionary is wors + ocurrency 
+posting = source where is found 
+
+bool on search
+    - coming or strong : one or another
+    - fury and growing: both of them
+
+Sarches using inverted indices
+
+find all words ending with ong 
+
+strong -> gnorts
+
+search for words starting with gno 
+
+split words into n-grams for subtring search
+
+yours -> yo, you, our, ours, urs
+match substring with n-grams
+
+geo hashes for geographical search
+
+Algorithms such as Metaphne for phonetic matching
+
+"Did you mean?" searches use a Levenshtein automaton
+
+Apache lucene:
+The indexing and search library for a high performance, full-text dearch engine
+
+Elasticsearch
+
+an open source, sarch and analytics engine,
+written in java built on apache lucene 
+
+Distributed: Scales to thousands of nodes 
+High availability: multpple copies of data
+
+Restful Api: crud, monitoring and other operation via simple 
+            JSON-based HTTP calls.
+
+Powerful query dsl: express complex queries simply
+
+Schemaless: index data without an explicit schema 
+
+
+kbana visualize data with Elasticsearch
+
+-Ecluster.name=pluralsight_es
+    - name of the cluster
+-Enode.name=my_first_node
+    -name of the node
+
+Elasticsearch
+- allow near realitme search
+
+Nodes
+- single server is called a node
+- performs indexing
+-allows search- has a unique id and name
+
+Cluster
+- collection of nodes operate together to achive the same objective
+- holds the entire indexed data
+- has unique name 
+- nodes join a cluster using the cluster name
+
+index
+- collection of similar documents
+- indetified by name
+- any number of indices in a cluster
+- different indices for different logical groupings 
+    -catalog in one index
+    -customer information in another index
+
+Type
+- logical partitioning of documents  
+    - blog post
+    - blog comments
+-User defined grouping semantics 
+    - semantics of your website 
+- Documents which have the same set of fields belong to one type
+    - a docment type is a collection of documents with the same name 
+
+Document
+- Basic unit of information to be indexed 
+    -simple container of text that need to be searchable
+- Expressed using JSON
+- Reside within an index 
+- Assigned to a type within an index
+
+Have the index split in multple machine in the cluster 
+    - sharding the data 
+    - every node will have only a subset of the index data 
+
+Important in Distributed Computing
+    - make sure cluster and data withing is
+        - highly available 
+        - tolerant to nose failures
+        - asure this with making replicas 
+
+Summary
+
+Shards and Replicas 
+- An index can be split into multiple shards 
+- A shard can be replicated zero or more times 
+- An index in Elasticsearch has 5 shards and 1 replica by default
+
+
+MONITORING
+
+health of the cluster 
+localhost:9200
