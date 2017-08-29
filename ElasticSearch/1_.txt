@@ -121,4 +121,13 @@ Shards and Replicas
 MONITORING
 
 health of the cluster 
-localhost:9200
+localhost:9200 or curl the direction
+it returns a json 
+
+Cluste status: 
+    - Green: Al shars and replicas are available for request
+            cluster functional 
+    - Yellow: Some replicas may not be available,
+            cluste still functional
+    - Red: some shards not available, cluste not
+            fully functional
