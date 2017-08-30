@@ -1,0 +1,17 @@
+Overview
+Operation on indices and indexed
+    - create 
+    - read/retrieve
+    - update
+    - delete 
+
+Bulk operation on indexed documents
+Bulk creation of indices from JSON data
+
+RESTful APIs
+
+
+- Elasticsearch uses REST APIs to administer the cluster,
+perform CRUD operations, search etc.
+
+- Data is sent to and received from the server in JSON form

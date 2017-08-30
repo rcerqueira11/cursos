@@ -62,6 +62,8 @@ kbana visualize data with Elasticsearch
 -Enode.name=my_first_node
     -name of the node
 
+./bin/elasticsearch -Ecluster.name=pluralsight-es -Enode.name=my_first_node
+
 Elasticsearch
 - allow near realitme search
 
