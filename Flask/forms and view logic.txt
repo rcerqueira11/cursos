@@ -106,7 +106,8 @@ resources
 list of control structures
 jinja.pocoo.orf/docs/dev/templates/#list-of-control-structures
 
-flask-wtf
+Flask-wtf
+https://flask-wtf.readthedocs.io/en/stable/
 http://goo.gl/EW1hdn
 
 wtforms
