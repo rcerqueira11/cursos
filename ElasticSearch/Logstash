@@ -1,0 +1,139 @@
+Logstash
+
+run
+/bin/systemctl enable logstash.service
+/bin/systemctl daemon-reload
+        
+systemctl start logstash.service
+
+
+home
+
+Home directory of the Logstash installation.
+
+/usr/share/logstash
+
+bin
+
+Binary scripts including logstash to start Logstash and logstash-plugin to install plugins
+
+/usr/share/logstash/bin
+
+settings
+
+Configuration files, including logstash.yml, jvm.options, and startup.options
+
+/etc/logstash
+
+path.settings
+
+conf
+
+Logstash pipeline configuration files
+
+/etc/logstash/conf.d
+
+path.config
+
+logs
+
+Log files
+
+/var/log/logstash
+
+path.logs
+
+plugins
+
+Local, non Ruby-Gem plugin files. Each plugin is contained in a subdirectory. Recommended for development only.
+
+/usr/share/logstash/plugins
+
+path.plugins
+
+
+http.host
+
+The bind address for the metrics REST endpoint.
+
+"127.0.0.1"
+
+http.port
+
+The bind port for the metrics REST endpoint.
+
+9600
+
+log.level
+
+The log level. Valid options are:
+
+fatal
+error
+warn
+info
+debug
+trace
+info
+
+log.format
+
+The log format. Set to json to log in JSON format, or plain to use Object#.inspect.
+
+plain
+
+path.logs
+
+The directory where Logstash will write its log to.
+
+`LOGSTASH_HOME/logs
+
+path.plugins
+
+Where to find custom plugins. You can specify this setting multiple times to include multiple paths. Plugins are expected to be in a specific directory hierarchy: PATH/logstash/TYPE/NAME.rb where TYPE is inputs, filters, outputs, or codecs, and NAME is the name of the plugin.
+
+Platform-specific. See Logstash Directory Layout.
+
+
+-p, --path.plugins PATH
+A path of where to find custom plugins. This flag can be given multiple times to include multiple paths. Plugins are expected to be in a specific directory hierarchy: PATH/logstash/TYPE/NAME.rb where TYPE is inputs, filters, outputs, or codecs, and NAME is the name of the plugin.
+
+
+to run logstash got to /usr/share/logstash
+create a name.conf files
+with 
+input { stdin { } }
+output {
+  elasticsearch { hosts => ["localhost:9200"] }
+  stdout { codec => rubydebug }
+}
+
+then run from the /usr/share/logstash
+
+
+
+#################### config
+
+
+input {
+jdbc {
+jdbc_connection_string => "jdbc:postgresql://localhost:5432/fintech_ecosystem"
+jdbc_user => "postgres"
+jdbc_password => "123456"
+jdbc_driver_library => "/home/rcerqueira/Proyectos/Fintech/dependencies/postgresql-42.1.4.jre6.jar"
+jdbc_driver_class => "org.postgresql.Driver"
+schedule => "0 6 * * * *"
+statement => "select name, location from company"
+}
+}
+
+filter { }
+
+output {
+elasticsearch {
+index => "fintech_index"
+document_type => "type_01"
+hosts => ["localhost:9200"]
+document_id => "%{id_temp_index}"
+}
+}
