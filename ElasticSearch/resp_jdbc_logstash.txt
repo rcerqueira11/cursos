@@ -1,0 +1,131 @@
+input {
+jdbc {
+jdbc_connection_string => "jdbc:postgresql://localhost:5432/fintech_ecosystem"
+jdbc_user => "postgres"
+jdbc_password => "123456"
+jdbc_driver_library => "/home/rcerqueira/Proyectos/Fintech/dependencies/postgresql-42.1.4.jre6.jar"
+jdbc_driver_class => "org.postgresql.Driver"
+schedule => "0 6 * * * *"
+use_column_value => true
+tracking_column => id
+statement => "SELECT * from company"
+}
+}
+
+output {
+elasticsearch {
+index => "compa"
+document_type => "company"
+hosts => ["localhost:9200"]
+document_id => "%{id}"
+}
+}
+
+
+#######################################################################################################################################
+			add_field => { "capabilities" => "test" }
+			add_field => { "category" => "test" }
+			add_field => { "group" => "test" }
+			add_field => { "partner" => "test" }
+
+
+  },
+      {
+        "_index" : "compa",
+        "_type" : "company",
+        "_id" : "14",
+        "_score" : 1.0,
+        "_source" : {
+          "website" : "https://mpk.impak.eco/en/",
+          "owner_id" : null,
+          "description" : "Impak Finance introduces the Impak Coin : the first cryptocurrency coded to grow the impact economy. First, we are going to launch an impact investment fund online. Our 100% digital and mobile platform will enable anyone to invest in impact bonds.",
+          "linkedin" : "https://www.linkedin.com/company-beta/10832737/",
+          "type" : "company",
+          "twitter" : "https://twitter.com/impakfinance",
+          "@timestamp" : "2017-09-06T17:36:00.124Z",
+          "phone" : "",
+          "name" : "Impak Finance",
+          "@version" : "1",
+          "logo" : null,
+          "location" : "Toronto",
+          "id" : 14,
+          "email" : "hello@impakfinance.com",
+          "key_features" : ""
+        }
+      },
+      {
+        "_index" : "compa",
+        "_type" : "company",
+        "_id" : "19",
+        "_score" : 1.0,
+        "_source" : {
+          "website" : "https://lendful.ca/#/home",
+          "owner_id" : null,
+          "description" : "Personal Loans based on credit raitng and application approvals. ",
+          "linkedin" : "https://www.linkedin.com/company-beta/6425659/",
+          "type" : "company",
+          "twitter" : "https://twitter.com/lendfulloans",
+          "@timestamp" : "2017-09-06T17:36:00.124Z",
+          "phone" : "",
+          "name" : "Lendful",
+          "@version" : "1",
+          "logo" : null,
+          "location" : "Vancouver ",
+          "id" : 19,
+          "email" : "info@lendful.ca",
+          "key_features" : "Consumer lending, Marketplace Lending, Peer-to-Peer Lending, and P2P"
+        }
+      }
+    ]
+  }
+}
+###########################################################################################
+
+bin/logstash-plugin install logstash-filter-jdbc_streaming
+
+input {
+jdbc {
+jdbc_connection_string => "jdbc:postgresql://localhost:5432/fintech_ecosystem"
+jdbc_user => "postgres"
+jdbc_password => "123456"
+jdbc_driver_library => "/home/rcerqueira/Proyectos/Fintech/dependencies/postgresql-42.1.4.jre6.jar"
+jdbc_driver_class => "org.postgresql.Driver"
+schedule => "0 6 * * * *"
+use_column_value => true
+tracking_column => id
+statement => "SELECT * from company"
+}
+}
+
+filter{
+    if[type] == "company"{
+        mutate {
+                add_field => { "bus_model" => "test" }
+
+        }	
+    }
+
+    jdbc_streaming {
+        jdbc_connection_string => "jdbc:postgresql://localhost:5432/fintech_ecosystem"
+        jdbc_user => "postgres"
+        jdbc_password => "123456"
+        jdbc_driver_library => "/home/rcerqueira/Proyectos/Fintech/dependencies/postgresql-42.1.4.jre6.jar"
+        jdbc_driver_class => "org.postgresql.Driver"
+        statement => "SELECT b.name FROM business_model b, company_businessmodel c
+                        WHERE c.business_model_id = b.id and c.company_id = :compaid"
+        parameters => { "compaid" => "%{id}"}
+        target => "bus_model"
+    }
+}
+
+
+output {
+    elasticsearch {
+        index => "companie"
+        document_type => "company"
+        hosts => ["localhost:9200"]
+        document_id => "%{id}"
+    }
+
+    
+}
