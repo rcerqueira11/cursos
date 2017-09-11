@@ -1,0 +1,39 @@
+cp /home/rcerqueira/Codes/cursos/ElasticSearch/logstash-filter.conf logstash-filter.conf
+
+
+
+un usuario gestionar un grupo de personas no todas
+refresh database
+
+
+
+["Ontario","Kelowna","British Columbia","Vancouver","Calgary","Supports most Canadian Banks (HQ- California)","Operates in Canada (HQ in US)","UK (HQ)","Victoria","BC","Vancouver","Toronto","St. John","Montreal","Vancouver","Toronto","Waterloo","Oakville","Edmonton","Alberta","London","Ontario","HQ in Boston","Offices in Toronto","Cambridge","Operates in Canada (HQ in California)","New York","Burlington","Ottawa"]
+
+
+
+Ontario
+Kelowna
+BC
+Calgary
+Vancouver
+Alberta
+Supports most Canadian Banks (HQ- California)
+Operates in Canada (HQ 
+in US)
+UK (HQ)
+Operates in Canada (HQ in California)
+Victoria
+St. John
+Offices in Toronto
+Toronto
+British Columbia
+Waterloo
+Oakville
+Ottawa
+Montreal
+Cambridge
+Edmonton
+HQ in Boston
+New York
+London
+Burlington
