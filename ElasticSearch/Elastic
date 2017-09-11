@@ -1,3 +1,8 @@
 see what indices do i have 
 
 curl 'localhost:9200/_cat/indices?v'
+
+
+Delete index
+with kibana console 
+    DELETE /twitter
