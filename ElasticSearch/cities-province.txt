@@ -1,0 +1,66 @@
+cities
+
+Location:Toronto AND Location:Cambridge AND Location:Waterloo AND Location:Kelowna AND Location:Boston AND Location:Edmonton AND Location:Burnaby AND Location:Oakville AND Location:Ottawa AND Location:Victoria AND Location:St. John AND Location:London AND Location:New York AND Location:Vancouver AND Location:Calgary AND Location:Burlington AND Location:Waterloo AND Location:Montreal AND Location:Richmond Hill
+
+'Toronto'
+'Cambridge'
+'Waterloo'
+'Kelowna'
+'Boston'
+'Edmonton'
+'Burnaby'
+'Oakville'
+'Ottawa'
+'Victoria'
+'St. John'
+'London'
+'New York'
+'Vancouver'
+'Calgary'
+'Burlington'
+'Waterloo'
+'Montreal'
+'Richmond Hill'
+
+Location:Toronto
+Location:Cambridge
+Location:Waterloo
+Location:Kelowna
+Location:Boston
+Location:Edmonton
+Location:Burnaby
+Location:Oakville
+Location:Ottawa
+Location:Victoria
+Location:St. John
+Location:London
+Location:New York
+Location:Vancouver
+Location:Calgary
+Location:Burlington
+Location:Waterloo
+Location:Montreal
+Location:Richmond Hill
+
+provinces 
+
+Location:British Columbia AND Location:Newfoundland and Labrador AND Location:Alberta AND Location:Ontario AND Location:Quebec AND Location:California AND Location:New York AND Location:Massachusetts
+
+'British Columbia'
+'Newfoundland and Labrador'
+'Alberta'
+'Ontario'
+'Quebec'
+'California'
+'New York'
+'Massachusetts'
+
+Location:British Columbia
+Location:Newfoundland and Labrador
+Location:Alberta
+Location:Ontario
+Location:Quebec
+Location:California
+Location:New York
+Location:Massachusetts
+
