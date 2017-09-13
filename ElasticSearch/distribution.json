@@ -1,0 +1,19 @@
+[
+  {
+    "_id": "76da7620-9800-11e7-9c6d-992eab148e8c",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Distribution",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"2609d510-9800-11e7-9c6d-992eab148e8c\",\"panelIndex\":1,\"row\":1,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":9,\"id\":\"2f17f290-9800-11e7-9c6d-992eab148e8c\",\"panelIndex\":2,\"row\":1,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":5,\"id\":\"4d34b010-9800-11e7-9c6d-992eab148e8c\",\"panelIndex\":3,\"row\":1,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"columns\":[\"name\",\"description\",\"bus_model\",\"group\",\"linkedin\",\"twitter\",\"website\",\"email\",\"phone\"],\"id\":\"5e94a510-98b2-11e7-92d6-f33283e8cab8\",\"panelIndex\":4,\"row\":6,\"size_x\":12,\"size_y\":4,\"sort\":[\"_score\",\"desc\"],\"type\":\"search\"}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"match_all\":{}}}],\"highlightAll\":true,\"version\":true}"
+      }
+    }
+  }
+]

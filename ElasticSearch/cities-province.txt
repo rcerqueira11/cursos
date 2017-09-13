@@ -313,3 +313,15 @@ location:"Quebec" AND categories:"Artificial Intelligence"
 location:"California" AND categories:"Artificial Intelligence"
 location:"New York" AND categories:"Artificial Intelligence"
 location:"Massachusetts" AND categories:"Artificial Intelligence"
+
+
+
+
+groups
+
+"Financial Technology"
+"Financial Services"
+"Financial Technology Ventures"
+"Support"
+"Service Providers"
+"Financial Institutions"

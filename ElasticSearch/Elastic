@@ -6,3 +6,6 @@ curl 'localhost:9200/_cat/indices?v'
 Delete index
 with kibana console 
     DELETE /twitter
+
+
+Elastic can be configurate to throw out some of the terms for example stop words
