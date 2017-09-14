@@ -1,0 +1,28 @@
+tenemos que habilitar el fielddata
+que por defecto esta en false, habilitarlo para los campos que se requiera
+luego de ello actualizar el index
+
+
+
+PUT companies/_mapping/company
+{
+    "properties": {
+        "description": { 
+        "type":     "text",
+        "fielddata": true
+        }
+    }
+    
+}
+
+PUT companies/_mapping/company
+{
+    "properties": {
+        "key_features": { 
+        "type":     "text",
+        "fielddata": true
+        }
+    }
+    
+}
+

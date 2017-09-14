@@ -82,16 +82,75 @@ curl -XPUT 'localhost:9200/my_index?pretty' -H 'Content-Type: application/json' 
 to enabled in key_features
 
 in kibana console
-PUT companies/_mapping/company
+PUT companies
 {
-  "properties": {
-    "key_features": { 
-      "type":     "text",
-      "fielddata": true,
-      "fields": { "type": "text"}
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "std_english": { 
+          "type":      "standard",
+          "stopwords": "_english_"
+        }
+      }
+    }
+  },
+  "mappings" : {
+    "company":{
+        "properties": {
+            "description": { 
+            "type":     "text",
+            "fielddata": true,
+            "analyzer": "standard", 
+            "fields": {
+            "english": {
+                "type":     "text",
+                "analyzer": "std_english" 
+                }
+                }
+            }
+        }
     }
   }
 }
+
+Hay que cerrar primero para actualizar el analyzer
+POST companies/_close
+
+PUT companies/_settings
+{
+  "analysis": {
+      "analyzer": {
+        "std_english": { 
+          "type":      "standard",
+          "stopwords": "_english_"
+        }
+      }
+    }
+}
+
+POST companies/_open
+
+
+PUT companies/_mapping/company
+{
+    "properties": {
+        "key_features": { 
+        "type":     "text",
+        "fielddata": true,
+        "analyzer": "standard", 
+        "fields": {
+        "english": {
+            "type":     "text",
+            "analyzer": "std_english" 
+            }
+            }
+        }
+    }
+    
+}
+
+
+
 
 with curl 
 curl -XPUT "http://localhost:9200/companies/_mapping/company" -H 'Content-Type: application/json' -d'
