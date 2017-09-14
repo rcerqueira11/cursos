@@ -1,0 +1,105 @@
+ curl -XGET 'localhost:9200/companies/_mapping/field/description/?pretty'
+{
+  "companies" : {
+    "mappings" : {
+      "company" : {
+        "description" : {
+          "full_name" : "description",
+          "mapping" : {
+            "description" : {
+              "type" : "text",
+              "fields" : {
+                "keyword" : {
+                  "type" : "keyword",
+                  "ignore_above" : 256
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+rcerqueira@debian:~$ curl -XGET 'localhost:9200/companies/_mapping/field/key_features/?pretty'
+{
+  "companies" : {
+    "mappings" : {
+      "company" : {
+        "key_features" : {
+          "full_name" : "key_features",
+          "mapping" : {
+            "key_features" : {
+              "type" : "text",
+              "fields" : {
+                "keyword" : {
+                  "type" : "keyword",
+                  "ignore_above" : 256
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+curl -XPUT 'localhost:9200/my_index?pretty' -H 'Content-Type: application/json' -d'
+{
+  "mappings": {
+    "user": { 
+      "_all":       { "enabled": false  }, 
+      "properties": { 
+        "title":    { "type": "text"  }, 
+        "name":     { "type": "text"  }, 
+        "age":      { "type": "integer" }  
+      }
+    },
+    "blogpost": { 
+      "_all":       { "enabled": false  }, 
+      "properties": { 
+        "title":    { "type": "text"  }, 
+        "body":     { "type": "text"  }, 
+        "user_id":  {
+          "type":   "keyword" 
+        },
+        "created":  {
+          "type":   "date", 
+          "format": "strict_date_optional_time||epoch_millis"
+        }
+      }
+    }
+  }
+}
+'
+
+
+
+curl -XPUT 'localhost:9200/my_index?pretty' -H 'Content-Type: application/json' -d'
+
+
+to enabled in key_features
+
+in kibana console
+PUT companies/_mapping/company
+{
+  "properties": {
+    "key_features": { 
+      "type":     "text",
+      "fielddata": true,
+      "fields": { "type": "text"}
+    }
+  }
+}
+
+with curl 
+curl -XPUT "http://localhost:9200/companies/_mapping/company" -H 'Content-Type: application/json' -d'
+{
+  "properties": {
+    "key_features": { 
+      "type":     "text",
+      "fielddata": true
+    }
+  }
+}'
