@@ -1,0 +1,55 @@
+[
+  {
+    "_id": "5e94a510-98b2-11e7-92d6-f33283e8cab8",
+    "_type": "search",
+    "_source": {
+      "title": "Ad1",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "name",
+        "description",
+        "bus_model",
+        "group",
+        "linkedin",
+        "twitter",
+        "website",
+        "email",
+        "phone"
+      ],
+      "sort": [
+        "_score",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"companies\",\"highlightAll\":true,\"version\":true,\"query\":{\"match_all\":{}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "8bd90060-988b-11e7-bafc-d54d3c2834ac",
+    "_type": "search",
+    "_source": {
+      "title": "search1",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "name",
+        "description",
+        "twitter",
+        "website",
+        "linkedin",
+        "bus_model"
+      ],
+      "sort": [
+        "_score",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"companies\",\"highlightAll\":true,\"version\":true,\"query\":{\"match_all\":{}},\"filter\":[]}"
+      }
+    }
+  }
+]

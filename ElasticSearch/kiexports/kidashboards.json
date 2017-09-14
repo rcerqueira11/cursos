@@ -1,0 +1,104 @@
+[
+  {
+    "_id": "28fced40-97c7-11e7-b210-b7753e1fff67",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Categories by City",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"9358a0a0-97c5-11e7-b210-b7753e1fff67\",\"panelIndex\":1,\"row\":1,\"size_x\":6,\"size_y\":4,\"type\":\"visualization\"},{\"col\":7,\"id\":\"9eac0b80-97cb-11e7-b210-b7753e1fff67\",\"panelIndex\":2,\"row\":1,\"size_x\":6,\"size_y\":4,\"type\":\"visualization\"},{\"size_x\":6,\"size_y\":4,\"panelIndex\":3,\"type\":\"visualization\",\"id\":\"35f18500-97cd-11e7-b210-b7753e1fff67\",\"col\":1,\"row\":5},{\"size_x\":6,\"size_y\":4,\"panelIndex\":4,\"type\":\"visualization\",\"id\":\"75a75580-97cd-11e7-b210-b7753e1fff67\",\"col\":7,\"row\":5},{\"size_x\":6,\"size_y\":4,\"panelIndex\":5,\"type\":\"visualization\",\"id\":\"b15b4cd0-97cd-11e7-b210-b7753e1fff67\",\"col\":1,\"row\":9},{\"size_x\":6,\"size_y\":4,\"panelIndex\":6,\"type\":\"visualization\",\"id\":\"fe3fbf90-97cd-11e7-b210-b7753e1fff67\",\"col\":7,\"row\":9},{\"size_x\":6,\"size_y\":4,\"panelIndex\":7,\"type\":\"visualization\",\"id\":\"28b99e80-97ce-11e7-b210-b7753e1fff67\",\"col\":1,\"row\":13},{\"size_x\":6,\"size_y\":4,\"panelIndex\":8,\"type\":\"visualization\",\"id\":\"63e55300-97ce-11e7-b210-b7753e1fff67\",\"col\":7,\"row\":13},{\"size_x\":6,\"size_y\":4,\"panelIndex\":9,\"type\":\"visualization\",\"id\":\"97622be0-97ce-11e7-b210-b7753e1fff67\",\"col\":1,\"row\":17}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-1\":{\"spy\":{\"mode\":{\"fill\":false,\"name\":null}},\"vis\":{\"colors\":{\"Toronto\":\"#EA6460\"},\"legendOpen\":true}},\"P-2\":{\"spy\":{\"mode\":{\"fill\":false,\"name\":null}}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"query\":\"location:\\\"Richmond Hill\\\" AND categories:\\\"Payments and Money transfer\\\"\",\"analyze_wildcard\":true}},\"meta\":{\"index\":\"companies\",\"type\":\"query_string\",\"key\":\"query\",\"value\":\"location:\\\"Richmond Hill\\\" AND categories:\\\"Payments and Money transfer\\\"\",\"disabled\":true,\"negate\":false,\"alias\":null},\"$state\":{\"store\":\"appState\"}},{\"query\":{\"match_all\":{}}}],\"highlightAll\":true,\"version\":true}"
+      }
+    }
+  },
+  {
+    "_id": "8319b8b0-97e7-11e7-9874-e3af882d0d50",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Categories by Province",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"fce787f0-97e0-11e7-9874-e3af882d0d50\",\"panelIndex\":1,\"row\":1,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"db770430-97e3-11e7-9874-e3af882d0d50\",\"panelIndex\":2,\"row\":4,\"size_x\":12,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"f25178a0-97e5-11e7-9874-e3af882d0d50\",\"panelIndex\":3,\"row\":7,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":7,\"id\":\"139bcf60-97e6-11e7-9874-e3af882d0d50\",\"panelIndex\":4,\"row\":7,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"},{\"col\":7,\"id\":\"43e289e0-97ee-11e7-9874-e3af882d0d50\",\"panelIndex\":6,\"row\":1,\"size_x\":6,\"size_y\":3,\"type\":\"visualization\"}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-3\":{\"vis\":{\"legendOpen\":false}},\"P-4\":{\"vis\":{\"legendOpen\":false}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"match_all\":{}}}],\"highlightAll\":true,\"version\":true}"
+      }
+    }
+  },
+  {
+    "_id": "5961d6f0-97f7-11e7-b582-edd11a13f682",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Cities",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"a48041a0-97f5-11e7-adcf-91babf55e64c\",\"panelIndex\":1,\"row\":1,\"size_x\":6,\"size_y\":6,\"type\":\"visualization\"},{\"col\":7,\"id\":\"bbb379e0-97f6-11e7-b582-edd11a13f682\",\"panelIndex\":2,\"row\":1,\"size_x\":6,\"size_y\":6,\"type\":\"visualization\"},{\"col\":1,\"id\":\"89841980-97ff-11e7-b582-edd11a13f682\",\"panelIndex\":3,\"row\":7,\"size_x\":12,\"size_y\":5,\"type\":\"visualization\"}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-3\":{\"vis\":{\"params\":{\"sort\":{\"columnIndex\":0,\"direction\":\"asc\"}}}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"match_all\":{}}}],\"highlightAll\":true,\"version\":true}"
+      }
+    }
+  },
+  {
+    "_id": "76da7620-9800-11e7-9c6d-992eab148e8c",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Distribution",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"2609d510-9800-11e7-9c6d-992eab148e8c\",\"panelIndex\":1,\"row\":1,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":9,\"id\":\"2f17f290-9800-11e7-9c6d-992eab148e8c\",\"panelIndex\":2,\"row\":1,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":5,\"id\":\"4d34b010-9800-11e7-9c6d-992eab148e8c\",\"panelIndex\":3,\"row\":1,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"columns\":[\"name\",\"description\",\"bus_model\",\"group\",\"linkedin\",\"twitter\",\"website\",\"email\",\"phone\"],\"id\":\"5e94a510-98b2-11e7-92d6-f33283e8cab8\",\"panelIndex\":4,\"row\":6,\"size_x\":12,\"size_y\":6,\"sort\":[\"_score\",\"desc\"],\"type\":\"search\"}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"match_all\":{}}}],\"highlightAll\":true,\"version\":true}"
+      }
+    }
+  },
+  {
+    "_id": "26f7b330-998f-11e7-a8bb-b9cf0c8c635c",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Key Features Words Appearance",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"eeeec280-998e-11e7-a8bb-b9cf0c8c635c\",\"panelIndex\":1,\"row\":9,\"size_x\":12,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"03003dd0-998f-11e7-a8bb-b9cf0c8c635c\",\"panelIndex\":2,\"row\":6,\"size_x\":12,\"size_y\":3,\"type\":\"visualization\"},{\"col\":5,\"id\":\"4d34b010-9800-11e7-9c6d-992eab148e8c\",\"panelIndex\":3,\"row\":1,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":9,\"id\":\"2f17f290-9800-11e7-9c6d-992eab148e8c\",\"panelIndex\":4,\"row\":1,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"2609d510-9800-11e7-9c6d-992eab148e8c\",\"panelIndex\":5,\"row\":1,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-2\":{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}},\"P-1\":{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"match_all\":{}}}],\"highlightAll\":true,\"version\":true}"
+      }
+    }
+  },
+  {
+    "_id": "3c9ae020-9991-11e7-a8bb-b9cf0c8c635c",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Description Words Appearance",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":5,\"id\":\"4d34b010-9800-11e7-9c6d-992eab148e8c\",\"panelIndex\":3,\"row\":1,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":9,\"id\":\"2f17f290-9800-11e7-9c6d-992eab148e8c\",\"panelIndex\":4,\"row\":1,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"2609d510-9800-11e7-9c6d-992eab148e8c\",\"panelIndex\":5,\"row\":1,\"size_x\":4,\"size_y\":5,\"type\":\"visualization\"},{\"size_x\":12,\"size_y\":3,\"panelIndex\":6,\"type\":\"visualization\",\"id\":\"667d8820-9991-11e7-aeba-7f37ecca7bbe\",\"col\":1,\"row\":6},{\"size_x\":6,\"size_y\":3,\"panelIndex\":7,\"type\":\"visualization\",\"id\":\"701213b0-9991-11e7-aeba-7f37ecca7bbe\",\"col\":1,\"row\":9}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{\"P-2\":{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}},\"P-1\":{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}},\"P-6\":{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}},\"P-7\":{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}}}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"match_all\":{}}}],\"highlightAll\":true,\"version\":true}"
+      }
+    }
+  }
+]
