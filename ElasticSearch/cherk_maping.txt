@@ -134,7 +134,7 @@ POST companies/_open
 PUT companies/_mapping/company
 {
     "properties": {
-        "key_features": { 
+        "description": { 
         "type":     "text",
         "fielddata": true,
         "analyzer": "standard", 
