@@ -26,3 +26,51 @@ PUT companies/_mapping/company
     
 }
 
+######
+
+crear en etc/elasticsearch una carpeta de stopwords y colocar el archivo ahi y luego colocar en el 
+"stopwords_path": "stopwords/stop_words.txt"
+
+tiene que hacerse antes de crear el index
+PUT ecosystem
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "std_english": { 
+          "type":      "standard",
+          "stopwords_path": "stopwords/stop_words.txt"
+        }
+      }
+    }
+  },
+  "mappings" : {
+    "company":{
+        "properties": {
+            "description": { 
+            "type":     "text",
+            "fielddata": true,
+            "analyzer": "std_english", 
+            "fields": {
+            "english": {
+                "type":     "text",
+                "analyzer": "std_english" 
+                }
+                }
+            },
+            "key_features": { 
+            "type":     "text",
+            "fielddata": true,
+            "analyzer": "std_english", 
+            "fields": {
+            "english": {
+                "type":     "text",
+                "analyzer": "std_english" 
+                }
+                }
+            }
+        }
+    }
+  }
+  
+}

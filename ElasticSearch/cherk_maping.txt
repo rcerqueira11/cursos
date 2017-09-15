@@ -162,3 +162,115 @@ curl -XPUT "http://localhost:9200/companies/_mapping/company" -H 'Content-Type: 
     }
   }
 }'
+
+
+
+GET companies/_mapping/company/field/description
+
+
+
+
+
+console
+PUT ecosystem
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "std_english": { 
+          "type":      "standard",
+          "stopwords": "_english_"
+        }
+      }
+    }
+  },
+  "mappings" : {
+    "company":{
+        "properties": {
+            "description": { 
+            "type":     "text",
+            "fielddata": true,
+            "analyzer": "std_english", 
+            "fields": {
+            "english": {
+                "type":     "text",
+                "analyzer": "std_english" 
+                }
+                }
+            },
+            "key_features": { 
+            "type":     "text",
+            "fielddata": true,
+            "analyzer": "std_english", 
+            "fields": {
+            "english": {
+                "type":     "text",
+                "analyzer": "std_english" 
+                }
+                }
+            }
+        }
+    }
+  }
+  
+}
+
+
+curl
+curl -XPUT "http://localhost:9200/ecosystem" -H 'Content-Type: application/json' -d'
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "std_english": { 
+          "type":      "standard",
+          "stopwords": "_english_"
+        }
+      }
+    }
+  },
+  "mappings" : {
+    "company":{
+        "properties": {
+            "description": { 
+            "type":     "text",
+            "fielddata": true,
+            "analyzer": "standard", 
+            "fields": {
+            "english": {
+                "type":     "text",
+                "analyzer": "std_english" 
+                }
+                }
+            },
+            "key_features": { 
+            "type":     "text",
+            "fielddata": true,
+            "analyzer": "standard", 
+            "fields": {
+            "english": {
+                "type":     "text",
+                "analyzer": "std_english" 
+                }
+                }
+            }
+        }
+    }
+  }
+  
+}'
+
+
+################### STOP WORDS
+
+PUT ecosystem/_settings
+{
+    "analysis": {
+      "analyzer": {
+        "std_english": { 
+          "type":      "standard",
+          "stopwords_path": "/home/rcerqueira/Codes/cursos/ElasticSearch/stop_words.txt"
+        }
+      }
+    }
+  }
