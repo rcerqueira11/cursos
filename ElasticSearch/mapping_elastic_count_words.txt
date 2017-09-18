@@ -38,7 +38,7 @@ PUT ecosystem
     "analysis": {
       "analyzer": {
         "std_english": { 
-          "type":      "standard",
+          "type": "standard",
           "stopwords_path": "stopwords/stop_words.txt"
         }
       }

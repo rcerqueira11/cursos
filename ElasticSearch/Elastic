@@ -9,3 +9,14 @@ with kibana console
 
 
 Elastic can be configurate to throw out some of the terms for example stop words
+
+
+The REST endpoint is /{index}/_close and /{index}/_open. For example:
+
+curl -XPOST 'localhost:9200/my_index/_close'
+
+curl -XPOST 'localhost:9200/my_index/_open'
+
+Settings
+
+curl -XGET 'http://localhost:9200/wazzup/_settings'
