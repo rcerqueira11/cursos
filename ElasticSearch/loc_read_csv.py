@@ -32,11 +32,12 @@ location_id = 0
 
 with open('lf.csv') as csvfile:
     reader = csv.DictReader(csvfile)
-    # f1=open('./f2.sql','w+')
+    f1=open('./lf.sql','w+')
     # f1=open('./f2.sql','w+')
     arr_gr= []
     arr_cap= []
     arr_key = []
+    arr_loc_id = []
     for index,row in enumerate(reader):
         id_company = index+1
         name = row['Company'].strip().lstrip() if row['Company'] else "" 
@@ -53,11 +54,10 @@ with open('lf.csv') as csvfile:
         # print >>f1, , , , , , 
 
 
-        # company_query = "INSERT INTO public.company(id,name, description, phone, email, website, twitter, linkedin, logo, owner_id, location_id) "+ \
         ############# COMPANIES ###############
         company_query = "INSERT INTO public.company(id, name, description, phone, email, website, twitter, linkedin, key_features) "+ \
         "VALUES ( "+str(id_company)+",'" + name+ "', '"+description+"', '"+phone+"', '"+email+"', '"+website+"', '"+twitter+"', '"+linkedin+"', '"+key_features+"');"
-        # insert_into_file(f1,company_query)
+        insert_into_file(f1,company_query)
         ############# COMPANIES ###############
 
         ############# LOCATION ###############
@@ -67,24 +67,15 @@ with open('lf.csv') as csvfile:
         longitudes = longitude.split("#")
         
         for index,location in enumerate(locations):
+            location_id = location_id + 1
             location = location.strip().lstrip()
             lat = latitudes[index]
             lon = longitudes[index]
-            print("location: ",location)
-            print("lat: ",lat)
-            print("lon: ",lon)
 
-            # partners = cap.replace(')','').replace('.','').split('with')
-            # partners2 = partners[1].split('and')
-            # for partner in partners2:
-            #     part_id = part_id + 1
-            #     if 'sei' in partner:
-            #         partner = 'SEI'
-            #     partner = partner.upper()
-            #     partner_query = "INSERT INTO public.partner(id, name) VALUES ("+str(part_id)+",'"+partner+"');"
-            #     # insert_into_file(f1,partner_query)
-            #     partner_company_query = "INSERT INTO public.company_partner(partner_id, company_id) VALUES ("+str(part_id)+","+ str(id_company)+");"
-                # insert_into_file(f1,partner_company_query)
+            location_query = "INSERT INTO public.location(id, name, latitude, longitude) VALUES ("+str(location_id)+",'"+location+"', '"+lat+"', '"+lon+"');"
+            insert_into_file(f1,location_query)
+            location_company_query = "INSERT INTO public.company_location(location_id, company_id) VALUES ("+str(location_id)+","+ str(id_company)+");"
+            insert_into_file(f1,location_company_query)
 
         ############# LOCATION ###############
 
@@ -106,7 +97,7 @@ with open('lf.csv') as csvfile:
             id_category = cindex + 1
             if val=='v':
                 category_query = "INSERT INTO public.company_category(category_id, company_id) VALUES ("+str(id_category)+","+str(id_company)+");"
-                # insert_into_file(f1, category_query)
+                insert_into_file(f1, category_query)
         ############# CATEGORIES ###############
 
         ############# BUSSINES MODEL ###############
@@ -125,7 +116,7 @@ with open('lf.csv') as csvfile:
 
             if not id_bmodel == '':
                 business_model_query = "INSERT INTO public.company_businessmodel(business_model_id, company_id) VALUES ("+str(id_bmodel)+","+str(id_company)+");"
-                # insert_into_file(f1, business_model_query)
+                insert_into_file(f1, business_model_query)
         ############# BUSSINES MODEL ###############
 
         ############# GROUPS ###############
@@ -144,7 +135,7 @@ with open('lf.csv') as csvfile:
             id_group = group_dict(group)
             if not id_group == "":
                 group_model_query = "INSERT INTO public.company_group(group_id, company_id) VALUES ("+str(id_group)+","+str(id_company)+");"
-                # insert_into_file(f1, group_model_query)
+                insert_into_file(f1, group_model_query)
                 
         ############# GROUPS ###############
 
@@ -171,30 +162,30 @@ with open('lf.csv') as csvfile:
                 part_id = part_id + 1
                 if 'sei' in partner:
                     partner = 'SEI'
-                partner = partner.upper()
+                partner = partner.upper().strip().lstrip()
                 partner_query = "INSERT INTO public.partner(id, name) VALUES ("+str(part_id)+",'"+partner+"');"
-                # insert_into_file(f1,partner_query)
+                insert_into_file(f1,partner_query)
                 partner_company_query = "INSERT INTO public.company_partner(partner_id, company_id) VALUES ("+str(part_id)+","+ str(id_company)+");"
-                # insert_into_file(f1,partner_company_query)
+                insert_into_file(f1,partner_company_query)
         
 
                 capability_query = "INSERT INTO public.company_capabilities(capability_id, company_id) VALUES ("+str(id_capability)+","+str(id_company)+");"
-                # insert_into_file(f1,capability_query)
+                insert_into_file(f1,capability_query)
 
         if in_house:
             id_capability = capabi_dict('inhouse')
             capability_query = "INSERT INTO public.company_capabilities(capability_id, company_id) VALUES ("+str(id_capability)+","+str(id_company)+");"
-            # insert_into_file(f1,capability_query)
+            insert_into_file(f1,capability_query)
 
         if in_servi:
             id_capability = capabi_dict('services')
             capability_query = "INSERT INTO public.company_capabilities(capability_id, company_id) VALUES ("+str(id_capability)+","+str(id_company)+");"
-            # insert_into_file(f1,capability_query)
+            insert_into_file(f1,capability_query)
             
         if in_not_tech:
             id_capability = capabi_dict('not technically inclined.')
             capability_query = "INSERT INTO public.company_capabilities(capability_id, company_id) VALUES ("+str(id_capability)+","+str(id_company)+");"
-            # insert_into_file(f1,capability_query)
+            insert_into_file(f1,capability_query)
             
 
 
@@ -214,7 +205,7 @@ with open('lf.csv') as csvfile:
     # for a in asd:
     #     if 'partner' in a:
     #         qwe = qwe + 1
-
+    # asa = set(arr_loc_id)
     # print(qwe)
     # print(max(arr_key))
     
