@@ -27,17 +27,47 @@ def capabi_dict(x):
 
     }[x]
 
+def location_dict(x):
+    return{
+
+    'San Francisco - California': 1,
+    'Chicago - Illinois': 2,
+    'Calgary - Alberta': 3,
+    'Vancouver - British Columbia': 4,
+    'Burlington - Ontario': 5,
+    'St. John - Newfoundland and Labrador': 6,
+    'Mountain View - California': 7,
+    'Kelowna - British Columbia': 8,
+    'Boston - Massachusetts': 9,
+    'Cambridge - Ontario': 10,
+    'Oakville - Ontario': 11,
+    'Burnaby - British Columbia': 12,
+    'Richmond Hill - Ontario': 13,
+    'New York - New York': 14,
+    'Waterloo - Ontario': 15,
+    'London - Ontario': 16,
+    'Victoria - British Columbia': 17,
+    'London - UK': 18,
+    'Montreal - Quebec': 19,
+    'Edmonton - Alberta': 20,
+    'Ottawa - Quebec': 21,
+    'Toronto - Ontario': 22,
+
+
+    }[x]
+
 part_id = 0
 location_id = 0
 
 with open('lf.csv') as csvfile:
     reader = csv.DictReader(csvfile)
-    f1=open('./lf.sql','w+')
+    f1=open('./lfloc.sql','w+')
     # f1=open('./f2.sql','w+')
     arr_gr= []
     arr_cap= []
     arr_key = []
     arr_loc_id = []
+    arr_locs = []
     for index,row in enumerate(reader):
         id_company = index+1
         name = row['Company'].strip().lstrip() if row['Company'] else "" 
@@ -67,13 +97,16 @@ with open('lf.csv') as csvfile:
         longitudes = longitude.split("#")
         
         for index,location in enumerate(locations):
-            location_id = location_id + 1
             location = location.strip().lstrip()
-            lat = latitudes[index]
-            lon = longitudes[index]
+            # if name=='Veedata':
+                # print(location)
+            location_id = location_dict(location)
+            # lat = latitudes[index]
+            # lon = longitudes[index]
 
-            location_query = "INSERT INTO public.location(id, name, latitude, longitude) VALUES ("+str(location_id)+",'"+location+"', '"+lat+"', '"+lon+"');"
-            insert_into_file(f1,location_query)
+            # location_query = "INSERT INTO public.location(id, name, latitude, longitude) VALUES ("+str(0)+",'"+location+"', '"+lat+"', '"+lon+"');"
+            # arr_locs.append(location_query)
+            #insert_into_file(f1,location_query)
             location_company_query = "INSERT INTO public.company_location(location_id, company_id) VALUES ("+str(location_id)+","+ str(id_company)+");"
             insert_into_file(f1,location_company_query)
 
@@ -208,9 +241,12 @@ with open('lf.csv') as csvfile:
     # asa = set(arr_loc_id)
     # print(qwe)
     # print(max(arr_key))
-    
+    # asd = set(arr_locs)
+    # # print(asd)
+    # for a in asd:
+    #     insert_into_file(f1,a)
     # # print obj
-    # insert_into_file(f1,obj)
+    # #insert_into_file(f1,obj)
     # asd = set(obj)
     # print(asd)
     # # for i in asd:
