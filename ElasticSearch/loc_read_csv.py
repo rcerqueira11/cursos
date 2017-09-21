@@ -61,7 +61,7 @@ location_id = 0
 
 with open('lf.csv') as csvfile:
     reader = csv.DictReader(csvfile)
-    f1=open('./lfloc.sql','w+')
+    f1=open('./lfs.sql','w+')
     # f1=open('./f2.sql','w+')
     arr_gr= []
     arr_cap= []
@@ -87,7 +87,7 @@ with open('lf.csv') as csvfile:
         ############# COMPANIES ###############
         company_query = "INSERT INTO public.company(id, name, description, phone, email, website, twitter, linkedin, key_features) "+ \
         "VALUES ( "+str(id_company)+",'" + name+ "', '"+description+"', '"+phone+"', '"+email+"', '"+website+"', '"+twitter+"', '"+linkedin+"', '"+key_features+"');"
-        insert_into_file(f1,company_query)
+        # insert_into_file(f1,company_query)
         ############# COMPANIES ###############
 
         ############# LOCATION ###############
@@ -98,6 +98,7 @@ with open('lf.csv') as csvfile:
         
         for index,location in enumerate(locations):
             location = location.strip().lstrip()
+            arr_loc_id.append(location)
             # if name=='Veedata':
                 # print(location)
             location_id = location_dict(location)
@@ -105,9 +106,9 @@ with open('lf.csv') as csvfile:
             # lon = longitudes[index]
 
             # location_query = "INSERT INTO public.location(id, name, latitude, longitude) VALUES ("+str(0)+",'"+location+"', '"+lat+"', '"+lon+"');"
-            # arr_locs.append(location_query)
             #insert_into_file(f1,location_query)
-            location_company_query = "INSERT INTO public.company_location(location_id, company_id) VALUES ("+str(location_id)+","+ str(id_company)+");"
+            location_company_query = "INSERT INTO public.company_location(location_id, company_id) VALUES ("+str(14)+","+ str(id_company)+");"
+            arr_locs.append(location_company_query)
             insert_into_file(f1,location_company_query)
 
         ############# LOCATION ###############
@@ -121,16 +122,16 @@ with open('lf.csv') as csvfile:
         # "6";"Robo Advisor"
         # "7";"Financial Crime & Cybersecurity"
         # "8";"Capital Markets"
-        # "9";"Artificial Intelligence"
+        # "9";"Artificial Intelligence" 
 
         arr_categories = [row['Lending'], row['Banking and Personal Financial Management(PFM)'], row['Payments and Money transfer'], row['Cyber Currency & Blockchain'], 
-                          row['Wealth & Investment Management'], row['Robo Advisor'], row['Financial Crime & Cybersecurity'], row['Capital Markets'], row['AI']]
+                          row['Wealth & Investment Management'], row['Robo Advisor'], row['Financial Crime & Cybersecurity'], row['Capital Markets'], row['AI'], row['Accounting']]
         # print arr_categories
         for cindex,val in enumerate(arr_categories):
             id_category = cindex + 1
             if val=='v':
                 category_query = "INSERT INTO public.company_category(category_id, company_id) VALUES ("+str(id_category)+","+str(id_company)+");"
-                insert_into_file(f1, category_query)
+                # insert_into_file(f1, category_query)
         ############# CATEGORIES ###############
 
         ############# BUSSINES MODEL ###############
@@ -149,7 +150,7 @@ with open('lf.csv') as csvfile:
 
             if not id_bmodel == '':
                 business_model_query = "INSERT INTO public.company_businessmodel(business_model_id, company_id) VALUES ("+str(id_bmodel)+","+str(id_company)+");"
-                insert_into_file(f1, business_model_query)
+                # insert_into_file(f1, business_model_query)
         ############# BUSSINES MODEL ###############
 
         ############# GROUPS ###############
@@ -168,7 +169,7 @@ with open('lf.csv') as csvfile:
             id_group = group_dict(group)
             if not id_group == "":
                 group_model_query = "INSERT INTO public.company_group(group_id, company_id) VALUES ("+str(id_group)+","+str(id_company)+");"
-                insert_into_file(f1, group_model_query)
+                # insert_into_file(f1, group_model_query)
                 
         ############# GROUPS ###############
 
@@ -197,28 +198,28 @@ with open('lf.csv') as csvfile:
                     partner = 'SEI'
                 partner = partner.upper().strip().lstrip()
                 partner_query = "INSERT INTO public.partner(id, name) VALUES ("+str(part_id)+",'"+partner+"');"
-                insert_into_file(f1,partner_query)
+                # insert_into_file(f1,partner_query)
                 partner_company_query = "INSERT INTO public.company_partner(partner_id, company_id) VALUES ("+str(part_id)+","+ str(id_company)+");"
-                insert_into_file(f1,partner_company_query)
+                # insert_into_file(f1,partner_company_query)
         
 
                 capability_query = "INSERT INTO public.company_capabilities(capability_id, company_id) VALUES ("+str(id_capability)+","+str(id_company)+");"
-                insert_into_file(f1,capability_query)
+                # insert_into_file(f1,capability_query)
 
         if in_house:
             id_capability = capabi_dict('inhouse')
             capability_query = "INSERT INTO public.company_capabilities(capability_id, company_id) VALUES ("+str(id_capability)+","+str(id_company)+");"
-            insert_into_file(f1,capability_query)
+            # insert_into_file(f1,capability_query)
 
         if in_servi:
             id_capability = capabi_dict('services')
             capability_query = "INSERT INTO public.company_capabilities(capability_id, company_id) VALUES ("+str(id_capability)+","+str(id_company)+");"
-            insert_into_file(f1,capability_query)
+            # insert_into_file(f1,capability_query)
             
         if in_not_tech:
             id_capability = capabi_dict('not technically inclined.')
             capability_query = "INSERT INTO public.company_capabilities(capability_id, company_id) VALUES ("+str(id_capability)+","+str(id_company)+");"
-            insert_into_file(f1,capability_query)
+            # insert_into_file(f1,capability_query)
             
 
 
@@ -230,7 +231,8 @@ with open('lf.csv') as csvfile:
 
             
 
-
+    # print(len(arr_loc_id))
+    # print(len(arr_locs))
     # # obj = {}
     # asd = set(arr_cap)
     # print(asd)
