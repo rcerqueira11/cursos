@@ -49,6 +49,9 @@ curl -XPUT "http://localhost:9200/loc_ecosystem" -H 'Content-Type: application/j
             },
             "geo_loc": {
                 "type": "geo_point"
+            },
+            "geo_loca": {
+                "type": "geo_point"
             }
         }
     }
