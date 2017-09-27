@@ -12,7 +12,7 @@ Pasos de instalacion
     > sudo apt-get update
     > sudo apt-get -y install default-jre
     > sudo apt-get -y install default-jdk
-
+mv 
 4- Instalar postgresql 9.6
 
 5- Cargar .sql en una bd nueva con el nombre "fintech_ecosystem"
@@ -29,47 +29,52 @@ Pasos de instalacion
 8- Crear el index de elasticsearch mediante la consola ejecutando el archivo del repositorio: 
     > sh elasticsearch/index_creation.sh 
     - O copiar y pegar lo siguiente en la consola:
-        curl -XPUT "http://localhost:9200/ecosystem" -H 'Content-Type: application/json' -d'
-        {
-        "settings": {
-            "analysis": {
-            "analyzer": {
-                "std_english": { 
-                "type": "standard",
-                "stopwords_path": "stopwords/stop_words.txt"
+       
+curl -XPUT "http://localhost:9200/ecosystem" -H 'Content-Type: application/json' -d'
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "std_english": { 
+          "type": "standard",
+          "stopwords_path": "stopwords/stop_words.txt"
+        }
+      }
+    }
+  },
+  "mappings" : {
+    "company":{
+        "properties": {
+            "description": { 
+            "type":     "text",
+            "fielddata": true,
+            "analyzer": "std_english", 
+            "fields": {
+            "english": {
+                "type":     "text",
+                "analyzer": "std_english" 
                 }
-            }
-            }
-        },
-        "mappings" : {
-            "company":{
-                "properties": {
-                    "description": { 
-                    "type":     "text",
-                    "fielddata": true,
-                    "analyzer": "std_english", 
-                    "fields": {
-                    "english": {
-                        "type":     "text",
-                        "analyzer": "std_english" 
-                        }
-                        }
-                    },
-                    "key_features": { 
-                    "type":     "text",
-                    "fielddata": true,
-                    "analyzer": "std_english", 
-                    "fields": {
-                    "english": {
-                        "type":     "text",
-                        "analyzer": "std_english" 
-                        }
-                        }
-                    }
                 }
+            },
+            "key_features": { 
+            "type":     "text",
+            "fielddata": true,
+            "analyzer": "std_english", 
+            "fields": {
+            "english": {
+                "type":     "text",
+                "analyzer": "std_english" 
+                }
+                }
+            },
+            "geo_loc": {
+                "type": "geo_point"
             }
-        }  
-        }'
+        }
+    }
+  }  
+}'
+
 
 9- Verificar que el index fue creado con:
     > curl 'localhost:9200/_cat/indices?v'
