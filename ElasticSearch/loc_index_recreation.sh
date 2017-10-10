@@ -1,38 +1,19 @@
-tenemos que habilitar el fielddata
-que por defecto esta en false, habilitarlo para los campos que se requiera
-luego de ello actualizar el index
 
 
+sudo cp stop_words.txt /etc/elasticsearch/stopwords
 
-PUT companies/_mapping/company
-{
-    "properties": {
-        "description": { 
-        "type":     "text",
-        "fielddata": true
-        }
-    }
-    
-}
+echo "Borrando index"
+curl -XDELETE 'localhost:9200/ecosystem?pretty'
+echo "\n"
 
-PUT companies/_mapping/company
-{
-    "properties": {
-        "key_features": { 
-        "type":     "text",
-        "fielddata": true
-        }
-    }
-    
-}
+sleep 1
 
-######
+echo "Show actual index"
+curl 'localhost:9200/_cat/indices?v'
+echo "\n"
 
-crear en etc/elasticsearch una carpeta de stopwords y colocar el archivo ahi y luego colocar en el 
-"stopwords_path": "stopwords/stop_words.txt"
-
-tiene que hacerse antes de crear el index
-PUT ecosystem
+echo "Recreating index"
+curl -XPUT "http://localhost:9200/ecosystem" -H 'Content-Type: application/json' -d'
 {
   "settings": {
     "analysis": {
@@ -68,9 +49,30 @@ PUT ecosystem
                 "analyzer": "std_english" 
                 }
                 }
+            },
+            "geo_loc": {
+                "type": "geo_point"
             }
         }
     }
-  }
-  
-}
+  }  
+}'
+
+echo "\n"
+echo "Show index created"
+curl 'localhost:9200/_cat/indices?v'
+
+
+echo "\n"
+echo "Copy .conf in /usr/share/logstash"
+sudo cp logstash-filter-loc.conf /usr/share/logstash/
+
+echo "\n"
+echo "Loading logstash config file"
+sudo /usr/share/logstash/bin/logstash -f logstash-filter-loc.conf
+
+sleep 2
+
+echo "\n"
+echo "Show index after logstash config"
+curl 'localhost:9200/_cat/indices?v'

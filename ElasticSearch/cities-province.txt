@@ -36,14 +36,14 @@ Location:British Columbia AND Location:Newfoundland and Labrador AND Location:Al
 'New York'
 'Massachusetts'
 
-Location: "British Columbia "
-Location: "Newfoundland and Labrador"
-Location: "Alberta"
-Location: "Ontario"
-Location: "Quebec"
-Location: "California"
-Location: "New York"
-Location: "Massachusetts"
+location: "British Columbia"
+location: "Newfoundland and Labrador"
+location: "Alberta"
+location: "Ontario"
+location: "Quebec"
+location: "California"
+location: "New York"
+location: "Massachusetts"
 
 
 

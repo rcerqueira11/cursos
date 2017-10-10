@@ -1,0 +1,91 @@
+Pasos de instalacion 
+
+1- Instalar elasticsearch, kibana, logstash
+    > elasticsearch 5.5.2
+    > logstash 5.5.2
+    > kibana 5.5.2
+    
+2- Instalar el plugin de logstash jdbc_streaming
+    > bin/logstash-plugin install logstash-filter-jdbc_streaming  
+
+3- Instalar el jdk (version>=8) para el jar de postgres
+    > sudo apt-get update
+    > sudo apt-get -y install default-jre
+    > sudo apt-get -y install default-jdk
+mv 
+4- Instalar postgresql 9.6
+
+5- Cargar .sql en una bd nueva con el nombre "fintech_ecosystem"
+    - crear bd: 
+        > PGPASSWORD='123456' createdb -h localhost -p 5432 -U postgres "fintech_ecosystem"
+        // o el pass,serv y port correspondiente
+    - cargar .sql
+        > PGPASSWORD='123456' psql -h localhost -p 5432 -U postgres fintech_ecosystem < path/to/dump_fintech_ecosystem.sql
+
+6- Agregar el "postgresql-42.1.4.jre6.jar" a una direccion donde se pueda acceder luego por logstash.
+
+7- Crear en /etc/elasticsearch una carpeta llamada stopwords y agregar el archivo "stop_words.txt"
+
+8- Crear el index de elasticsearch mediante la consola ejecutando el archivo del repositorio: 
+    > sh elasticsearch/index_creation.sh 
+    - O copiar y pegar lo siguiente en la consola:
+       
+curl -XPUT "http://localhost:9200/ecosystem" -H 'Content-Type: application/json' -d'
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "std_english": { 
+          "type": "standard",
+          "stopwords_path": "stopwords/stop_words.txt"
+        }
+      }
+    }
+  },
+  "mappings" : {
+    "company":{
+        "properties": {
+            "description": { 
+            "type":     "text",
+            "fielddata": true,
+            "analyzer": "std_english", 
+            "fields": {
+            "english": {
+                "type":     "text",
+                "analyzer": "std_english" 
+                }
+                }
+            },
+            "key_features": { 
+            "type":     "text",
+            "fielddata": true,
+            "analyzer": "std_english", 
+            "fields": {
+            "english": {
+                "type":     "text",
+                "analyzer": "std_english" 
+                }
+                }
+            },
+            "geo_loc": {
+                "type": "geo_point"
+            }
+        }
+    }
+  }  
+}'
+
+
+9- Verificar que el index fue creado con:
+    > curl 'localhost:9200/_cat/indices?v'
+
+10- Configuracion del archivo logstash-filter.conf
+    > set serv, port, nombre_bd<fintech_ecosystem>, bd_password, path/to/postgresql-42.1.4.jre6.jar, 
+
+11- Copiar el archivo de configuracion "logstash-filter.conf" en "/usr/share/logstash"
+
+12- Cargar la configuracion de logstash, para ello correr en "/usr/share/logstash":
+    > bin/logstash -f logstash-filter.conf
+
+13- Verificar que el size del index cambio con:
+    > curl 'localhost:9200/_cat/indices?v'

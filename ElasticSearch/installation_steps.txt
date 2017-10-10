@@ -1,0 +1,45 @@
+Installation Steps
+
+1- Install elasticsearch, kibana, logstash
+    > elasticsearch 5.5.2
+    > logstash 5.5.2
+    > kibana 5.5.2
+    
+2- Install the logstash plugin jdbc_streaming
+    > bin/logstash-plugin install logstash-filter-jdbc_streaming  
+
+3- Install jdk (version>=8) for postgres jar 
+    > sudo apt-get update
+    > sudo apt-get -y install default-jre
+    > sudo apt-get -y install default-jdk
+
+4- Install postgresql 9.6
+
+5- Create a postgres db with the name "fintech_ecosystem"
+    > PGPASSWORD=<pass> createdb -h <serv> -p <port> -U postgres "fintech_ecosystem"
+    
+    examp: PGPASSWORD='123456' createdb -h localhost -p 5432 -U postgres "fintech_ecosystem"
+    
+    
+6- Load dump_fintech_ecosystem.sql to fintech_ecosystem database
+    > PGPASSWORD=<pass> createdb -h <serv> -p <port> -U postgres fintech_ecosystem < path/to/repo/postgres/dump_fintech_ecosystem.sql
+
+
+7- Create a folder called stopwords in /etc/elasticsearch and add the file "stop_words.txt" located in path/to/repo/elasticsearch/stopwords/stop_words.txt
+
+8- Execute path/to/repo/elasticsearch/index_creation.sh to create the elastic index:
+    > sh elasticsearch/index_creation.sh 
+
+9- Check the 'ecosystem' index was created:
+    > curl 'localhost:9200/_cat/indices?v'
+
+10- Configure logstash-filter.conf file with the serv, port, db_name<fintech_ecosystem>, db_password, path/to/repo/postgres/postgresql-42.1.4.jre6.jar the file
+    is in path/to/repo/logstash
+
+11- Copy the "logstash-filter.conf" file in "/usr/share/logstash"
+
+12- Run the "logstash-filter.conf" file in "/usr/share/logstash" with:
+    > /usr/share/logstash/bin/logstash -f logstash-filter.conf
+
+13- Check ecosystem index size change in order to know everything load well:
+    > curl 'localhost:9200/_cat/indices?v'
