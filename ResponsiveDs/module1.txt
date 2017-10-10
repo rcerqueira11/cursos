@@ -1,0 +1,93 @@
+reasize boxes help with those who go down with a padding
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+if we have two element
+we can 
+
+.grid-child{
+	width: 50%;
+	float: left;
+}
+
+---
+
+.header {
+	color: blue;
+}
+
+.header a {
+	color: inherit;
+	>hereda el color de header arriba y si se cambia solo tiene que hacerse en header
+}
+
+-- nav bar
+
+.logo-block{
+	float: left;
+}
+
+lo pone a la derecha
+.nav-block {
+	float:right;
+}
+
+los links estan horitontales
+.nav li, nav li a{
+	display: inline-block;
+	vertical-align: top;
+}
+
+coloca un cuadro al rededor transp
+nav li a{
+	padding: 10px;
+}
+
+
+colocar padding a un a
+generalmente no lo respetan 
+a menos que se le coloque 
+display block
+
+.logo {
+	padding: 10px 0 0 0;
+	display: block;
+}
+
+for images by the moment
+img src="http://placehold.it/30x30"
+
+footer style
+
+.footer{
+	color: rgba(255,255,255,0.8)
+	background-color :#555;
+	text-aling: center;
+	padding: 10px 0;
+}
+
+.footer a{
+	color: #fff;
+}
+
+.footer-copyright-block{
+	font-size: 80%;
+	margin: 10px 0 0 0;
+}
+
+on media query 700px
+
+.footer{
+	text-align: left;
+}
+
+footer-social-block {
+	float: left;
+}
+footer-copyright-block {
+	float: right;
+}
