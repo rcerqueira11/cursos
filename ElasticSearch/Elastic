@@ -20,3 +20,7 @@ curl -XPOST 'localhost:9200/my_index/_open'
 Settings
 
 curl -XGET 'http://localhost:9200/wazzup/_settings'
+
+
+
+1rlseIEPrjdzS4ZexrhjcnDU

@@ -1,0 +1,81 @@
+Add a data source
+
+$ lb datasource
+
+
+
+Creating a database schema from models
+
+LoopBack auto-migration creates a database schema based on your application’s models. In relational databases, auto-migration creates a table for each model, and a column in the table for each property in the model. Auto-migration creates tables for all models attached to a data source, including  built-in models
+
+Once you have defined a model, LoopBack can create or update (synchronize) the database schemas accordingly, if you need to adjust the database to match the models. LoopBack provides two ways to synchronize model definitions with table schemas:
+
+Auto-migrate: Automatically create or re-create the table schemas based on the model definitions. 
+Auto-update: Automatically alter the table schemas based on the model definitions.
+
+/// Warning: Auto-migration will drop an existing table if its name matches a model name. When tables with data exist, use auto-update to avoid data loss.
+
+
+automigrate() : will drop and re-create the tables, Therefore, data will be lost
+autoupdate() : Instead of dropping tables and recreating them, calculates the difference between the LoopBack model and the database table definition and alters the table accordingly
+
+To check if database changes are required, use the isActual() method. 
+It accepts a callback argument that receives a Boolean value depending on database state:
+
+    -False if the database structure outdated
+    -True when data source and database is in sync
+
+dataSource.isActual(models, function(err, actual) {
+  if (!actual) {
+    dataSource.autoupdate(models, function(err, result) {
+      // ...
+    });
+  }
+});
+
+Remotes Methods 
+
+ Coffeeshop.bleh = function(cb){
+        console.log('bleh bleh');
+        var response;
+        response = 'bleh!';
+        cb(null, response);
+    };
+    Coffeeshop.remoteMethod(
+        'bleh', {
+            http: {
+                path:'/bleh', 
+                verb: 'get'
+            },
+            returns: {
+                arg: 'bleh',
+                type: 'string'
+            }
+        }
+    );
+    Coffeeshop.getName = function(shopId, cb){
+        Coffeeshop.findById( shopId, function(err, instance){
+            var response = "Name of coffee shop is " + instance.name;
+            cb(null,response);
+            console.log(response);
+        });
+    }
+    Coffeeshop.remoteMethod(
+        'getName',{
+            http: {
+                path: '/getname',
+                verb: 'get'
+            },
+            accepts: {
+                arg:'id',
+                type:'number',
+                http: {
+                    source: 'query'
+                }
+            },
+            returns: {
+                arg: 'name',
+                type: 'string'        
+            }
+        }
+    );
