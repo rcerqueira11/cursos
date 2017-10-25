@@ -240,3 +240,11 @@ LoopBack also provides operation hooks, functions that are executed before or af
 as creating, saving, and updating model data, regardless of how those operations are invoked. 
 In contrast, a remote hook is called only when the exact method you specify is invoked.
 """
+
+
+
+Generate lb-services.js
+
+npm install -g loopback-sdk-angular-cli
+
+create client/js/services
