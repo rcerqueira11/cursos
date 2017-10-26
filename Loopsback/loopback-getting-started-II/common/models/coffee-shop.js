@@ -71,4 +71,8 @@ module.exports = function(CoffeeShop) {
             }
         }
     );
+    // CoffeeShop.disableRemoteMethodByName('create');
+    // CoffeeShop.disableRemoteMethodByName('findById');
+    // CoffeeShop.disableRemoteMethodByName('find');
+    // CoffeeShop.disableRemoteMethodByName('bleh');
 };
