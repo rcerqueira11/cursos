@@ -1,0 +1,359 @@
+{
+    "name": "logger",
+    "enabled": true,
+    "hostname": "debian",
+    "pid": 10327,
+    "req_id": "d514fefe-edef-4798-bf9d-88ce5fe40a55",
+    "level": 50,
+    "remote-address": "127.0.0.1",
+    "ip": "127.0.0.1",
+    "method": "POST",
+    "url": "/api/v1/payments",
+    "referer": "-",
+    "user-agent": {
+        "family": "Other",
+        "major": "0",
+        "minor": "0",
+        "patch": "0",
+        "device": {
+            "family": "Other",
+            "major": "0",
+            "minor": "0",
+            "patch": "0"
+        },
+        "os": {
+            "family": "Other",
+            "major": "0",
+            "minor": "0",
+            "patch": "0"
+        }
+    },
+    "body": {
+        "amount": "100.00",
+        "description": "test",
+        "cardHolder": "Jorge Garzon",
+        "CVC": "232",
+        "expirationMonth": "12",
+        "expirationYear": "2019",
+        "statusId": "1",
+        "IP": "85.92.4778.203",
+        "cardHolderEmail": "ricardasdasdo@email.com",
+        "cardNumber": "8244001100110011",
+        "cardHolderId": "145237"
+    },
+    "short-body": "{ amount: '100.00',\n",
+    "http-version": "1.1",
+    "response-time": 110.819883,
+    "response-hrtime": [0, 110819883],
+    "status-code": 500,
+    "req-headers": {
+        "cache-control": "no-cache",
+        "postman-token": "f07bd849-945a-4f23-8ea0-2ee8ed113d7f",
+        "content-type": "application/x-www-form-urlencoded",
+        "authorization": "Basic MDY4NGVmYjM1ZWFhZjE2ZjY4YjdkYjM0ZGJhMThiODI6ZDNiNThkNTRkNWM4NTE2MGJkZThhY2M0YzM3MDgzM2EzNGFkODQxZQ==",
+        "user-agent": "PostmanRuntime/6.2.5",
+        "accept": "*/*",
+        "host": "localhost:3000",
+        "accept-encoding": "gzip, deflate",
+        "content-length": "222",
+        "connection": "keep-alive"
+    },
+    "res-headers": {
+        "vary": "Origin, Accept-Encoding",
+        "access-control-allow-credentials": "true",
+        "x-xss-protection": "1; mode=block",
+        "x-frame-options": "DENY",
+        "x-download-options": "noopen",
+        "x-content-type-options": "nosniff",
+        "content-type": "application/json; charset=utf-8"
+    },
+    "incoming": "<--",
+    "msg": "127.0.0.1 <-- POST /api/v1/payments HTTP/1.1 500 - - Other 0.0 Other 0.0.0 110.819883 ms",
+    "time": "2017-10-31T19:31:17.751Z",
+    "v": 0
+} {
+    "name": "logger",
+    "enabled": true,
+    "hostname": "debian",
+    "pid": 10550,
+    "req_id": "60ea15fc-9846-4651-a65e-3df888dc5823",
+    "level": 50,
+    "remote-address": "127.0.0.1",
+    "ip": "127.0.0.1",
+    "method": "POST",
+    "url": "/api/v1/payments",
+
+
+    "referer": "-",
+    "user-agent": {
+        "family": "Other",
+        "major": "0",
+        "minor": "0",
+        "patch": "0",
+        "device": {
+            "family": "Other",
+            "major": "0",
+            "minor": "0",
+            "patch": "0"
+        },
+        "os": {
+            "family": "Other",
+            "major": "0",
+            "minor": "0",
+            "patch": "0"
+        }
+    },
+    "body": {
+        "amount": "100.00",
+        "description": "test",
+        "cardHolder": "Jorge Garzon",
+        "CVC": "232",
+        "expirationMonth": "12",
+        "expirationYear": "2019",
+        "statusId": "1",
+        "IP": "85.92.4778.203",
+        "cardHolderEmail": "ricardasdasdo@email.com",
+        "cardNumber": "8244001100110011",
+        "cardHolderId": "145237"
+    },
+    "short-body": "{ amount: '100.00',\n",
+    "http-version": "1.1",
+    "response-time": 279.933526,
+    "response-hrtime": [0, 279933526],
+    "status-code": 500,
+    "req-headers": {
+        "cache-control": "no-cache",
+        "postman-token": "ed238e73-f5b8-460c-928a-36508ccb30e8",
+        "content-type": "application/x-www-form-urlencoded",
+        "authorization": "Basic MDY4NGVmYjM1ZWFhZjE2ZjY4YjdkYjM0ZGJhMThiODI6ZDNiNThkNTRkNWM4NTE2MGJkZThhY2M0YzM3MDgzM2EzNGFkODQxZQ==",
+        "user-agent": "PostmanRuntime/6.2.5",
+        "accept": "*/*",
+        "host": "localhost:3000",
+        "accept-encoding": "gzip, deflate",
+        "content-length": "222",
+        "connection": "keep-alive"
+    },
+    "res-headers": {
+        "vary": "Origin, Accept-Encoding",
+        "access-control-allow-credentials": "true",
+        "x-xss-protection": "1; mode=block",
+        "x-frame-options": "DENY",
+        "x-download-options": "noopen",
+        "x-content-type-options": "nosniff",
+        "content-type": "application/json; charset=utf-8"
+    },
+    "incoming": "<--",
+    "msg": "127.0.0.1 <-- POST /api/v1/payments HTTP/1.1 500 - - Other 0.0 Other 0.0.0 279.933526 ms",
+    "time": "2017-10-31T19:32:54.372Z",
+    "v": 0
+}
+
+{
+    "name": "logger",
+    "enabled": true,
+    "hostname": "debian",
+    "pid": 11239,
+    "req_id": "3eaff6b9-63c1-4d98-8869-1279f44a1714",
+    "level": 50,
+    "remote-address": "127.0.0.1",
+    "ip": "127.0.0.1",
+    "method": "POST",
+    "url": "/api/v1/payments",
+    "referer": "-",
+    "user-agent": {
+        "family": "Other",
+        "major": "0",
+        "minor": "0",
+        "patch": "0",
+        "device": {
+            "family": "Other",
+            "major": "0",
+            "minor": "0",
+            "patch": "0"
+        },
+        "os": {
+            "family": "Other",
+            "major": "0",
+            "minor": "0",
+            "patch": "0"
+        }
+    },
+    "http-version": "1.1",
+    "response-time": 108.266659,
+    "response-hrtime": [0, 108266659],
+    "status-code": 500,
+    "req-headers": {
+        "cache-control": "no-cache",
+        "postman-token": "7810a44c-a913-4fd9-9fab-edb0c9e99d69",
+        "content-type": "application/x-www-form-urlencoded",
+        "authorization": "Basic MDY4NGVmYjM1ZWFhZjE2ZjY4YjdkYjM0ZGJhMThiODI6ZDNiNThkNTRkNWM4NTE2MGJkZThhY2M0YzM3MDgzM2EzNGFkODQxZQ==",
+        "user-agent": "PostmanRuntime/6.2.5",
+        "accept": "*/*",
+        "host": "localhost:3000",
+        "accept-encoding": "gzip, deflate",
+        "content-length": "222",
+        "connection": "keep-alive"
+    },
+    "res-headers": {
+        "vary": "Origin, Accept-Encoding",
+        "access-control-allow-credentials": "true",
+        "x-xss-protection": "1; mode=block",
+        "x-frame-options": "DENY",
+        "x-download-options": "noopen",
+        "x-content-type-options": "nosniff",
+        "content-type": "application/json; charset=utf-8"
+    },
+    "incoming": "<--",
+    "msg": "127.0.0.1 <-- POST /api/v1/payments HTTP/1.1 500 - - Other 0.0 Other 0.0.0 108.266659 ms",
+    "time": "2017-10-31T19:34:24.019Z",
+    "v": 0
+}
+
+{
+    "name": "logger",
+    "enabled": true,
+    "hostname": "debian",
+    "pid": 12078,
+    "req_id": "38d0e431-d6f8-4fdc-9cb9-3a0db3bda3a0",
+    "level": 50,
+    "remote-address": "127.0.0.1",
+    "ip": "127.0.0.1",
+    "method": "POST",
+    "url": "/api/v1/payments",
+    "referer": "-",
+    "user-agent": {
+        "family": "Other",
+        "major": "0",
+        "minor": "0",
+        "patch": "0",
+        "device": {
+            "family": "Other",
+            "major": "0",
+            "minor": "0",
+            "patch": "0"
+        },
+        "os": {
+            "family": "Other",
+            "major": "0",
+            "minor": "0",
+            "patch": "0"
+        }
+    },
+    "http-version": "1.1",
+    "response-time": 111.975603,
+    "response-hrtime": [0, 111975603],
+    "status-code": 500,
+    "incoming": "<--",
+    "msg": "127.0.0.1 <-- POST /api/v1/payments HTTP/1.1 500 - - Other 0.0 Other 0.0.0 111.975603 ms",
+    "time": "2017-10-31T19:38:09.857Z",
+    "v": 0
+}
+
+{
+    "name": "logger",
+    "enabled": true,
+    "hostname": "debian",
+    "pid": 13396,
+    "req_id": "c55ffda5-dcf4-4bb0-ac5d-8302cfa33255",
+    "level": 50,
+    "remote-address": "127.0.0.1",
+    "ip": "127.0.0.1",
+    "method": "POST",
+    "url": "/api/v1/payments",
+    "referer": "-",
+    "http-version": "1.1",
+    "response-time": 195.158427,
+    "response-hrtime": [0, 195158427],
+    "status-code": 500,
+    "incoming": "<--",
+    "msg": "127.0.0.1 <-- POST /api/v1/payments HTTP/1.1 500 - - Other 0.0 Other 0.0.0 195.158427 ms",
+    "time": "2017-10-31T19:45:19.123Z",
+    "v": 0
+}
+
+{
+    "name": "logger",
+    "enabled": true,
+    "hostname": "debian",
+    "pid": 14817,
+    "req_id": "4062cdec-ed9a-4fff-b8b7-8a24fc91c25d",
+    "level": 50,
+    "remote-address": "127.0.0.1",
+    "ip": "127.0.0.1",
+    "method": "POST",
+    "url": "/api/v1/payments",
+    "referer": "-",
+    "http-version": "1.1",
+    "response-time": 85.084897,
+    "response-hrtime": [0, 85084897],
+    "status-code": 500,
+    "incoming": "<--",
+    "msg": "127.0.0.1 <-- POST /api/v1/payments HTTP/1.1 500 - - Other 0.0 Other 0.0.0 85.084897 ms",
+    "time": "2017-10-31T19:47:46.573Z",
+    "v": 0
+} {
+    "name": "logger",
+    "enabled": true,
+    "hostname": "debian",
+    "pid": 14817,
+    "req_id": "d3b3d2ab-de4a-4ef3-a142-d0d2ac92cc4b",
+    "level": 50,
+    "remote-address": "127.0.0.1",
+    "ip": "127.0.0.1",
+    "method": "POST",
+    "url": "/api/v1/payments",
+    "referer": "-",
+    "http-version": "1.1",
+    "response-time": 15.758631,
+    "response-hrtime": [0, 15758631],
+    "status-code": 500,
+    "incoming": "<--",
+    "msg": "127.0.0.1 <-- POST /api/v1/payments HTTP/1.1 500 - - Other 0.0 Other 0.0.0 15.758631 ms",
+    "time": "2017-10-31T19:47:54.170Z",
+    "v": 0
+}
+
+{
+    "name": "logger",
+    "enabled": true,
+    "hostname": "debian",
+    "pid": 18698,
+    "req_id": "a994d9d7-8497-466d-8f27-2f977472bee8",
+    "level": 50,
+    "remote-address": "127.0.0.1",
+    "ip": "127.0.0.1",
+    "method": "POST",
+    "url": "/api/v1/payments",
+    "referer": "-",
+    "http-version": "1.1",
+    "response-time": 208.381737,
+    "response-hrtime": [0, 208381737],
+    "status-code": 500,
+    "incoming": "<--",
+    "msg": "127.0.0.1 <-- POST /api/v1/payments HTTP/1.1 500 - - Other 0.0 Other 0.0.0 208.381737 ms",
+    "time": "2017-10-31T19:58:42.557Z",
+    "v": 0
+}
+
+
+{
+    "name": "logger",
+    "enabled": true,
+    "hostname": "debian",
+    "pid": 19788,
+    "req_id": "adbff0ef-5482-4d93-883c-d04a20c6c985",
+    "level": 50,
+    "remote-address": "127.0.0.1",
+    "ip": "127.0.0.1",
+    "method": "POST",
+    "url": "/api/v1/payments",
+    "referer": "-",
+    "http-version": "1.1",
+    "response-time": 21.885891,
+    "response-hrtime": [0, 21885891],
+    "status-code": 500,
+    "incoming": "<--",
+    "msg": "127.0.0.1 <-- POST /api/v1/payments HTTP/1.1 500 - - Other 0.0 Other 0.0.0 21.885891 ms",
+    "time": "2017-10-31T20:05:41.308Z",
+    "v": 0
+}
