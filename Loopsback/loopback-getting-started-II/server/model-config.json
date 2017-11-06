@@ -41,7 +41,7 @@
           "create": true,
           "findById": true,
           "find": true,
-          "bleh": true
+          "bleh": true,
 
         }
       }

@@ -248,3 +248,35 @@ Generate lb-services.js
 npm install -g loopback-sdk-angular-cli
 
 create client/js/services
+
+
+HIDE FROM EXPLORE WHITELIST
+
+
+model-config.json
+
+"CoffeeShop": {
+    "dataSource": "postgresIDs",
+    "options": {
+      "remoting": {
+        "sharedMethods": {
+          "*": false,
+          "create": true,
+          "findById": true,
+          "find": true,
+          "bleh": true,
+        }
+      }
+    }
+  },
+
+
+"*": false,                                 // removes all methods
+// "create": true,                          // add (POST) /model
+// "upsert": true,                          // add (PUT) /model
+// "deleteById": true,                      // add (DELETE) /model/:id
+// "updateAll": true,                       // add (POST) /model/update
+// "prototype.updateAttributes": true,      // add (PUT) /model/:id
+// "createChangeStream": true,              // add (GET|POST) /model/change-stream
+// "findById": true,                        // add (GET) /model/id
+// "find": true,                            // add (GET) /model
