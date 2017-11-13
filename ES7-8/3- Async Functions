@@ -1,0 +1,185 @@
+Callbacks:
+    - a function supplied as a parameter to a function
+    - the fnction will execute it whe it's complete
+
+    example:
+        fetchRides(rides => {
+            //process rides
+        });
+
+        function fetchRides(callbacks) {
+            //get rides from server e.g with XmlHttpRequest
+            callbacks(rides);
+        }
+
+        looks unreadeble
+        try{
+            fetchRides(rides => {
+                try{
+                    fetchVisits(rides, visits => {
+                        try {
+                            fetchVisitors(visits, visitors => {
+                                //process visitors
+                            });
+                        }
+                        catch (err) {}
+                    });
+                }
+                catch (err) {}
+            });
+        }
+        catch (err) {}
+        
+        to make this better we use promises
+
+Promises:
+    - placeholder object for eventual result
+    - when resolved it makes the result available
+    - handles workflow 
+    - states: 
+        - pending:result is not yet available
+        - fulfilled: when is available
+        - rejected: when something went wrong
+    - chainable
+    - part of ES2015 aka ES6
+
+    example
+        fetchRides().then(rides => {
+            //process rides
+        });
+        - no call back
+        - then given a fucton wich is called by the promise when the promise is resolved
+
+    function fetchRides() {
+        return new Promise((resolve,reject)=> {
+            //get rides form server e.g with XmlHttpRequest
+            resolve(rides);
+            //if error
+            reject(errorInfo);
+        });
+    };
+
+    now more readeable chain
+
+    fetchRides().then(rides => {
+        return fetchVisits(rides);
+    }).then(visits => {
+        return fetchVisitors(visits);
+    }).then(visitors => {
+        //process visitors
+    });
+
+    Promises: Error Handling
+    to handle errors add a catch to the chain
+    fetchRides().then(rides => {
+        return fetchVisits(rides);
+    }).then(visits => {
+        return fetchVisitors(visits);
+    }).then(visitors => {
+        //process visitors
+    }).catch(errorInfo => {
+        //handle error
+    });
+
+
+    Portability of Promises
+
+    let ridesPromise = fetchRides();
+    //later
+    ridesPromise.then(rides => {
+        //process rides
+    });
+
+    Promise.all: takes multiple promises and returns a promise which resolves when all supplied promises are done.
+    Promise.race: takes multiple promises. it resolver when the first (fastest) promise is done. (optionaly returning only the result of that promise)
+
+
+Async:
+    - keyword to add to the declaration of a function 
+    - everything you return from that function will be wrapped in a resolved promise
+    - if you throw in the funtion the promise will return in the rejected state
+
+    Returning Promises in an Async Function
+
+    if your do this that promise is not wrapped in another promise
+    let fetchRides = async() => {
+        return httpGet("https://api.com/rides"); // returns promise
+    }
+
+    let result = fetchRides();
+
+    // result is singular promise
+
+Await
+    - keyword you can add before a call to any function that returns a promise
+    - only works inside an async function
+    - is makes sure the promise is done before continuing the async function
+    - if the function executes successfully the result of await is the return value of the function called
+    - if the function fails await throws the rejection value
+
+Sequential vs Parallel
+
+    - secuentialy
+        deseable cuando la segunda depende de la primera
+        async () => {
+            await asyncFunction1();
+            await asyncFunction2();
+        }
+
+    - parallel
+         cuando no necesitas un resultado fire-and-forget style functions
+         async () => {
+             await Promise.all([asyncFunction1(), asyncFunction2()]);
+         }
+
+         esperara a que todas las promesas del arreglo resuelvan y regresa todo como una promesa que el await espera
+
+Promisifying
+
+
+    example:
+        function httpRequest(method, url, done){
+            var xhr = new XMLHttpRequest();
+            xhr.open(method, url);
+            xhr.onload = function() {
+                done(null, xhr.response);
+            };
+            xhr.onerror = function () {
+                done(xhr.response);
+            };
+            xhr.send();
+        }
+
+        with promises
+
+        funtion httpRequest(method, url){
+            return new Promise(function (resolve,reject){
+                var xhr - new XMLHttpRequest();
+                xhr.open(method,url);
+                xhr.onload = function () {
+                    if (this.status >= 200 && this.status < 300){
+                        resolve(xhr.response);
+                    } else {
+                        reject({ status: this.status, statusText: xhr.statusText});
+                    }
+                };
+                xhr.onerror = function () {
+                    reject({status: this.status, statusText: xhr.statusText});
+                };
+                xhr.send();
+            });
+        }
+
+    - now you can call it in a async function with the away keyword
+
+Async and Await
+
+    try {
+        let rides = await fetchRides();
+        let visits = await fetchVisits(rides);
+        let visitors = await fetchVisitors(visits);
+        //process visitors
+    }
+    carch (err) {
+        //handle error 
+    }

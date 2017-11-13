@@ -1,0 +1,35 @@
+Transpile: convert new syntax in older syntax
+Polufills: string, prototype features
+Simulate: feature proxys
+
+node Babel
+babel-polyfill
+integrate in development pipeline
+preset-env : configurate platform versions in .babelrc
+
+to install babel locally
+
+> npm install  --save-dev bable bable-polyfill babel-preset-env
+
+the we create a .bablerc
+
+> type .babelrc
+in the file instead of browsers you can set node when u runn it with node
+{
+    "presets":[
+        "env",
+        {
+            "targets":{
+                "browsers":["last 2 versions", "ie>=7"]
+            }
+        }
+    ]
+}
+
+to try it u can make a js file ES2017.js with
+async function add(x){
+    return x + 1;
+};
+
+babel ES2017.js
+

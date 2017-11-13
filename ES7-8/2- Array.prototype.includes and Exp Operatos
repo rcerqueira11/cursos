@@ -1,0 +1,37 @@
+Array.prototype.includes
+
+u can define an array in multiple ways and define a funtion to it
+number.count 
+
+let numbers = [1,2,3,4];
+let modeNumbers = new Array(1,2,3,4);
+
+#number.count = funtion () {
+#    return this.length;
+#}
+
+but if you define the funtion to the array tipe all arrys will hace the function
+
+
+Array.prototype.count = funtion () {
+    return this.length;
+}
+
+console.log(numbers.count());
+console.log(nodeNumbers.count());
+
+Array.prototype.includes 
+    - checks if an array contains a specified value
+    - returns a boolean
+    - previously prototype.indexOf
+
+works in objects
+    - look in the element if the same instance is present
+
+can fin NaN value
+
+
+Exponentiation Operator
+
+    - **
+    - 3 ** 4

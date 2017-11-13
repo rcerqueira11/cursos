@@ -10,14 +10,14 @@ tokenize text into words
 - the have the source of the documents in wich this words where found
 the word is map to one or more source document
 
-dictionary is wors + ocurrency 
+dictionary is words + ocurrency 
 posting = source where is found 
 
 bool on search
     - coming or strong : one or another
     - fury and growing: both of them
 
-Sarches using inverted indices
+Searches using inverted indices
 
 find all words ending with ong 
 
