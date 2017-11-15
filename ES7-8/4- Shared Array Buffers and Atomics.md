@@ -131,4 +131,4 @@ self.addEventListener('message', (event) => {
 - stringview.js
 - complex objects: FlatJS 
 
-## Atomics
+## Atomic
