@@ -127,8 +127,8 @@ self.addEventListener('message', (event) => {
 
 ### Sharing data other than integer
 
-- string: TextEncodes/TextDecoder
-- stringview.js
-- complex objects: FlatJS 
+- TextEncodes/TextDecoder for strings
+- stringview.js for strings
+- FlatJS for complex objects
 
 ## Atomic
