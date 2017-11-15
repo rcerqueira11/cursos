@@ -78,7 +78,57 @@ view[0]=1000; // set the first 2bytes to 1000
 
 ## SharedArrayBuffer 
 
+- enable the sharing of binary data across threads
+- web workers can work on the underlying binary data simultaneously
+    - usefull when data has to be pulled in form a server, to be number crunched for example.
+
+```javascript
+
+let barBuffer = new SharedArrayBuffer(5 * 3); //5bytes x number of bars
+let uInt8View = new Uint8Array(barBuffer);
+
+let calculateBar = (barPosition) => {
+    return new Promise((resolve) => {
+        let worker = new Worker('m4-3_worker.js');
+        worker.postMessage({ barPosition: barPosition, buffer: barBuffer })
+        worker.onmessage = () => {
+            resolve();
+        };
+    });
+}
+
+let promises = [];
+
+promises.push(calculateBar(0));
+promises.push(calculateBar(1));
+promises.push(calculateBar(2));
+
+
+Promise.all(promises).then(()=> {
+    draw(uInt8View[0], uInt8View[1], [uInt8View[2], uInt8View[3], uInt8View[4]]);
+    draw(uInt8View[5], uInt8View[6], [uInt8View[7], uInt8View[8], uInt8View[9]]);
+    draw(uInt8View[10], uInt8View[11], [uInt8View[12], uInt8View[13], uInt8View[14]]);
+});
+```
 
 
 
+### worker.js
 
+```javascript
+self.addEventListener('message', (event) => {
+    let uInt8View = new Uint8Array(event.data.buffer);
+    let barDataStart = event.data.barPosition * 5;
+    uInt8View[barDataStart] *=60;
+
+    self.postMessage(true);
+})
+```
+
+### Sharing data other than integer
+
+- string: TextEncodes/TextDecoder
+- stringview.js
+- complex objects: FlatJS 
+
+## Atomics
