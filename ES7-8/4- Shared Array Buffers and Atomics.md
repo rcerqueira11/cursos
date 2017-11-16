@@ -131,4 +131,84 @@ self.addEventListener('message', (event) => {
 - stringview.js for strings
 - FlatJS for complex objects
 
-## Atomic
+
+### Waiting Until Data Becomes Available
+
+```javascript
+    //to optimize but this way ruins parallelism
+    const waitValue = uInt8View[6];
+    //just this could it be
+    while (waitValue === 0);
+    //start processing
+```
+
+## Atomics
+
+- Safe Access to a SharedArrayBuffer
+- Wait and continue mechanism
+- Atomic operations add, substract are posible
+- Possible by Global variable Atomics
+- Suppprt of atomics go hand in hand with the support of SharedArrayBuffer
+
+### Load
+
+- With load you can GET a value
+```javascript
+// Atomics.load(typeArray,Index): returns value of the index
+while (Atomics.load(uInt8View,6)===0);
+//start processing
+```
+
+### Store  
+
+- With store you can SET a value
+
+```javascript
+    Atomics.store(uInt8View,6,1);
+    //Atomics.store(typeArray,Index,newValue);
+```
+
+### Wake
+
+- By default all threads that are waiting on this index wake up
+- You can specify the maximun of threads that will awake
+
+```javascript
+    //Atomics.wake(TypeArray,Index,MaxNumOfThreadsToAwake)
+    Atomics.wake(view,0,1)
+```
+### Example
+
+- The wait function can only be called in the worker, the main thread can't wait
+- Writing and Waiting onlu works on Int32Arrays  
+
+```javascript
+//<m4-4_worker.js>
+self.addEventListener('message', (event) => {
+    let int32View = new Int32Array(event.data.buffer);
+    Atomics.wait(int32View,0,10);
+    // pass the value i spect to be there 
+    // the thread will only wait if the value 10 is present in index 0  
+    // if not the thread will just continue 
+    self.postMessage(int32View[0]);
+});
+```
+
+### Atomic Operations
+- Adding
+- Substracting
+- Multiplying 
+- 
+
+```javascript
+    Atomics.add(uInt8View,6,1);
+    //adding 1 to the uInt8View[6]
+```
+
+## Sumamry
+
+- Web workers enable parallelism and are isolated form other threads (nothing can be shared between threads)
+- An ArrayBuffer isntance represent a piece of memory: binary data  
+- Typed arrays are needed to access data in an ArrayBuffer
+- The SharedArrayBuffer is an ArrayBuffer for which the underlying data can be shared across threads
+- The Atomics global variable provides a collection of tools to work with the SharedArrayBuffer that contains the usefull wait and awake funcion
