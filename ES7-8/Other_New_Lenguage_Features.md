@@ -1,5 +1,22 @@
 ## Table of Content
-@@TOC@@
+- [Table of Content](#table-of-content)
+- [Introduction](#introduction)
+- [Object.values](#objectvalues)
+- [Objects.entries](#objectsentries)
+- [Object.getOwnPropertyDescriptors](#objectgetownpropertydescriptors)
+    - [Metadata](#metadata)
+        - [Field](#field)
+        - [Function](#function)
+- [Object.getOwnPropertyDescriptor](#objectgetownpropertydescriptor)
+    - [CopyProperties](#copyproperties)
+    - [Clone objects](#clone-objects)
+- [string.prototype.padStart and padEnd](#stringprototypepadstart-and-padend)
+    - [padStart](#padstart)
+    - [padEnd](#padend)
+- [Trailing Commas in Parameter Definitions](#trailing-commas-in-parameter-definitions)
+    - [Benefits of Trailing Commas](#benefits-of-trailing-commas)
+    - [Trailing Commas and Version Control Systems](#trailing-commas-and-version-control-systems)
+- [Summary](#summary)
 
 ## Introduction
 
@@ -341,4 +358,3 @@ let colors = [
 - Object.getOwnPropertyDescriptors gets metadaata information about the properties of an object.
 - Calling padStart and padEnd now lets you pad a string with characters of your choice
 - Trailing commas are now legal syntax which is great for xopy and pasting as well as source control systems
-
