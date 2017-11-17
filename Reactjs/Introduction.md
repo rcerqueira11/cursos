@@ -102,5 +102,5 @@ class Hello extends React.Component {
 ReactDOM.render(React.createElement(Hello, null), mountNode);
 ```
 
-> to test things [jscomplete](https:://jscomplete.com/repl)
+> to test things [jscomplete](https://jscomplete.com/repl)
  
