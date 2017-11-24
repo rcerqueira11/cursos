@@ -3,54 +3,76 @@
 - we need to re-render multiple componens
 - objects for arrays because they are faster for lookups
 
-> DELETE
-> https://app.pluralsight.com/player?course=react-js-getting-started&author=samer-buna&name=react-js-getting-started-m4&clip=1
-> https://jscomplete.com/repl/
+```css
+    .mountNode {
+    color: #333;
+    }
 
-> code to the moment
+    .fa-star{
+        margin: 0.5em;
+    font-size: 24px;
+    }
+
+    span {
+        display: inline-block;
+    margin: 0.5em;
+    text-align: center;
+    background-color: #ccc;
+    width: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    }
+
+    .selected{
+        background-color: #eee;
+    color: #ddd;
+    cursor: not-allowed;
+    }
+    .used{
+        background-color: #aaddaa;
+    color: #99bb99;
+    cursor: not-allowed;
+    }
+
+```
 
 ```js
-const Stars = (props) => {
-	const numberOfStars = 1 + Math.floor(Math.random()*9);
-  
-	return (
-  	<div className="col-5">
-    {_.range(numberOfStars).map(i =>
-        <i key={i} className="fa fa-star"></i>
-    )}
-		</div>
-  )
-
-}
-
-const Button = (props) => {
-	return (
-  	<div className="col-2">
-      <button>=</button>
-    </div>
-  )
-
-}
-
 const Answer = (props) => {
 	return (
   	<div className="col-5">
-    ...
+    	{ props.selectedNumbers.map((number,i)=>
+      	<span key={i} >{number}</span>
+      )}
     </div>
   )
 
 }
 
- 
+const Numbers = (props) => {
+	const numberClassName = (number) => {
+  	if(props.selectedNumbers.includes(number)){
+    	return 'selected';
+    }
+  }
+ 	return (
+  	<div className="card text-center">
+  	  <div>
+  	    {Numbers.list.map((number,i)=>
+        	
+        	<span key={i} className={numberClassName(number)}>{number}</span>
+        )}
+  	  </div>
+  	</div>
+  )
+}
 
 Numbers.list = _.range(1,10);
 
 
 class Game extends React.Component {
 //will manage all states of a single game
-
 	state = {
-  	selectedNumbers: []
+  	selectedNumbers: [2,4],
   }
 	render() {
   	return(
@@ -60,61 +82,143 @@ class Game extends React.Component {
         <div className="row">
           <Stars />
         	<Button />
-        	<Answer />
+        	<Answer selectedNumbers={this.state.selectedNumbers}/>
         </div>
         <br />
-				<Numbers />
+				<Numbers selectedNumbers={this.state.selectedNumbers}/>
     	</div>
     )
   }
 }
 
 
-class App extends React.Component {
+```
+
+definimos un onClick handler, pero no se le puede pasar la llamada de funcion directamente necesitan una referencia a una funcion
+- the easiest way is to wrap what we have to do in a inline function 
+```js
+onClick={() => props.selectNumber(number) } 
+
+```
+- remember that this fuction will be created every time is rendered so this should be changed
+
+### Re-renders childrens
+- react re-renders the game component and because of that re-render all his childrens
+- to avoid this we move the numberOfStarts to one level up and maintain it in the game component
+    - make part of state in the component and send it to the stars component as argument of props
+
+
+### Avoid multiple select of numbers
+```js
+
+selectNumber = (clickedNumber)=> {
+  		if(this.state.selectedNumbers.includes(clickedNumber)) {return;}  <--
+      this.setState(prevState => ({
+			selectedNumbers: prevState.selectedNumbers.concat(clickedNumber)
+    	})	);
+  }
+```
+
+## Changed their answer
+
+### remove a number with the filter function
+
+```js
+    selectedNumbers: prevState.selectedNumbers.filter(number => number !== clickedNumber)
+
+```
+
+
+```js
+const Answer = (props) => {
+	return (
+  	<div className="col-5">
+    	{ props.selectedNumbers.map((number,i)=>
+      	<span key={i} onClick={() => props.unselectNumber(number)}>
+        {number}
+        </span>
+      )}
+    </div>
+  )
+}
+
+
+class Game extends React.Component {
+//will manage all states of a single game
+	state = {
+  	selectedNumbers: [],
+    randomNumberOfStars: 1 + Math.floor(Math.random()*9),
+  };
+  
+  selectNumber = (clickedNumber)=> {
+  		if(this.state.selectedNumbers.includes(clickedNumber)) {return;}
+      this.setState(prevState => ({
+				selectedNumbers: prevState.selectedNumbers.concat(clickedNumber)
+    	})	);
+  };
+  unselectNumber = (clickedNumber)=> {
+  		if(!this.state.selectedNumbers.includes(clickedNumber)) {return;}
+      this.setState(prevState => ({
+      	selectedNumbers: prevState.selectedNumbers.filter(number => number !== clickedNumber)
+      }));
+  };
 	render() {
   	return(
-    	<div>
-    	  <Game />
-      </div>
+    	<div className="container">
+    	  <h3>Play Nine</h3>
+        <hr/>
+        <div className="row">
+          <Stars numberOfStars={this.state.randomNumberOfStars} />
+        	<Button />
+        	<Answer selectedNumbers={this.state.selectedNumbers}
+          				unselectNumber={this.unselectNumber}/>
+        </div>
+        <br />
+				<Numbers selectedNumbers={this.state.selectedNumbers}
+        				 selectNumber={this.selectNumber}/>
+    	</div>
     )
   }
 }
+```
 
 
+## Enhancing the UI
 
-ReactDOM.render(<App />,mountNode); 
+### define constant to avoid this.state
+```js
+const { selectedNumbers, randomNumberOfStars } = this.state;
+  	return(
+    	<div className="container">
+    	  <h3>Play Nine</h3>
+        <hr/>
+        <div className="row">
+          <Stars numberOfStars={randomNumberOfStars} />
+        	<Button selectedNumbers={selectedNumbers}/>
+        	<Answer selectedNumbers={selectedNumbers}
+          				unselectNumber={this.unselectNumber}/>
+        </div>
+        <br />
+				<Numbers selectedNumbers={selectedNumbers}
+        				 selectNumber={this.selectNumber}/>
+    	</div>
+    )
+```
 
-``` 
+### disable the = button
+```js
+<Button selectedNumbers={selectedNumbers}/>
 
-```css
-.mountNode {
-  color: #333;
-}
-
-.fa-star{
-	margin: 0.5em;
-  font-size: 24px;
-}
-
-span {
-	display: inline-block;
-  margin: 0.5em;
-  text-align: center;
-  background-color: #ccc;
-  width: 24px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.selected{
-	background-color: #eee;
-  color: #ddd;
-  cursor: not-allowed;
-}
-.used{
-	background-color: #aaddaa;
-  color: #99bb99;
-  cursor: not-allowed;
-}
+<button className="btn" disabled={props.selectedNumbers.length === 0} >
+	=
+</button>
 
 ```
+
+## Summary
+
+- Interacting with numbers
+- Selecting an answer
+- Changing an answer
+- UI behavior
+
