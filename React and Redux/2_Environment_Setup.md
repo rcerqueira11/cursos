@@ -132,3 +132,8 @@
 ## Setup webpack 
 - Bundle our app for the web
 - To bundle all of our javascript together for the browser
+
+### Use
+- webpack.config
+- by convenction placed in the root of your project
+- for env webpack.config.dev.js
