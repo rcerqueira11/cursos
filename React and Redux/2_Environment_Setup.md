@@ -137,3 +137,77 @@
 - webpack.config
 - by convenction placed in the root of your project
 - for env webpack.config.dev.js
+- Designed to vocer our use cases really well, so we don't have to write to much code to get a lot of power in our build process
+
+#### noInfo
+- in fall up will display a list o fall the files that it's bundling 
+
+#### entry
+- entry points for the aplication 
+- good way to inject middelware
+- 'eventsource-polyfill':  necessary for hot reloading with IE
+- 'webpack-hot-middleware/client?reload=true': note that it reloads the page if hot module reloading fails.
+- path.resolve(__dirname, 'src/index')
+    - important to this be last order is critical
+    - se refiere al index.js aunq no especifiquemos la extencion
+
+#### target
+
+- we could use node if we are using
+- web it understand that need to bundle up the code in a way that the web browser can understand
+- node if we are using webpack to build an app running in node, so bundle up in a way that node can work with it
+
+#### output
+
+- where it should create our web bundle
+- webpack wont generate any actual physical files, it will serve files from memory
+- need to define a path and a name to simulate the phisical file's existence
+- app will run from dist folder 
+
+#### devServer
+
+- we tell webpack where our source code is
+
+
+##### plugins
+
+- new webpack.HotModuleReplacementPlugin(): enables us to replace modules without having to do a full browser refresh
+- new webpack.NoErrorsPlugin(): keep errors from breaking our hot reloading experience
+
+##### modules
+
+- here we tell webpack the types of files we want to handle
+- loaders
+    - javascript adn while working with it we want to use babel to transpile our code: 
+        - ` { test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel'] }`
+    - great thing about webpack is we can teach it to know more than just javascript, css, font, saas, less even images if we like
+        - `{ test: /(\.css)$/, loaders: ['style', 'css'] }`
+    - bootstrap 
+        - necessary for the file types that bootstrap utilizes for fonts etc
+        - `{ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' }`
+        - `{ test: /\.(woff|woff2)$/, loader: 'url?prefix=font/&limit=5000' }`
+        - `{ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' }`
+        - `{ test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' }`        
+
+## Set up .editorconfig  
+
+- usefull when work on a team that might be working on different editors.
+- .editorconfig must be the name
+- set on the upper top of the project [Proyect Folder] -> .editorconfig
+- all have consistency in the spacing (Atom,Webstorm,VSCode)
+```
+# editorconfig.org
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.md]
+trim_trailing_whitespace = false
+
+```
