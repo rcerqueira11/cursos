@@ -293,3 +293,233 @@ script {
 }
 ```
 
+## Create Start Message
+
+- by convention will run before the start script if we add the pre in front of the word
+    - prewordname 
+- we can add a script after the start script with the word post in front of it
+    - postwordname 
+```json
+script {
+    "prestart": "babel-node tools/startMessage.js",
+    "start": "babel-node tools/srcServer.js"
+}
+```
+
+## Set up ESLint
+
+- quic catch mistakes
+- maintain consistency 
+- enforce best practices
+- to use it we should place a `.eslintrc` file in the root of our project
+
+- Code
+    - 0: Off
+    - 1: Warning
+    - 2: Error
+
+- Teams can quickly get comfortable ignoring linitng warnings, so if it make as an error they will have to fix it
+```json
+{
+//extends recomended settings as a base line
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+
+//augmenting the recommended settins with plugins that provide enhance linting for es6 imports
+  "plugins": [
+    "react" // to add a number of useful React-specific linting rules
+  ],
+
+// Support for ES6 out of the box
+// we tell it also support jsx
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+
+  // declare some env that eslint should be aware of
+  // each of this tells to ESLint to expect certain global variables
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jquery": true,
+    "mocha": true
+  },
+
+
+  "rules": {
+    "quotes": 0,
+    "no-console": 1,
+    "no-debugger": 1,
+    "no-var": 1,
+    "semi": [1, "always"],
+    "no-trailing-spaces": 0,
+    "eol-last": 0,
+    "no-unused-vars": 0,
+    "no-underscore-dangle": 0,
+    "no-alert": 0,
+    "no-lone-blocks": 0,
+    "jsx-quotes": 1,
+    "react/display-name": [ 1, {"ignoreTranspilerName": false }],
+    "react/forbid-prop-types": [1, {"forbid": ["any"]}],
+    "react/jsx-boolean-value": 1,
+    "react/jsx-closing-bracket-location": 0,
+    "react/jsx-curly-spacing": 1,
+    "react/jsx-indent-props": 0,
+    "react/jsx-key": 1,
+    "react/jsx-max-props-per-line": 0,
+    "react/jsx-no-bind": 1,
+    "react/jsx-no-duplicate-props": 1,
+    "react/jsx-no-literals": 0,
+    "react/jsx-no-undef": 1,
+    "react/jsx-pascal-case": 1,
+    "react/jsx-sort-prop-types": 0,
+    "react/jsx-sort-props": 0,
+    "react/jsx-uses-react": 1,
+    "react/jsx-uses-vars": 1,
+    "react/no-danger": 1,
+    "react/no-did-mount-set-state": 1,
+    "react/no-did-update-set-state": 1,
+    "react/no-direct-mutation-state": 1,
+    "react/no-multi-comp": 1,
+    "react/no-set-state": 0,
+    "react/no-unknown-property": 1,
+    "react/prefer-es6-class": 1,
+    "react/prop-types": 1,
+    "react/react-in-jsx-scope": 1,
+    "react/require-extension": 1,
+    "react/self-closing-comp": 1,
+    "react/sort-comp": 1,
+    "react/wrap-multilines": 1
+  }
+}
+```
+
+### Run it
+
+- ESLint lacks watch funtionality
+- so instead use a npm package called ESLint watch 
+- eswatch: wraps ESLint and provides file watching functionality
+- add to script `"lint": "node_modules/.bin/esw webpack.config.* src tools"`
+- `node_modules/.bin/esw` not completle necessary but just in case 
+
+### ESLint Watch
+
+- Does NOT wtach files by default
+- have to pass it a commmand line flag to tell it that you want to enable file watch 
+- add to script `"lint:watch": "npm run lint -- --watch"`
+    - we run the lint script above, but this syntax lets me pass the watch flag to our lint script
+    - says: run the npm lint script but pass the watch flag to ESLint watch
+
+#### Run it
+
+- `npm run lint:watch`
+
+## Create Parallel Scripts
+
+- Use npm run all
+    - supports running multiple npm scripts
+    - returning all their utput to the same command line 
+    - can be run one at a time or in parallel
+- change name start to the one that is going to do all 
+- 
+"scripts": {
+        "prestart": "babel-node tools/startMessage.js",
+        "start": "npm-run-all --parallel open:src lint:watch",
+        "open:src": "babel-node tools/srcServer.js",
+        "lint": "node_modules/.bin/esw webpack.config.* src tools",
+        "lint:watch": "npm run lint -- --watch"
+    },
+
+- --parallel anythign set to the right will be running at the same time 
+
+## Set up testing
+
+- create testSetup.js in the tools folder
+
+```js
+// This file is written in ES5 since it's not transpiled by Babel.
+// This file does the following:
+// 1. Sets Node environment variable
+// 2. Registers babel for transpiling our code for testing
+// 3. Disables Webpack-specific features that Mocha doesn't understand.
+// 4. Requires jsdom so we can test via an in-memory DOM in Node
+// 5. Sets up global vars that mimic a browser.
+
+/* eslint-disable no-var*/
+
+/* This setting assures the .babelrc dev config (which includes
+ hot module reloading code) doesn't apply for tests.
+ But also, we don't want to set it to production here for
+ two reasons:
+ 1. You won't see any PropType validation warnings when
+ code is running in prod mode.
+ 2. Tests will not display detailed error messages
+ when running against production version code
+ */
+process.env.NODE_ENV = 'test'; //so that develop-speific feautres like hot reloading are disabled when running tests
+
+// Register babel so that it will transpile ES6 to ES5
+// before our tests run.
+require('babel-register')();
+
+// Disable webpack-specific features for tests since
+// Mocha doesn't know what to do with them.
+require.extensions['.css'] = function () { return null; };
+require.extensions['.png'] = function () { return null; };
+require.extensions['.jpg'] = function () { return null; };
+
+
+//react looks for this to determinate if tis in the browser {
+
+// provide a virtual in-memory DOM  
+// Configure JSDOM and set global variables
+// to simulate a browser environment for tests.
+// to not to have to open the browser
+var jsdom = require('jsdom').jsdom;
+
+// helps simulate the browser enviroment  
+var exposedProperties = ['window', 'navigator', 'document'];
+
+global.document = jsdom('');
+global.window = document.defaultView;
+Object.keys(document.defaultView).forEach((property) => {
+    if (typeof global[property] === 'undefined') {
+        exposedProperties.push(property);
+        global[property] = document.defaultView[property];
+    }
+});
+
+global.navigator = {
+    userAgent: 'node.js'
+};
+// } important to have thses available when doing DOM-based tersting in react
+
+documentRef = document;  //eslint-disable-line no-undef
+```
+
+## Add Test Scripts
+
+- add the script
+- specify mocha and specifying the reporter that you want to use
+    - progress reportes is compact and dont have a lot of noise 
+- run test setup and then run any test that it finds in our source directory
+- `"test":"mocha --reporter progress tools/testSetup.js \"src/**/*.test.js\""`
+- some prefer to use spect.js
+
+## Summary
+
+### Dev enviroment, complete!
+- Babel: traspiling
+- Webpack: bundling
+- ESLint: lintintg
+- Mocha: testing
+- Express: serving app
+- npm Scripts: tying all this together
