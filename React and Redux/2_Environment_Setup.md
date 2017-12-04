@@ -196,7 +196,7 @@
 - set on the upper top of the project [Proyect Folder] -> .editorconfig
 - all have consistency in the spacing (Atom,Webstorm,VSCode)
 ```
-# editorconfig.org
+// editorconfig.org
 root = true
 
 [*]
