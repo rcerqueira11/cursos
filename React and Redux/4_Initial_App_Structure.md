@@ -175,3 +175,15 @@ Header.propTypes = {};
 
 export default Header;
 ```
+
+## Create Course Page
+
+- Add the folder course and CoursesPage.js
+- Add the route to routes.js
+- Add the link to Headers.js
+
+## Summary 
+
+- Foundation, Complete!
+- Create React components
+- Setup React Router
