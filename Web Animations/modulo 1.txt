@@ -66,4 +66,4 @@ opacity:0 esconde los elemento pero tiene todavia el mismo width y height
 visibility:hidden hace los elementos transparentes
 
 why not use display none?
-	- this remove the elemento from the DOM so there is no transition 
+	- this remove the element from the DOM so there is no transition 

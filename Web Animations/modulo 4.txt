@@ -141,7 +141,7 @@ ejemplo
 	}
 
 se pueden usar porcentajes o keyword 
-- form is shortcut for 0%
+- from is shortcut for 0%
 - to is shortcut fot 100%
 
 uso 
@@ -222,7 +222,7 @@ ADVANCED KEY FRAMES ANIMATIONS
 		animation: fadeIn .25s <fill-mode>;
 
 	}
-fill mode default is "non"e so its return to its original state after the animation
+fill mode default is "none" so its return to its original state after the animation
 in other to stay as the last state we need to set fill-mode: forwards
 
 to make an effet of 
