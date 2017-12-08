@@ -118,3 +118,150 @@ Object.assign(
 - the fist parameter SHOULD BE AN EMPTY OBJECT
 - if it does not have the empty object you will end mutating the state instead of creating one 
 - need to use BABEL-POLYFILL
+
+## Why Immutabiity?
+
+- Clarity
+- Perfomance
+- Awesome Sauce
+
+
+### Clarity
+
+- "Huh, who changed that state?"
+    - we know exactly where and how it happende
+    - we're clear about what file to open to actually see state changes
+    - Redux handle all state changes
+
+### Performance 
+
+
+```js
+state = {
+    name: 'Cory house'
+    role: 'author'
+    city: 'Kansas City'
+    state: 'kansas'
+    country: 'USA'
+    ...
+}
+```
+- redux can simply do a reference comparison
+- if the old state isnt referencing the same object in memory then we know that the state has changed. (this is extremely efficient)
+    ```js 
+    if (prevStoreState !== storeState) ... 
+    ``` 
+- use the `shouldComponentUpdate` method to quicky bail out if nothing has changed
+- React-Redux make your app more predictable and easier to reason about and improve performance
+
+### Awesome Sauce (amazing debugging experience)
+
+- Redux devtools extension in Chrome
+- Time-travel debugging
+- Undo/Redo
+- Turn off individual actions
+- Play interactions back
+
+## Handling Immutability
+
+### Handling Immutability State
+
+- JavaScript's primitives are immutable
+
+#### ES6
+
+- Object.assign
+- Spread operator
+
+#### ES5
+
+- Lodash merge
+- Lodash extend
+- Object-assign (on npm)
+
+#### Libraries
+
+- react-addons-update
+- Immutable.js
+
+### How do i enforce immutablility?
+
+### Trust 
+
+- teach the team to not mutate the state
+- if someone does it will introduce a bug
+
+### redux-immutable-state-invariant      
+
+- displays an error if you try to mutate the state anywhere in your app
+- be sure to do this just in dev becouse i would degrade performance in production
+
+### Immutable.js
+
+- creates immutable javascript data structures
+
+
+## Reducers
+
+- to change the store, you dispatch an action that is ultimately handled by a reducer
+
+### What is a Reducer?
+
+- its a funtion that takes state and an action and returns new state.
+
+- `(state,action) => state`
+```js
+function myReducer(state,action){
+    //return new state based on action passed
+}
+```
+
+- Example incrementing counter
+    ```js
+    function myReducer(state,action){
+       switch (action.type){
+           case 'INCREMENT_COUNTER':
+                //this mutate state
+                //state.counter++;
+                //return state;
+
+                //this returns a copy
+                return(Object.assign(
+                    {},
+                    state,
+                    {counter: state.counter + 1})
+                );
+       }
+    }
+    ```
+- Reducers must be pure functions
+
+### Forbidden in Reducers
+
+- Mutate arguments
+- Perform side effects
+    - API calss
+    - routing transitions
+- Call non-pure functions
+    - date.now
+    - math.random
+
+- 1 Store. Multiple Reducers
+- Manage slices of your state chenges via multiple reducers.    
+
+### All Reducers are called on each dispatch
+
+- All reduces must return untouches states the default if no switch case matched
+- Only reducers that handle the type will do anything 
+- Other reducer will return the state that was passed to them
+
+### Reducer = "Slice" of state
+
+- Each reducer handles its slice of state
+- Each reduces is only passed its slice of state that only access the portion of state that it manages
+- Multiple reducers allows youto handle changes to different pieces of the store in isolation
+- makes state changes easy to understan and avoids issues with side effects
+- all reducers together form the complete picture of what's in your store
+
+
+> `"Write independent small reducer functions that are each resposiblefot updates to a specific slice of state. We call this pattern "reducer composition". A given action could be handled by all some, or none of them."`
