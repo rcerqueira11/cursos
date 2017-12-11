@@ -265,3 +265,23 @@ function myReducer(state,action){
 
 
 > `"Write independent small reducer functions that are each resposiblefot updates to a specific slice of state. We call this pattern "reducer composition". A given action could be handled by all some, or none of them."`
+
+## Summary
+
+#### Actions
+- Represent ser intent
+- Must have a type
+
+#### Store
+- dispatch
+- subscribe
+- getState
+- replace Reducer
+
+#### Immutability
+- Just return a new copy
+
+#### Reducers
+- Must be pure (no side effects)
+- Multiple per app
+- Slice of state
