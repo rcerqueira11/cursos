@@ -81,3 +81,99 @@ Benefits:
 - returns an object
 - each property on the object you define will become a property on your container component 
 - Determinates what state is available on your container component
+- Logical place to filter or, otherwise, transform your state so its most conveniently shaped and sorted for you components use.
+
+```js
+// in a simple app you may have one reducer and one container component
+// when grow up you may like to create diferent components to manage different pages or sectios of your app
+// different reducers to different sections of the store
+function mapStateToProps(state){
+    return {
+        appState: state
+    };
+}
+```
+
+- makes all of your state accessble to the component via props.
+- `this.props.appstate`: within the component to acces any state that is handled by my appstate reducer.
+- expose part of my store's state to the component via props like this:
+    ```js
+        appState: state
+    ```
+    - each object will become a prop on my component
+
+- every time the component is updated, the mapStateToProps function is called
+
+### Reselect
+
+- `Memoize for perfomance`: about keeping track of the result of each function call so that the function does not have to run angain if tis already been run with the same parameters
+    - to avoid heavy functions every time mapStateToProps is called 
+    - like caching for function calls 
+    - reselect just check whether it's already been called with specified parameter, and if it has, it doenst call the  function. instead, it just returns the memoized valued instead.
+
+
+## mapDispatchToProps
+
+- Let us specify what actions we want to expose as props
+- Determines what actions we want to expose to our component instead of what state
+- Receives disparch as its lone parameter
+- Returns the callback props that you want to pass down 
+```js
+function mapDispatchToProps(dispatch){
+    return {
+        actions: bindActionCreators(actions,dispatch)
+    };
+}
+```
+
+
+### 3 Ways to Handle mapDispatchToProps
+
+- Expose your actions to your components
+
+#### Ignore it. Use dispatch
+
+- `this.props.dispatch(loadCourses());`
+- when omit it, then the dispatch function will be attached to your container component.
+    - this mean you can call dispatch manually and pass it an action creator.
+
+##### Example
+
+- adds a dispatch prop to your component
+```js
+// In component...
+//use this dispatch prop to call your action creator 
+this.props.dispatch(loadCourses())
+```
+Two downsides
+- Boiler plate: takes more code to dispatch an action 
+- 
+#### Manually wrap
+
+- in dispatch calls within the mapDispatchToProps function
+- wrapping the creator in a function that calls dispatch
+- kepps the calls in my actual component shorter at the cost of some extra coding here in mapDispatchToProps
+```js
+function mapDispatchToProps(dispatch){
+    return {
+        loadCourses: () => {
+            dispatch(loadCourses());
+        }
+    }
+}
+```
+
+#### Use bindActionCreators
+
+- convenience function that wraps your action creator in dispatch calls for you
+
+```js
+function mapDispatchToProps(dispatch){
+    return {
+        actions:
+            bindActionCreators(actions, dispatch)
+    };
+}
+```
+
+- does what we do in option 2 automatically
