@@ -147,33 +147,86 @@ this.props.dispatch(loadCourses())
 ```
 Two downsides
 - Boiler plate: takes more code to dispatch an action 
-- 
+- Redux concerns in child components: make this component to tying to redux
+
+
 #### Manually wrap
 
 - in dispatch calls within the mapDispatchToProps function
 - wrapping the creator in a function that calls dispatch
 - kepps the calls in my actual component shorter at the cost of some extra coding here in mapDispatchToProps
+
+
 ```js
 function mapDispatchToProps(dispatch){
     return {
         loadCourses: () => {
             dispatch(loadCourses());
+        },
+        createCourses: () => {
+            dispatch(createCourses());
+        },
+        updateCourses: () => {
+            dispatch(updateCourses());
         }
-    }
+    };
 }
+
+// in component...
+this.props.loadCourses()
 ```
+
+- quite redundant
 
 #### Use bindActionCreators
 
 - convenience function that wraps your action creator in dispatch calls for you
-
+- handle the redundancy 
+- wrap all the actions pass to it in a dispatch call for you 
+- the prop exposed is called actions
 ```js
 function mapDispatchToProps(dispatch){
     return {
-        actions:
-            bindActionCreators(actions, dispatch)
+        actions: bindActionCreators(actions, dispatch)
+        // wraps action creatos in dispatch call for you!
     };
 }
+
+// In component
+this.props.actions.loadCourses()
 ```
 
 - does what we do in option 2 automatically
+
+
+- with options 2 and 3 your child components do NOT have to know anything about redux
+- child components can simply call the actions that are passed down to them via props 
+
+## A Chat with Redux
+
+1. `React`: Hey CourseAction, someone clicked this `Save Course` button.
+
+2. `Action`: Thanks React! I will update/dispatch an action so reducers that care can update state.
+
+3. `Reducer`: Ah, thanks action. I see you passed me the current state and the action to perform. I will make a new copy of the state and return it.
+
+4. `Store`: Thanks for updating the state reducer. I will make sure that all connected components are aware.
+
+5. `React-Redux`: Woah, thanks for the new data Mr. Store. I will now intelligently determinate if i should tell React about this change so that it only has to bother with updating the ui if its necessary.
+
+6. `React`: Ooo! Shiny new data has been passed down via props from the store! I will update the UI to reflect this!. 
+
+
+## Summary
+
+- Container vs Presentation Components
+    - Container style to redux
+    - Presentation compnentes know nothing about Redux
+- React-Redux
+    - connect our component to Redux wrapping the app in the provider component and connecting our container to Redux store 
+    - Provider
+    - Connect
+        - mapStateToPropss
+            - what state we want to expose via props
+        - mapDispatchToPropss
+            - what actions we want to expose via props
