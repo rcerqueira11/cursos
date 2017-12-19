@@ -3,5 +3,6 @@
 // convenience function, returns an action
 // only requirement of an actions is that it has a type property
 export function createCourse(course) {
+    debugger;
     return { type: 'CREATE_COURSE', course};
 }

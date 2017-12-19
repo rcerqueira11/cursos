@@ -5,6 +5,7 @@ export default function courseReducer(state = [], action) {
             // state.push(action.course);
             // return state;
             // [CORRECT] Spread operator
+            debugger;
             return [...state,
                 Object.assign({}, action.course)
             ];
