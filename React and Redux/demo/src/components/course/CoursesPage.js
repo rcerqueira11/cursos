@@ -31,7 +31,6 @@ class CoursesPage extends React.Component {
         return <div key={index}>{course.title}</div>;
     }
     render() {
-        debugger;
         return (
             <div>
                 <h1>Courses</h1>
@@ -58,7 +57,6 @@ CoursesPage.propTypes = {
 function mapStateToProps(state,ownProps) {
     // own props lets us access props that are being attached to this component
     // define an object that returns the property we would like to see expose in our component
-    debugger;
     return {
         courses: state.courses
         //now im accesing the course data in our redux store 
