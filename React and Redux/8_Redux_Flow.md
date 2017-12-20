@@ -381,4 +381,116 @@ Action       -> Reducers ->     React
 actionCreator ->
 createCourse -> courseReducer -> mapStateToProps (inject data) -> render
 
-## mapDispatchToProps Manual M
+## mapDispatchToProps Manual Mapping
+
+- in arrow functions u can omit the parentheses for the arguents when there is a single parameter
+
+```js
+
+function mapDispatchToProps(dispatch) {
+    // this dispatch will get injected in by the Connect function
+    return {
+        createCourse : course => dispatch(courseActions.createCourse(course)) 
+    };
+}
+```
+- wraping our action in a call to dispatch so that it's easy to use above
+- and we can say now
+
+    ```js
+    this.props.createCourse(this.state.course);
+    ```
+
+- ``` Required prop `dispatch` was not specified in `CoursesPage`.```
+    - dispatch is no longer injected as a property now that we defined mapDispatchToProps
+    - once we started defining the mapDispatchToProps function, connect will no longer add a dispatch property on our component 
+
+    ```js
+    CoursesPage.propTypes = {
+    //dispatch: PropTypes.func.isRequired,
+    courses: PropTypes.array.isRequired,
+    createCourse: PropTypes.func.isRequired
+    };
+    ```
+
+    - we use it here
+
+    ```js
+    createCourse : course => `dispatch`(courseActions.createCourse(course)
+    ```
+
+#### Code example
+
+```js
+import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import * as courseActions from '../../actions/courseActions';
+
+class CoursesPage extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            course: {
+                title: ""
+            }
+        };
+
+        this.onTitleChange = this.onTitleChange.bind(this);
+        this.onClickSave = this.onClickSave.bind(this);
+    }
+
+    onTitleChange(event){
+        const course = this.state.course;
+        course.title = event.target.value;
+        this.setState({course: course});
+    }
+
+    onClickSave() {
+        this.props.createCourse(this.state.course);
+    }
+
+    courseRow(course, index){
+        return <div key={index}>{course.title}</div>;
+    }
+    render() {
+        return (
+            <div>
+                <h1>Courses</h1>
+                {this.props.courses.map(this.courseRow)}
+                <h2>Add Course</h2>
+                <input
+                    type="text"
+                    onChange={this.onTitleChange}
+                    value={this.state.course.title}/>
+                <input
+                    type="submit"
+                    value="Save"
+                    onClick={this.onClickSave} />
+            </div>
+        );
+    }
+}
+
+CoursesPage.propTypes = {
+    courses: PropTypes.array.isRequired,
+    createCourse: PropTypes.func.isRequired
+};
+
+function mapStateToProps(state,ownProps) {
+    return {
+        courses: state.courses
+    };
+}
+
+
+function mapDispatchToProps(dispatch) {
+    return {
+        createCourse : course => dispatch(courseActions.createCourse(course)) 
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+```
+
+## bindActionCreators
+
+- save us from having to manually wrap our action  creators in a dispatch call  
