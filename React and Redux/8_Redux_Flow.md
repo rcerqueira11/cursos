@@ -494,3 +494,194 @@ export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
 ## bindActionCreators
 
 - save us from having to manually wrap our action  creators in a dispatch call  
+- will go through my courseActions and find all the actions in that file and then wrap them in a call to dispatch
+
+    ```js 
+    function mapDispatchToProps(dispatch) {
+        return {
+            actions : bindActionCreators(courseActions,dispatch)
+        };
+    }
+    ```
+- this way the actions sit on this.props.actions 
+- update the PropTypes validation in our component
+    
+
+- can be done, not recommended
+    ```js
+    createCourse : bindActionCreators(courseActions.createCourse,dispatch)
+    ```
+#### Code Example
+```js
+import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as courseActions from '../../actions/courseActions';
+
+class CoursesPage extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            course: {
+                title: ""
+            }
+        };
+
+        this.onTitleChange = this.onTitleChange.bind(this);
+        this.onClickSave = this.onClickSave.bind(this);
+    }
+
+    onTitleChange(event){
+        const course = this.state.course;
+        course.title = event.target.value;
+        this.setState({course: course});
+    }
+
+    onClickSave() {
+        this.props.actions.createCourse(this.state.course);
+    }
+
+    courseRow(course, index){
+        return <div key={index}>{course.title}</div>;
+    }
+    render() {
+        return (
+            <div>
+                <h1>Courses</h1>
+                {this.props.courses.map(this.courseRow)}
+                <h2>Add Course</h2>
+                <input
+                    type="text"
+                    onChange={this.onTitleChange}
+                    value={this.state.course.title}/>
+                <input
+                    type="submit"
+                    value="Save"
+                    onClick={this.onClickSave} />
+            </div>
+        );
+    }
+}
+
+CoursesPage.propTypes = {
+    courses: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state,ownProps) {
+    return {
+        courses: state.courses
+    };
+}
+
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions : bindActionCreators(courseActions,dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+```
+
+## Container Structure Review
+
+### First Constructor
+
+- we initialize state
+- call our bind functions
+- any functions that need to be bound to the `this` context, this is the best place to do so
+
+```js
+constructor(props, context) {
+    super(props, context);
+    this.state = {
+        course: {
+            title: ""
+        }
+    };
+    this.onTitleChange = this.onTitleChange.bind(this);
+    this.onClickSave = this.onClickSave.bind(this);
+}
+```
+
+### Child functions 
+
+- that are called by render
+
+```js
+onTitleChange(event){
+    const course = this.state.course;
+    course.title = event.target.value;
+    this.setState({course: course});
+}
+
+onClickSave() {
+    // alert(`Saving ${this.state.course.title}`);
+    this.props.actions.createCourse(this.state.course);
+}
+
+courseRow(course, index){
+    return <div key={index}>{course.title}</div>;
+}
+```
+
+## Render functions
+
+- where we would typically just be calling a child component
+- markup inline in this case
+- recommend keeping the markup separate
+- container components ideally just call a child component that contains that markup
+
+```js
+render() {
+    return (
+        <div>
+            <h1>Courses</h1>
+            {this.props.courses.map(this.courseRow)}
+            <h2>Add Course</h2>
+            <input
+                type="text"
+                onChange={this.onTitleChange}
+                value={this.state.course.title}/>
+            <input
+                type="submit"
+                value="Save"
+                onClick={this.onClickSave} />
+        </div>
+    );
+}
+```
+
+## propTypes
+
+- provide our prop type validation
+
+```js
+CoursesPage.propTypes = {
+    courses: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired
+};
+```
+
+## Redux Connect and related functions
+
+- call to connect
+- mapStateToProps function
+- mapDispatchToProps function
+
+```js
+function mapStateToProps(state,ownProps) {
+    return {
+        courses: state.courses
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions : bindActionCreators(courseActions,dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+```
