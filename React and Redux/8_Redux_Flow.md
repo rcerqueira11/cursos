@@ -685,3 +685,17 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
 ```
+
+## Action Type Constant
+
+### Options
+
+#### Constants File
+- constants file inside where all your actionType constants are stored in a single spot
+- downside other file you have to open and edit every time you create a new action
+
+#### Constants withing the actions File
+- placing your constants withing your actions file
+- more convenient
+- downside
+    - first, it would add noise to my courseActions file.
