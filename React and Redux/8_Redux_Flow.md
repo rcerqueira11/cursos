@@ -698,4 +698,33 @@ export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
 - placing your constants withing your actions file
 - more convenient
 - downside
-    - first, it would add noise to my courseActions file.
+    - first, it would add noise to my courseActions file
+    - what to use constanst like CREATE_COURSE = 'CREATE_COURSE'
+
+#### actionType File
+
+- in action folder `actionType.js`
+
+```js
+export const CREATE_COURSE = 'CREATE_COURSE';
+```
+- using it
+```js
+
+//actions
+import * as types from './actionTypes';
+return { type: types.CREATE_COURSE, course};
+
+//reducer
+import * as types from '../actions/actionTypes';
+case types.CREATE_COURSE:
+```
+
+
+## Summary
+
+### Redux Flow
+- Action
+- Store
+- Reducer
+- Container Component

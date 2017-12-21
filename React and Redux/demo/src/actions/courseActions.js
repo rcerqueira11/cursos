@@ -2,6 +2,9 @@
 // creates actions 
 // convenience function, returns an action
 // only requirement of an actions is that it has a type property
+
+import * as types from './actionTypes';
+
 export function createCourse(course) {
-    return { type: 'CREATE_COURSE', course};
+    return { type: types.CREATE_COURSE, course};
 }
