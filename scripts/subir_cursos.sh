@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
+echo "Git status"
+git status
+
 echo "Comentario para el Git"
 
 read -r line || [[ -n "$line" ]]
 
 Comentario="$line"
-
-echo "Git status"
-git status
 
 echo "Git add all"
 git add --all
