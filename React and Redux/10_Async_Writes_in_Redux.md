@@ -374,4 +374,150 @@ export default function authorReducer(state = initialState.authors, action) {
     }   
     ```
 
-    
+## Create Form Change Handler
+
+1. Create the `updateCourseState` in `class ManageCoursePage extends React.Component{}`
+```js
+updateCourseState(event){
+    const field = event.target.name;
+    let course = Object.assign({}, this.state.course);
+    course[field] = event.target.value;
+    return this.setState({course: course});
+}
+```
+
+2. Set it in the constructor 
+    ```js
+    this.updateCourseState = this.updateCourseState.bind(this);
+    ```
+
+3. Set it on the render CourseForm
+    ```js
+    <CourseForm 
+        allAuthors={this.props.authors}
+        onChange={this.updateCourseState}
+        course={this.state.course}
+        errors={this.state.errors}
+    />
+    ```
+
+## Create Save Course Thunk
+
+1. Create the action in courseActions.js
+    ```js
+    export function saveCourse(course){
+        return function (dispatch, getState) {
+            return courseApi.saveCourse(course).then(savedCourse => {
+                course.id ? dispatch(updateCourseSuccess(savedCourse)) :
+                    dispatch(createCourseSuccess(saveCourse));
+            }).catch(error => {
+            throw(error); 
+            });
+        };
+    }
+    ```
+    - `getState` this is useful for cases where you are wanting to access the Redux store and get particular pieces of state out of it right here without having to pass it in as a parameter `useful in larger applications`
+
+2. create `createCourseSuccess` and `updateCourseSuccess` 
+    ```js
+    export function createCourseSuccess(course) {
+        return {type: types.CREATE_COURSE_SUCCESS, course}
+    }
+
+    export function updateCourseSuccess(course) {
+        return {type: types.UPDATE_COURSE_SUCCESS, course}
+    }
+    ```
+
+3. create the actionTypes
+    ```js
+    //actionTypes.js
+    export const CREATE_COURSE_SUCCESS = 'CREATE_COURSE_SUCCESS';
+    export const UPDATE_COURSE_SUCCESS = 'UPDATE_COURSE_SUCCESS'; 
+    ```
+
+## Handle Creates and Updates in Reducer
+
+1. Check create course in `courseReducer.js`
+    - dont do state.push remember state is immutable
+    ```js
+    case types.CREATE_COURSE:
+            return [...state,
+                Object.assign({}, action.course)
+            ];
+    ```
+2. Create update course
+    - since the state is immutable, we cant simply change the appropiate index in the array
+    - we need to use the filter function (ES6) to get the list of all the courses except for the course thats being updated
+    - `...` the spread operator in the front thats what create a brand new array out of the filtered results that are returned form filter
+    ```js
+    case types.UPDATE_COURSE_SUCCESS:
+        return [
+            ...state.filter(course => course.id !== action.course.id),
+            Object.assign({},action.course)
+        ];
+    ``` 
+
+## Dispatch Create and Update
+
+1. Create the `saveCourse` function in `class ManageCoursePage extends React.Component{}`
+    ```js
+    saveCourse(event){
+        event.prevenDefault();
+        this.props.actions.saveCourse(this.state.course);
+    }
+    ```
+
+2. Create the corresponding bind in the `constructor`
+    ```js
+    this.saveCourse = this.saveCourse.bind(this);
+    ```
+
+3. Pass it in the CourseForm
+    ```js
+    <CourseForm 
+        allAuthors={this.props.authors}
+        onChange={this.updateCourseState}
+        onSave={this.saveCourse}
+        course={this.state.course}
+        errors={this.state.errors}
+    />
+    ```
+
+4. Add the actions to the propTypes validation
+    ```js
+    ManageCoursePage.propTypes ={
+        course: PropTypes.object.isRequired,
+        authors: PropTypes.array.isRequired,
+        actions: PropTypes.object.isRequired
+    };
+    ```
+
+5. Go to CoursesPage.js and add the input button to add course
+    ```js
+    return (
+        <div>
+            <h1>Courses</h1>
+            <input type="submit"
+                    value="Add Course"
+                    className="btn btn-primary"
+                    onClick={this.redirectToAddCoursePage}/>
+            <CourseList courses={courses} />
+        </div>
+    );
+    ```
+
+6. Create the `redirectToAddCoursePage` function
+    ```js
+    redirectToAddCoursePage(){
+        browserHistory.push('/course');
+    }
+    ```
+
+7. bind the `redirectToAddCoursePage` in the constructor
+    ```js
+    constructor(props, context) {
+        super(props, context);
+        this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
+    }
+    ```
