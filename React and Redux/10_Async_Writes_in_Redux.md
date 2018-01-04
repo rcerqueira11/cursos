@@ -260,10 +260,12 @@ export function loadAuthors(){
 
 ```js
 import * as types from '../actions/actionTypes';
-export default function authorReducer(state = [], action) {
+import initialState from './initialState';
+
+export default function authorReducer(state = initialState.authors, action) {
     switch (action.type) {
         case types.LOAD_AUTHORS_SUCCESS:
-            return action.auhtors;
+            return action.authors;
 
         default:
             return state;
@@ -313,3 +315,63 @@ export default function authorReducer(state = [], action) {
     import {loadAuthors} from './actions/authorActions';
     store.dispatch(loadAuthors());
     ```
+
+## Map Author Data for Dropdown
+
+1. Expose author as props in our component by adding it to our mapStateToProps fuctions
+    - we cant simply pass the lis of authors as is
+    - the shape of data that is in our store isnt a good fit fr placing in the drop-down
+    - we need to translate the data comming from the api to something useful for the dropdow
+    - the place to do such transformation is the mapStateToProps function
+    ```js
+    function mapStateToProps(state, ownProps){
+        //course core structure
+        let course = {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''};
+
+        const authorsFormattedForDropdown = state.authors.map(author => {
+            return {
+                value: author.id,
+                text: author.firstName + ' ' + author.lastName
+            };
+        });
+
+        return{
+            course: course,
+            authors: authorsFormattedForDropdown
+        };
+    }
+    ```
+2. Add it to .propTypes
+    ```js
+    ManageCoursePage.propTypes ={
+        course: PropTypes.object.isRequired,
+        authors: PropTypes.array.isRequired
+    };
+    ```
+
+3. Now we can use it in the `<CourseForm allAuthors={[]}>`
+    ```js
+    class ManageCoursePage extends React.Component{
+        constructor(props,context){
+            super(props, context);
+            
+            this.state ={
+                course: Object.assign({}, props.course),
+                errors: {}
+            };
+
+        }
+
+        render(){
+            return (
+                    <CourseForm 
+                    allAuthors={this.props.authors}
+                    course={this.state.course}
+                    errors={this.state.errors}
+                    />
+            );
+        }
+    }   
+    ```
+
+    
