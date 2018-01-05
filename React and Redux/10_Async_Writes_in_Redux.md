@@ -463,7 +463,7 @@ updateCourseState(event){
 1. Create the `saveCourse` function in `class ManageCoursePage extends React.Component{}`
     ```js
     saveCourse(event){
-        event.prevenDefault();
+        event.preventDefault();
         this.props.actions.saveCourse(this.state.course);
     }
     ```
@@ -521,3 +521,91 @@ updateCourseState(event){
         this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
     }
     ```
+
+## Redirect via React Router Context Redirect
+
+1. We declare the contexTypes that we'd like to import on our component
+    - since contextTypes is a static property, it has to be done after the class definition
+    ```js
+    ManageCoursePage.propTypes{};
+
+    ManageCoursePage.contextTypes ={
+        router: PropTypes.object
+    };
+    ```
+    - declare `router: PropTypes.object` as optional to avoid a linitng warning when testing this component
+    - context is a global variables that library authors use but we as library consumers should avoid to use 
+
+2. We add it after we save the course in the `saveCourse` function
+    ```js
+    saveCourse(event){
+        event.preventDefault();
+        this.props.actions.saveCourse(this.state.course);
+        this.context.router.push('/courses');
+    }
+    ```
+
+## Populate Form via mapStateToProps
+
+1. we need to see the url to know if there any id 
+    - easy to do with ownProps
+    - we can access some routing-related props populated by React Router based on the route defined for this component
+    - read the course id in the `mapStateToProps`
+    ```js
+    const courseId = ownProps.params.id; //from the path   `/course/:id`
+
+    ```
+2. we create a if statement to validate if there is a courseId
+    ```js
+    if (courseId){
+        course = getCourseById(state.courses, courseId);
+    }
+    ```
+
+3. and we create the function `getCourseById`
+    ```js
+    function getCourseById(courses, id){
+        const course = courses.filter(course => course.id == id);
+        if (course.length) return course[0]; // since filter return an array we have to get the first element
+        return null;
+    }
+
+    ```
+
+4. we have a problem when we reload the page it does not have courses load yet so we add
+    
+    ```js
+    if (courseId && state.courses.length > 0){
+        course = getCourseById(state.courses, courseId);
+    }
+    ```
+
+    - `&& state.courses.length > 0` to wait to the ajax to receive some courses and do not thorw an error
+    - this problem resolve with lifecicle methods that is called `componentWillReceiveProps`
+
+## Update State via componentWillReceiveProps   
+
+1. add `componentWillReceiveProps` after the constructor
+    - called anytime props have changed
+    - as well as anytime that React thinks that props might have changed
+    - thats why the validation
+    ```js
+    componentWillReceiveProps(nextProps) {
+        if(this.props.course.id != nextProps.course.id) {
+            // Necessary to populate form when existing course is loaded directly.
+            this.setState({course: Object.assign({}, nextProps.course)});
+        }
+    }
+    ```
+    - `this.props.course.id != nextProps.course.id` if it hasn't changed, then dont run this part of the function
+    - `this.setState({course: Object.assign({}, nextProps.course)})` this cant run all the time or it will end up overriding our state
+    - we only want to update our props when we have ended up requesting a new course
+
+
+## Summary
+
+- Create Manage Course page
+- Created reusable Bootstrap form input
+- Populated form via
+    - mapStateToProps
+    - componentWillReceiveProps
