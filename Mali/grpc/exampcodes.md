@@ -211,7 +211,7 @@ gulp.task('setup-ms-countries-proto', () => {
  * Download and unzip .proto files from driver-ms
  */
 gulp.task('setup-ms-driver-proto', () => {
-  download('http://nexus.blanclabs.com/nexus/content/sites/neksosh-contracts/com/blanclabs/neksosh/driver/contracts/v0.0.3/contracts-v0.0.3.zip')
+  download('http://nexus.blanclabs.com/nexus/content/sites/neksosh-contracts/com/blanclabs/neksosh/driver/con`tracts/v0.0.3/contracts-v0.0.3.zip')
     .pipe(unzip())
     .pipe(gulp.dest(PROTO_UNZIP_PATH));
 });

@@ -244,3 +244,139 @@
         this.context.router.push('/courses');
     }
     ```
+
+## Create Form Submission Loading Indicator
+
+- when to use local state?
+    - is usaeful because this is fleeting data that the rest of the app will not care about 
+
+1. Set a saving in the state
+    ```js
+    this.state ={
+            course: Object.assign({}, props.course),
+            errors: {},
+            saving: false
+        };
+
+    ```
+
+2. add it `saveCourse` after the `event.preventDefault()` 
+    ```js
+    saveCourse(event){
+        event.preventDefault();
+        this.setState({saving: true});
+        this.props.actions.saveCourse(this.state.course)
+            .then(() => this.redirect());
+    }
+    ```   
+
+3. add it before the redirect in the `redirect()` function
+    ```js
+    redirect(){
+        this.setState({saving: false});
+        this.context.router.push('/courses');
+    }
+    ```
+
+4. we pass it to our course form to have the info available
+    ```js
+    <CourseForm 
+        allAuthors={this.props.authors}
+        onChange={this.updateCourseState}
+        onSave={this.saveCourse}
+        course={this.state.course}
+        errors={this.state.errors}
+        saving={this.state.saving}
+    />
+    ```
+5. we see it in the CourseForm
+
+    ```js
+    <input 
+        type="submit"
+        disabled={saving}
+        value = {saving ? 'Saving...' : 'Save'}
+        className="btn btn-primary"
+        onClick={onSave}/>
+    ```
+
+## Display save notification
+
+- Using toastr
+1. we need to import toastr minified css in our application entry point `index.js`
+2. `import '../node_module/toastr/build/toastr.min.css'`
+3. we in import it in our ManageCoursePage.js `import toastr from 'toastr'`
+4. we add it in the redirect
+    ```js
+    redirect(){
+        this.setState({saving: false});
+        toastr.success('Course saved');
+        this.context.router.push('/courses');
+    }
+    ```
+
+## Error Handling
+
+- two ways of handling the errors
+    - we could dispatch a saveCourse error action right here and pass it the error message that we've received from our API  call
+    - we can handle the rejected promise at the call site, which in this case is the ManageCoursePage [we'll use this]
+
+1. add a catch to save course 
+    ```js
+    saveCourse(event){
+        event.preventDefault();
+        this.setState({saving: true});
+        this.props.actions.saveCourse(this.state.course)
+        .then(() => this.redirect())
+        .catch(error => {
+            toastr.error(error);
+            this.setState({saving: false});
+            });
+        }
+    ```
+
+2. to cancel the ajax loading
+    1. go to action types create the const
+        - `export const AJAX_CALL_ERROR = 'AJAX_CALL_ERROR'; `
+
+    2. add the ajaxStatusAction
+        ```js
+        export function ajaxCallError() {
+            return {type: types.AJAX_CALL_ERROR};
+        }
+        ```
+    3. put it to use in the ajaxStatusReducer  
+        ```js
+        export default function ajaxStatusReducer(state = initialState.ajaxCallsInProgress, action){
+            if(action.type == types.BEGIN_AJAX_CALL){
+                return state + 1;
+            } else if (action.type == types.AJAX_CALL_ERROR ||
+                actionTypesEndsInSuccess(action.type)){
+                return state -1;
+            }
+
+            return state;
+        }
+        ```
+    4. dispatch it in out `courseAction.js`
+        ```js
+        import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
+
+        export function saveCourse(course) {
+        return function (dispatch, getState) {
+            dispatch(beginAjaxCall());
+            return courseApi.saveCourse(course).then(savedCourse => {
+                course.id ? dispatch(updateCourseSuccess(savedCourse)):
+                dispatch(createCourseSuccess(savedCourse));
+            }).catch(error => {
+                dispatch(ajaxCallError(error));
+                throw(error); 
+            });
+        };
+        }
+        ```
+
+## Summary
+
+- Displaying and tracking async status
+- Handling errors
