@@ -174,3 +174,42 @@
     ```
 
 ## Testing mapStateToProps
+
+- Testing mapStateToProps via extraction
+
+1. take out the `authorsFormattedForDropdown` function form the ManageCoursePage.js mapStateToProps
+
+2. create a folder calle `selectors`
+    - good for complicate data manipulation 
+    - good for manipulating code 
+
+3. create a file called `selectors.js` 
+    - we can create authorsSelectors and courseSelectors files if the one file gets to big
+4. paste the function as it can be exported
+    ```js
+    export function authorsFormattedForDropdown(authors){
+        return authors.map(author => {
+            return {
+                value: author.id,
+                text: author.firstName + ' ' + author.lastName
+            };
+        });
+    }
+    ```
+
+> Reselect to mimalize functions recommends placing your selectors in a folder caller selectors as well, if we use relect this functions only will rerun when it gets new parameters 
+
+5. import it in the `ManageCoursePage.js` and use it pass the parameters
+    ```js
+    import {authorsFormattedForDropdown} from '../../selectors/selectors';
+
+    return{
+        course: course,
+        authors: authorsFormattedForDropdown(state.authors)
+    };
+    ```
+
+
+- consider just extract the complicated pieces into separate selectors
+- which is really just a name for plain pure functions that are easy to test.
+- consider use reselect if the functios is expensive to run
