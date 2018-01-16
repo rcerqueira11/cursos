@@ -1,0 +1,176 @@
+## Intro
+
+### We'll Test
+- Connected components
+- Redux
+    - Action creatir
+    - Thunks
+    - Reducers
+    - Store
+
+## Testing Connected React Components
+
+### Two goals
+1. Test markup 
+    - given a certain set of props, do we get the expected output? (presentational component)
+2. Test behavior
+    - given a click, scroll, drag, change, what happens? do we get the expected behavior 
+
+### Testing Container Components
+
+- Trick
+    - they are all wrappend in a call to connect
+    - connect function assumes that our app is ultimately wrapped in a Provider component
+    - so our container components don't export the component we wrote
+    - instead, they export the component wrapped in a call to connect
+
+- They're wrappend in a call to connect! What do i do?
+1. Wrap with <Provider>
+    - U reference the store, ppas it to the Provider and compose your component under test inside
+    - `<Provider store={store}>MyComponent</Provider>`
+    - can create a custom store for the test
+    - this approach is useful if you want to test the Redux-related portions of your component.
+2. Add named export for unconnected component
+    - insteareste in testing the component's rendering and local state-related behaviors 
+
+### Testing Connected Components
+
+1. Add the neccesary imports
+    ```js
+    import React from 'react';
+    import expect from 'expect';
+    import { mount, shallow } from 'enzyme';
+    import ManageCoursePage from './ManageCoursePage';
+    ````
+
+2. create the test 
+    ```js
+    describe('Manage Course Page', () => {
+        it('sets error message when trying to save empty title', () => {
+            const wrapper = mount(<ManageCoursePage/>);
+        });
+    });
+    ```
+    - `const wrapper = mount(<ManageCoursePage/>);`
+    - here we need to test this components interactions 
+    - with its child components
+    - thats why we use mount 
+    - we need to use mount so our full DOM is created in memory 
+    
+    ### we get an error, solution are:
+
+    #### wrap the root component in a `<Provider>`
+    
+    - `const wrapper = mount(<Provider store={store}><ManageCoursePage/></Provider>);`
+           
+    - useful to test redux connect-related code like mapStateToProps
+        
+    #### Update our component to export the raw unconneted version
+    - allows to test it directly without the complexity of setting up Redux's provider and store
+    - does not brake any existing import statements
+
+3. change in the `ManageCoursePage.js` to export the class 
+    ```js
+    export class ManageCoursePage extends React.Component{
+    ```
+    - so you can export it
+
+4. export it with curly braces
+    ```js
+    import {ManageCoursePage} from './ManageCoursePage';
+    ```
+
+5. pass `authors={[]}` becouse of the error handle by the mapStateToProps
+    - `TypeError: Cannot read property 'map' of undefined`
+
+6. add test of the button
+    ```js
+    const saveButton = wrapper.find('input').last();
+    expect(saveButton.prop('type')).toBe('submit');
+    saveButton.simulate('click');
+    ```
+
+7. we simulate the saveButton click but we have this error 
+    - `TypeError: Cannot read property 'saveCourse' of undefined`
+    - we can add an empty course the on from `mapStateToProps`
+    - and use the spread operator on props new defined  object
+    ```js
+    const props = {
+        authors: [],
+        course: { id: '', watchHref: '', title: '', authorId: '', length: '', category: '' }
+    };
+    const wrapper = mount(<ManageCoursePage {...props}/>);
+    ```
+
+8. we have a problem with the saveCourse action so we add in the props as a empty function that just resolve the promise
+    ```js
+    const props = {
+        authors: [],
+        actions: { saveCourse: () => {return Promise.resolve();}},
+        course: { id: '', watchHref: '', title: '', authorId: '', length: '', category: '' }
+    };
+    ```
+9. set the expect to the errors title
+    - `expect(wrapper.state().errors.title).toBe('Title must be at least 5 characters.');`
+    - we have an error so we must define the validation in the saveCourse
+
+10. define validation in the saveCourse and define the function
+    ```js
+    courseFormValid() {
+        let formIsValid = true;
+        let errors = {};
+
+        if (this.state.course.title.length < 5){
+            errors.title = 'Title must be at least 5 characters.';
+            formIsValid = false;
+        }
+
+        this.setState({errors:errors});
+        return formIsValid;
+    }
+
+    saveCourse(event){
+        event.preventDefault();
+        if (!this.courseFormValid()){
+            return;
+        }
+        this.setState({saving: true});
+        this.props.actions.saveCourse(this.state.course)
+        .then(() => this.redirect())
+        .catch(error => {
+            toastr.error(error);
+            this.setState({saving: false});
+            });
+        }
+    ```
+
+11. test complete code
+    ```js
+    import React from 'react';
+    import expect from 'expect';
+    import { mount, shallow } from 'enzyme';
+    import {ManageCoursePage} from './ManageCoursePage';
+
+
+    describe('Manage Course Page', () => {
+        it('sets error message when trying to save empty title', () => {
+            const props = {
+                authors: [],
+                actions: { saveCourse: () => {return Promise.resolve();}},
+                course: { id: '', watchHref: '', title: '', authorId: '', length: '', category: '' }
+            };
+            const wrapper = mount(<ManageCoursePage {...props}/>);
+            // the save button is the last input
+            // we could grab it by class or id as well if it have any
+            const saveButton = wrapper.find('input').last();
+            //confirmar que es el button
+            expect(saveButton.prop('type')).toBe('submit');
+            saveButton.simulate('click');
+            expect(wrapper.state().errors.title).toBe('Title must be at least 5 characters.');
+        });
+
+        
+    });
+    ```
+
+## Testing mapStateToProps
