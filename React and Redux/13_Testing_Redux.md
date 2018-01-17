@@ -318,3 +318,122 @@ describe('Course Reducer', () => {
 - Need to Mock two things:  
     - Store: with `redux-mock-store`
     - HTTP calls with `nock` which stands for Node mock.
+
+
+1. import the necessaries things
+    ```js
+    import thunk from 'redux-thunk';
+    import nock from 'nock';
+    //let us configure a muck store
+    import configureMockStore from 'redux-mock-store';
+    ```
+
+2. configure middleware
+    ```js
+    //only middleware we need is thunk
+    const middleware = [thunk]; 
+    // configureMockStore takes and array of middleware
+    const mockStore = configureMockStore(middleware);
+    ```
+3. set the async
+    -important with nock that after each call, we call cleanAll(), performs a clean up after each one of out tests is run 
+    ```js    
+    describe('Async Actions', () => {
+        afterEach(() => {
+            nock.cleanAll();
+        });
+    ```
+4. set the it in mocha with the done
+    - note we pass a callback function called done to mocha
+    - Call this function when async work is complete
+    ```js
+    it('should create BEGIN_AJAX_CALL and LOAD_COURSES_SUCCESS when loading courses', (done) => {...}
+    ```
+
+5. using nock to simulete a ajax call
+    - here `nock('https://example.com')` we should define the precise url for this test  
+        ```js
+        nock('https://example.com')
+            .get('/courses')
+            .reply(200,{body: {course: [{id: 1, firstName: 'Cory', lastName: 'House'}]}});
+        ```
+        - will return this fake response instead
+        - so i can hard-code in the response that i'd like to receive instead of making an actual HTTP call to the address that i specify
+        - carefull with the delay when no using nock
+
+6. declare array of actions that we are expecting
+    ```js
+        const expectedAction = [
+            {type: types.BEGIN_AJAX_CALL},
+            //expect this payload (body) to be part of load courses success
+            {type: types.LOAD_COURSES_SUCCESS, body: {courses: [{id: 'clean-code', title: 'Clean Code'}]}}
+        ];
+    ```
+
+7. put our mock store to use
+    ```js
+    const store = mockStore({courses: []}, expectedAction); 
+    ```
+
+8. dispatch our store
+    ```js 
+    store.dispatch(courseActions.loadCourses()).then(() => {
+            const actions = store.getActions();
+            expect(actions[0].type).toEqual(types.BEGIN_AJAX_CALL);
+            expect(actions[1].type).toEqual(types.LOAD_COURSES_SUCCESS);
+            //calls back that we define above 
+            //that tells mocha async work is complete
+            done();
+        });
+    ```
+
+    - end with `done()` the calls back that we define above that tells mocha async work is complete
+
+9. complete test in `courseAction.test.js` inside `describe('Course Actions', ()`
+    ```js
+    //test for thunks
+
+    //only middleware we need is thunk
+    const middleware = [thunk]; 
+    // configureMockStore takes and array of middleware
+    const mockStore = configureMockStore(middleware);
+
+
+    describe('Async Actions', () => {
+        afterEach(() => {
+            nock.cleanAll();
+        });
+
+
+    it('should create BEGIN_AJAX_CALL and LOAD_COURSES_SUCCESS when loading courses', (done) => {
+        // Here's an example call to nock.
+        // nock('https://example.com')
+            // .get('/courses')
+            // .reply(200,{body: {course: [{id: 1, firstName: 'Cory', lastName: 'House'}]}});
+       
+        // declare array of actions that we are expecting
+        const expectedAction = [
+            {type: types.BEGIN_AJAX_CALL},
+            {type: types.LOAD_COURSES_SUCCESS, body: {courses: [{id: 'clean-code', title: 'Clean Code'}]}}
+        ];
+
+        //put our mock store to use
+        const store = mockStore({courses: []}, expectedAction); 
+
+        //dispatch our store
+        store.dispatch(courseActions.loadCourses()).then(() => {
+            const actions = store.getActions();
+            expect(actions[0].type).toEqual(types.BEGIN_AJAX_CALL);
+            expect(actions[1].type).toEqual(types.LOAD_COURSES_SUCCESS);
+            done();
+        });
+
+    });
+
+    ```
+
+- advantage of using mock api: we can run our test tha utilize the mock data, and the willrun extremely fast and reliably becouse the data is static and will be held in memory.
+
+## Testing the Redux Store
+
+### Writing an automated test of the Redux store
