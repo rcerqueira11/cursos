@@ -213,3 +213,108 @@
 - consider just extract the complicated pieces into separate selectors
 - which is really just a name for plain pure functions that are easy to test.
 - consider use reselect if the functios is expensive to run
+
+## Testing Action Creators
+
+- pretty straigth forward
+- create the test file `courseAction.test.js`
+```js
+import expect from 'expect';
+import * as courseActions from './courseActions';
+import * as types from './actionTypes';
+
+// Test a sync action
+describe('Course Actions', () => {
+    describe('createCourseSuccess', () => {
+        it('should create a CREATE_CORUSE_SUCCESS action', () =>{
+            //arrange
+            const course = {id:'clean-code', title:'Clean Code'};
+            const expectedAction = {
+                type: types.CREATE_COURSE_SUCCESS,
+                course: course
+            };
+
+            //act
+            const action = courseActions.createCourseSuccess(course);
+            
+            //assert
+            expect(action).toEqual(expectedAction);
+        });
+    });
+});
+```
+
+## Testing Reducers
+
+> people who neves wrote unit tests for front-end apps started writting them becauseit is just so easy to test reducers
+
+- dont need to mock any dependencies or simulate ajax
+- you can just call the reducer with a state and an action and assert that irs output matches exactly what you expect
+- esay as given this input, assert this output
+- reducer have no side effect (easy to understand and test)
+- so simple that you can even automate the creation of reducer tests using a library called `redux test recorder`
+
+```js
+//courseReducer.test.js
+import expect from 'expect';
+import courseReducer from './courseReducer';
+import * as actions from '../actions/courseActions';
+
+describe('Course Reducer', () => {
+    it('should add course when passed CREATE_COURSE_SUCCESS', () => {
+        //arrange
+        const initialState = [
+            {title: 'A'},
+            {title: 'B'}
+        ]; 
+        
+        const newCourse = {title: 'C'};
+        
+        const action = actions.createCourseSuccess(newCourse);
+        
+        //act 
+        const newState = courseReducer(initialState, action);
+        
+        // assert
+        expect(newState.length).toEqual(3);
+        expect(newState[0].title).toEqual('A');
+        expect(newState[1].title).toEqual('B');
+        expect(newState[2].title).toEqual('C');
+    });
+
+    it('should update course when passed UPDATE_COURSE_SUCCESS', () => {
+        
+        //arrange
+        const initialState = [
+            {id: 'A', title: 'A'},
+            {id: 'B', title: 'B'},
+            {id: 'C', title: 'C'}
+        ]; 
+        
+        const course = { id: 'B', title: 'New Title' };
+        const action = actions.updateCourseSuccess(course);
+        
+        //act 
+        const newState = courseReducer(initialState, action);
+        //find the object with id.B
+        const updatedCourse = newState.find(a => a.id == course.id);
+        //find the object with id.A to check later its title didnt change
+        const untouchedCourse = newState.find(a => a.id == 'A');
+
+        // assert
+        expect(updatedCourse.title).toEqual('New Title');
+        expect(untouchedCourse.title).toEqual('A');
+        expect(newState.length).toEqual(3);
+    });
+});
+```
+
+## Testing Thunks
+
+- handle asynchrony
+- often dispatch multiple actions
+- often interact with web API 
+
+- Need to Mock two things:  
+    - Store: with `redux-mock-store`
+    - HTTP calls with `nock` which stands for Node mock.
