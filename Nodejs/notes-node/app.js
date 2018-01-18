@@ -1,6 +1,7 @@
 console.log('Starting app');
 
 const fs = require('fs');
+const _ = require('lodash');
 
-fs.appendFileSync('greetings.txt', 'Hello World');
+const notes = require('./notes.js');
 
