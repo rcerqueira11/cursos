@@ -437,3 +437,97 @@ describe('Course Reducer', () => {
 ## Testing the Redux Store
 
 ### Writing an automated test of the Redux store
+
+- when testing the store we're really writing an integration test rather than a unit test 
+- our goal is to assure that our actions, the store, and our reducers are interacting together as expected
+
+### Integration Testing the Store
+
+1. import necessary dependencies
+    ```js
+    import expect from 'expect';
+    import {createStore} from 'redux';
+    import rootReducer from '../reducers';
+    import initialState from '../reducers/initialState';
+    import * as courseActions from '../actions/courseActions';
+    ```
+
+
+2. test that our action creators, our store and our reducers work together as expected to create course
+
+    ```js
+     describe('Store', () => {
+         it('Should handle creating courses', () => {...}
+     }
+    ```
+
+3. make the arrange
+    ```js
+    const store = createStore(rootReducer, initialState);
+    const course = {
+        title: "Clean Code"
+    };
+    ```
+
+4. create the action 
+    - `const action = courseActions.createCourseSuccess(course);` with this we a referece to the action creator  so we can call our dispatch function in our store and pass it the action that we just set up 
+    ```js
+    // act
+    const action = courseActions.createCourseSuccess(course);
+    store.dispatch(action);
+    ```
+    - here we could dispatch multiple actions and assert on result updateCourseSuccess action and then assert that the store has two courses with the expected value
+
+5. create the assert
+    ```js
+    // assert
+    const actual = store.getState().courses[0];  
+    const expected = {
+        title: "Clean Code"
+    };
+
+    expect(actual).toEqual(expected);
+    ```
+    - gonna use the getState method so we can write our assertions 
+    - we're going to store is the actual result of what is now stored in our store
+
+6. Complete test code
+    ```js
+    import expect from 'expect';
+    import {createStore} from 'redux';
+    import rootReducer from '../reducers';
+    import initialState from '../reducers/initialState';
+    import * as courseActions from '../actions/courseActions';
+
+    describe('Store', () => {
+        it('Should handle creating courses', () => {
+            // arrange 
+            const store = createStore(rootReducer, initialState);
+            const course = {
+                title: "Clean Code"
+            };
+
+            // act
+            const action = courseActions.createCourseSuccess(course);
+            store.dispatch(action);
+
+            // assert
+            const actual = store.getState().courses[0];  
+            const expected = {
+                title: "Clean Code"
+            };
+
+            expect(actual).toEqual(expected);
+        });
+    });
+    ```
+
+## Summary
+
+### Tested
+- Connected React components
+- Redux
+    - Actions creators
+    - Thunks
+    - Reducers
+    - Store (integration test)
