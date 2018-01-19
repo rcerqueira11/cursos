@@ -223,3 +223,7 @@
 
 - not necessary but good to see the production build and make sure that everything looks good
 - good to debug an issue in the production build    
+
+1. creating the distServer
+    - remove the webpack and hot reloading related code (srcServer)
+    - config express to serv static files
