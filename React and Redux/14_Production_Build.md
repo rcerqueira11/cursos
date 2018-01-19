@@ -222,4 +222,4 @@
 ## Setup dist server
 
 - not necessary but good to see the production build and make sure that everything looks good
-- good to debug an issue in the production build
+- good to debug an issue in the production build    
