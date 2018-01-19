@@ -1,7 +1,8 @@
 import webpack from 'webpack';
 import path from 'path';
-
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 const GLOBALS = {
+    // define node env variable that set react for production
     'process.env.NODE_ENV' : JSON.stringify('production')    
 };
 
@@ -36,6 +37,14 @@ export default {
         contentBase: path.resolve(__dirname, 'dist')
     },
     plugins: [
+        
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.DefinePlugin(GLOBALS),
+        new ExtractTextPlugin('style.css'),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.UglifyJsPlugin()
+
+
     ],
 
     // here we tell webpack the types of files we want to handle
@@ -43,7 +52,7 @@ export default {
         loaders: [
             { test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel'] }, //javascript adn while working with it we want to use babel to transpile our code
             //great thing about webpack is we can teach it to know more than just javascript, css, font, saas, less even images if we like
-            { test: /(\.css)$/, loaders: ['style', 'css'] },
+            { test: /(\.css)$/, loaders:ExtractTextPlugin.extract("css?sourceMap") },
             
             // jst necessary for the file types that bootstrap utilizes for fonts 
             { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
