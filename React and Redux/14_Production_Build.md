@@ -92,7 +92,7 @@
         plugins: [
             new webpack.optimize.OccurrenceOrderPlugin(),
             new webpack.DefinePlugin(GLOBALS),
-            new ExtractTextPlugin('style.css'),
+            new ExtractTextPlugin('styles.css'),
             new webpack.optimize.DedupePlugin(),
             new webpack.optimize.UglifyJsPlugin()
         ],
@@ -101,7 +101,7 @@
         module: {
             loaders: [
                 { test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel'] },
-                { test: /(\.css)$/, loaders:ExtractTextPlugin.extract("css?sourceMap") },
+                { test: /(\.css)$/, loader: ExtractTextPlugin.extract("css?sourceMap") },
                 { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
                 { test: /\.(woff|woff2)$/, loader: 'url?prefix=font/&limit=5000' },
                 { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },
@@ -119,7 +119,7 @@
         - react, for example, looks at the node enviroment to determine if it should be built in production mode
         - production mode omits development of specific features like PropTypes, which increases React's performance
         - reduces the bundle size
-    - `ExtractTextPlugin('style.css')`
+    - `ExtractTextPlugin('styles.css')`
         - let us extract or CSS into a separate file
         - need to reference this separeate file in the production version of our HTML
         - import it with `import ExtractTextPlugin from 'extract-text-webpack-plugin';`
@@ -134,7 +134,7 @@
         - so we have a corresponding separate physical file that handles our sourceMap
     - loaders is know loader becouse we are defining one
     ```js
-    { test: /(\.css)$/, loader:ExtractTextPlugin.extract("css?sourceMap") },
+    { test: /(\.css)$/, loader: ExtractTextPlugin.extract("css?sourceMap") },
     ```
 
 6. Create file `build.js`
@@ -227,3 +227,117 @@
 1. creating the distServer
     - remove the webpack and hot reloading related code (srcServer)
     - config express to serv static files
+
+    ```js
+    import express from 'express';
+    import path from 'path';
+    import open from 'open';
+
+    /*eslint-disable no-console */
+
+    const port = 3000;
+    const app = express();
+
+    app.use(express.static('dist'));
+
+    app.get('*', function(req, res){
+        res.sendFile(path.join(__dirname, '../dist/index.html'));
+    });
+
+    app.listen(port, function (err){
+        if(err){
+            console.log(err);
+        } else {
+            open(`http://localhost:${port}`);
+        }
+    });
+
+    ```
+
+## Setup npm Scripts
+
+- `"clean-dist": "npm run remove-dist && mkdir dist"`
+    - gettin rid of the dist folder and recreate it 
+    - mkdir is a cross-platform friendly command
+- `"remove-dist": "node_modules/.bin/rimraf ./dist"`
+    - `rimraf`: cross plataform way to be able to remove a folder forcefully (rm-rf equivalent)
+- `"build:html": "babel-node tools/buildHtml.js"`
+    - using babel node becouse we wrote tha build in ES6
+- `"prebuild": "npm-run-all clean-dist test lint build:html"`
+    - npm-run-all: is a corss plataform way too run multiple commands either ne at a time or in parallel. (with a parallel flag)
+    - clean-dist will go first, then test, then lint, then build
+- `"build": "babel-node tools/build.js"`
+    - run our webpack build and generate our final bundle.js
+    - as well as extracting our CSS into a separate file
+- `"postbuild": "babel-node tools/distServer.js"`
+    - will open up our dist server so we can see the results of our work
+
+### package.json
+```json
+ "scripts": {
+    ...,
+    "clean-dist": "npm run remove-dist && mkdir dist",
+    "remove-dist": "node_modules/.bin/rimraf ./dist",
+    "build:html": "babel-node tools/buildHtml.js",
+    "prebuild": "npm-run-all clean-dist test lint build:html",
+    "build": "babel-node tools/build.js",
+    "postbuild": "babel-node tools/distServer.js"
+},
+```
+
+### use gzip with express
+
+1. import compression library
+    ```js
+    import compression from 'compression';
+    ```
+
+2. use it with
+    ```js
+    app.use(compression());
+    ```
+    - this will enable gzip compression
+
+- Drop babel-polyfill, toastr, jQuery, Bootstrap in order to minified even more to 64K
+- You can make your own router (drop react-router) and get down around 50kg
+- no way you can get near this with Angular 1, Angular 2, or Ember
+- this light weigth is a clear benefit of choosing focused libraries like React and Reduxs
+
+## Final Challenge
+
+1. Author administration
+    - sure add some logic that makes sure you can't delete an author who already has a course.
+
+2. Delete course
+
+3. Hide empty course list
+
+4. Unsaved changes message
+    - message to the user if they try to leae the ManageCourseForm without unsaved changes.  
+
+5. Client-side validation
+    - validate things like the category and the link data as well
+
+6. Handle 404's on the ManageCoursePage
+    - you gonna need to add some logic to mapStateToProps
+
+7. Show # of courses in Header
+    - greate example how redux sigle-store model really pays off
+    - really trivial  
+
+8. Pagination
+    - add pagination or inifite scrolling to the tables that we're using in order to support large data sets
+
+9. Sort course table
+    - sort the course table alphabetically by title by default ( so the las record updated or created isn't always placed at the bottom like it is right now)
+    - mapStateToProp is where you want to get this done
+
+10. Revert abandoned changes
+    - consider keeping the old values for course data so that you can revert changes when the user navigates to a different page withou saving 
+
+-  help for this in the React and Flux course
+
+## Summary
+
+### Production build mattes
+- 4.8MB -> 121K

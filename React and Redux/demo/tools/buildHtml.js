@@ -4,7 +4,8 @@ import colors from 'colors';
 
 /*eslint-disable no-console*/
 
-fs.readFile('src/index.html', 'uft8', (err,markup) => {
+fs.readFile('src/index.html',  (err,markup) => {
+    console.log("ains");
     if(err){
         return console.log(err);
     }
@@ -15,7 +16,7 @@ fs.readFile('src/index.html', 'uft8', (err,markup) => {
     //since a separated spreadsheet is only utilized for the production build, need to dynamically
     $('head').prepend('<link rel="stylesheet" href="styles.css">');
 
-    fs.writeFile('dist/index.html', $.html(), 'uft8', function(err){
+    fs.writeFile('dist/index.html', $.html(), function(err){
         if(err){
             return console.log(err);
         }
