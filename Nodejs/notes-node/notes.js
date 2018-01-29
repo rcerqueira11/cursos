@@ -68,7 +68,8 @@ var addNote = (title, body) => {
 var getAll = () => {
 	console.log("Getting all notes")
 	var notes = fetchNotes();
-	notes.filter((note)=> logNote(note));
+	notes.forEach((note)=>logNote(note));
+	// notes.filter((note)=> logNote(note));
 };
 
 var removeNote = (title) => {
@@ -89,7 +90,6 @@ var readingNote = (title) => {
 };
 
 var logNote = (note) => {
-	debugger;
 	console.log("----");
 	console.log(`Title: ${note.title}`);
 	console.log(`Body: ${note.body}`);
