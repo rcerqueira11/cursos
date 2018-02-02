@@ -20,7 +20,7 @@
 - carPart is a local variable
 - carParts is the array to loop through
 
-## Resume 
+## What we learn? 
 
 - A directive (withing Angular) is how we add dynamic behavior to HTML
 - A component directive has a template
@@ -55,7 +55,7 @@ class AppComponent {
     totalCarParts(){
         let sum = 0;
         for (let carPart of this.carParts){
-            sum += carPArt.inStock;
+            sum += carPart.inStock;
         }
         return sum;
     }

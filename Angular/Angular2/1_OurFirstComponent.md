@@ -90,7 +90,7 @@ platformBrowserDynamic()
     })
     ```
 
-## Resume 
+## What we learn? 
 - Angular is a framework for dynamic web applications
 - We are coding Angular using TypeScript, a language that transpiles into JavaScript
 - NgModules group Angular code into blocks of functionality
