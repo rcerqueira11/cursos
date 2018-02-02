@@ -21,6 +21,7 @@ export let projectId = 99;
 - we can import with an alias
 ```js 
 import { projectId as id }
+import { default as id }
 ```
 - once we set an alias we need to use that alias
 - import statements run firts
@@ -39,3 +40,26 @@ import { projectId as id }
     //return
     99
     ```
+- if not default defined it will return undefine
+    - we can do something like 
+    ```js
+    //File Base
+    import somevalue from module1
+    //File Module1
+    ...
+    let projectId = 99
+    export { projectId as default, projectName };
+
+    console.log(somevalue) => return 99
+    ```
+- import with *
+    - `import * as values from module1`
+    - returns an object
+
+
+## Named Exports in Modules 
+
+- imported name can only be readed not replace
+- if it is an object its properties can be changed
+- when we modify a value of an object, the value between the modules stay in sync 
+- we export the name as a function but no the function 
