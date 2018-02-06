@@ -95,3 +95,7 @@ export class CarPart{
 - Any update to the ocmponent property value will update the DOM property, but no vice versa --- thats why its "one-way binding"
 
 - Class binding allows us to specify a CSS class to add to a DOM element if a component property is true
+
+
+
+## Event Binding
