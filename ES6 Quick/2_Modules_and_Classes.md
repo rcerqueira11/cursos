@@ -63,3 +63,27 @@ import { default as id }
 - if it is an object its properties can be changed
 - when we modify a value of an object, the value between the modules stay in sync 
 - we export the name as a function but no the function 
+
+## Class Fundamentals
+
+- `class Task {};typeof(Task)` : function
+- `class Task {};let task = new Task(); typeof(task) ` : object
+- `task instanceof Task`: true
+
+- add a method to the class is similar to add it to the prototype object
+    ```js
+    class Task {
+        showId(){
+            console.log('99');
+        }
+    }
+
+    let task = Task()
+    console.log(task.showId === Task.prototype.showId) : true
+    ```
+
+- classes are not huisted
+- if we define a contructor function it will be called when instaciated
+- we can asing clases to variables `let asd = class Task {}; new asd()`
+- we cannot call the class function with an object in order to change the this function
+- when working with classes it will not be set in the windows object
