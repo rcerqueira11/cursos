@@ -137,3 +137,55 @@ request(options, callback(error, response, body))
 ```
 
 ## Abstracting Callbacks
+
+- the error handler should not be in app.js
+- the logic of the http request should not be in app.js
+
+```js
+const geocode = require('./geocode/geocode')
+geocode.geocodeAddress(argv.address);
+```
+
+- callback logic 
+- in app.js
+```js
+geocode.geocodeAddress(argv.address, (errorMessage, results) => {
+    if (errorMessage){
+        console.log(errorMessage);
+    } else {
+        console.log(JSON.stringify(results,undefined,2))
+    }
+});
+
+```
+- gecode.js
+```js
+var geocodeAddress = (address, callback) => {
+    let encodeAddress = encodeURIComponent(address);
+    request({
+        url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeAddress}&key=${apiKey}`,
+        json: true
+    }, (error, response, body) => {
+        if (error) {
+            callback('Unable to connect to google servers');
+        } else if (body.status === 'ZERO_RESULTS') {
+            callback('Unable to find that address');
+        } else if (body.status === 'OK') {
+            callback(undefined, results = {
+                'address': body.results[0].formatted_address,
+                'latitude': body.results[0].geometry.location.lat,
+                'longitude': body.results[0].geometry.location.lng,
+            })
+        }
+    });
+```
+- we specify `undefined` to the field that we are not getting
+
+## Intro to Promises
+
+- solve problem with multiple async functions
+
+- the callback funtions get two arguments resolve and reject
+
+- resolve get the actual data that the user wanted
+    - u can pass just one argument to the resolve, if needed more use an object
