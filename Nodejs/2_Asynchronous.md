@@ -81,6 +81,13 @@ request(options, callback(error, response, body))
     - url
     - json: true = convert the response to js object
 
+- body
+    - part of http
+    - data that comes back after a request to a website 
+    - core data that comes back from the server
+
+- error 
+    - what metters most is the `code` which is the error code from the server
 
 > over query limit `https://www.udemy.com/the-complete-nodejs-developer-course-2/learn/v4/questions/2956062`
 
@@ -88,3 +95,23 @@ request(options, callback(error, response, body))
 
 - `JSON.stringify(body, undefined, 2)`
 - the 3rd argument specify how many spaces you want to use for indentation
+
+- going in json fields ` body.results[0].geometry.location.lng`
+
+### Encoding user input
+- npm install yargs
+- use yargs.options
+    - string: true tell that parse the input as an string even if its a number
+    - .argv: takes all the configuration runs it throught our arguments, and store the result in the argv variable
+    - .alias set an alias take two argunments the one that you want to make an alias for and the alias 
+    `.alias('help','h')`
+
+### Encode Decode
+
+#### Encode
+
+`encodeURIComponent()`
+- takes one argument the one we are gonna encode and set the special encode characters
+
+`decodeURIComponent()`
+- takes one argument the one we are gonna decode and returns the special encode characters to the original values
