@@ -189,3 +189,145 @@ var geocodeAddress = (address, callback) => {
 
 - resolve get the actual data that the user wanted
     - u can pass just one argument to the resolve, if needed more use an object
+
+- to do something we need to call `.then()` and you can define a callback funciton for both success cases and error cases
+
+- the first function is gonna get call ONLY if the promise is fullfiled, and it will be called with the value pass to resolve
+
+- the second argument let us handle errors in our promise
+
+```js
+somePromise.then(callbackResolver(){}, callbackReject(){})
+```
+
+- you can either resolve or reject you CANT do both of them at the same time, either twice or change later their value
+
+```js
+//promise example
+
+var somePromise = new Promise((resolve, reject)=> {
+    setTimeout(() => {
+        // resolve('It worked')
+        reject('Unable to fulfill promise');
+    }, 2500);
+})
+
+somePromise.then((message)=>{
+    console.log(message);
+}, (errorMessage)=>{
+    console.log('error:', errorMessage)
+})
+
+```
+
+- when a promise is waiting to be resolve o rejected is on an state called `pending`
+
+- and when the promise finish is state is `settle`
+
+- with promises you dont have to worry about calling a callback twice 
+
+
+## Advance Promises
+
+### **Pass Arguments**
+- to the promise using a function
+
+```js
+var asyncAdd = (a,b) =>{
+    return new Promise((resolve,reject)=>{
+        setTimeout(() => {
+            if(typeof a === 'number' && typeof b === 'number'){
+                resolve(a+b);
+            } else {
+                reject("Both parameters must be numbers");
+            }
+        }, 1500);
+    })
+}
+
+asyncAdd(5,7).then((res)=>{
+    //resolve case
+    console.log(res);
+},(errorMessage)=>{
+    // reject case
+    console.log(errorMessage);
+})
+```
+
+### **Chain promises**
+
+- we can return in the resolve case a new promise
+- and the new `.then()` will be called afte the close parentesis of our previous then
+
+```js
+asyncAdd(5,'7').then((res)=>{
+    //resolve case
+    console.log(res);
+    return asyncAdd(res,33);
+},(errorMessage)=>{
+    // reject case
+    console.log(errorMessage);
+}).then((res)=>{
+    console.log('result',res);
+},(errorMessage)=>{
+    console.log('second',errorMessage);
+})
+
+```
+
+- this have a problem when the first promise fails
+
+- so we change the error handler to a catch
+
+```js
+asyncAdd(5,'7').then((res)=>{
+    //resolve case
+    console.log(res);
+    return asyncAdd(res,33);
+}).then((res)=>{
+    console.log('result',res);
+}).catch((errorMessage)=>{
+    console.log(errorMessage);
+})
+
+```
+
+### Promises with request
+
+```js
+
+var geocodeAdress = (address) => {
+    return new Promise((resolve, reject) => {
+        let encodeAddress = encodeURIComponent(address);
+        request({
+            url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeAddress}&key=${apiKey}`,
+            json: true
+        }, (error, response, body) => {
+            if (error) {
+                reject('Unable to connect to google servers');
+            } else if (body.status === 'ZERO_RESULTS') {
+                reject('Unable to find that address');
+            } else if (body.status === 'OK') {
+                resolve(results = {
+                    'address': body.results[0].formatted_address,
+                    'latitude': body.results[0].geometry.location.lat,
+                    'longitude': body.results[0].geometry.location.lng,
+                })
+            }
+        });
+    })
+}
+
+geocodeAdress('19146').then((location) => {
+    console.log(JSON.stringify(location, undefined, 2));
+
+}, (errorMessage) => {
+    console.log(errorMessage);
+})
+```
+
+### Promises with AXIOS library
+
+- axios can implement promises 
+- instead of callback implement promises
+- we do not have to wrap our calls in another function
