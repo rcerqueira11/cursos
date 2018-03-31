@@ -1,0 +1,53 @@
+<h2>Mis Reservas</h2>
+
+
+<div class='col'>
+ <%= form_for :reservas, url: '/reservas', html:{ class:"form-horizontal"} do %>
+                <div class="modal-body">
+
+                    <div class="form-group row">
+                        <label for="example-search-input" class="col-2 col-form-label">Area Comun</label>
+<div class="col-10">
+                        <select class="form-control" id="exampleSelect1" required>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select></div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-email-input" class="col-2 col-form-label">Email</label>
+                        <div class="col-10">
+                            <input class="form-control" name="email" type="email" placeholder="bootstrap@example.com" id="example-email-input" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-date-input" class="col-2 col-form-label">Fecha</label>
+                        <div class="col-10">
+                            <input class="form-control" name="date" type="date" placeholder="2011-08-19" id="example-date-input" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-time-input" class="col-2 col-form-label">Desde</label>
+                        <div class="col-10">
+                            <input class="form-control" type="time" name="timeStart" placeholder="13:45:00" id="example-time-input" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-time-input" class="col-2 col-form-label">Hasta</label>
+                        <div class="col-10">
+                            <input class="form-control" type="time" name="timeEnd" placeholder="13:45:00" id="example-time-input" required>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            <% end %>
+
+</div>
