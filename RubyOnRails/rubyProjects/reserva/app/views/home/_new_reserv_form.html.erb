@@ -15,11 +15,9 @@
                     <label for="example-search-input" class="col-form-label">Edificio</label>
                     <div>
                         <select class="form-control" name="nombreEdificio" id="id_edificios" required>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                            <%= @edificio.each do |e| %>
+                            <option value="<%= e.cod %>"> <%= e.nombre %> </option>
+                            <% end %>
                         </select>
                     </div>
                 </div>
@@ -28,11 +26,9 @@
                     <label for="example-search-input" class="col-form-label">Area Comun</label>
                     <div>
                         <select class="form-control" name="nombreAreaComun" id="id_areasComunes" required>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                            <%= @edificio.espacio_comuns.each do |ec| %>
+                            <option value="<%= ec.cod %>"> <%= ec.nombre %> </option>
+                            <% end %>
                         </select>
                     </div>
                 </div>
