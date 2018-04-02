@@ -14,7 +14,7 @@
                 <div class="col-sm-6">
                     <label for="example-search-input" class="col-form-label">Edificio</label>
                     <div>
-                        <select class="form-control" name="nombreEdificio" id="id_edificios" required>
+                        <select class="form-control" name="reserva[nombreEdificio]" id="id_edificios" required>
                             <%= @edificio.each do |e| %>
                             <option value="<%= e.cod %>"> <%= e.nombre %> </option>
                             <% end %>
@@ -25,10 +25,8 @@
 
                     <label for="example-search-input" class="col-form-label">Area Comun</label>
                     <div>
-                        <select class="form-control" name="nombreAreaComun" id="id_areasComunes" required>
-                            <%= @edificio.espacio_comuns.each do |ec| %>
-                            <option value="<%= ec.cod %>"> <%= ec.nombre %> </option>
-                            <% end %>
+                        <select class="form-control" name="reserva[nombreAreaComun]" id="id_areasComunes" required>
+                            <option value="<%= @espacio_comuns.cod %>"> <%= @espacio_comuns.nombre %> </option>
                         </select>
                     </div>
                 </div>
@@ -38,14 +36,14 @@
                 <div class="col-sm-6">
                     <label for="example-email-input" class="col-form-label">Email</label>
                     <div>
-                        <input class="form-control" name="email" type="email" placeholder="bootstrap@example.com" id="example-email-input" required>
+                        <input class="form-control" name="reserva[email]" type="email" placeholder="bootstrap@example.com" id="example-email-input" required>
                     </div>
                 </div>
 
                 <div class="col-sm-6">
                     <label for="example-date-input" class="col-form-label">Fecha</label>
                     <div>
-                        <input class="form-control" name="date" type="date" placeholder="2011-08-19" id="example-date-input" required>
+                        <input class="form-control" name="reserva[date]" type="date" placeholder="2011-08-19" id="example-date-input" required>
                     </div>
                 </div>
             </div>
@@ -54,14 +52,14 @@
                 <div class="col-sm-6">
                     <label for="example-time-input" class="col-form-label">Hora Desde</label>
                     <div>
-                        <input class="form-control" type="time" name="timeStart" placeholder="13:45:00" id="example-time-input" required>
+                        <input class="form-control" type="time" name="reserva[timeStart]" placeholder="13:45:00" id="example-time-input" required>
                     </div>
                 </div>
                 <div class="col-sm-6">
 
                     <label for="example-time-input" class="col-form-label">Hora Hasta</label>
                     <div>
-                        <input class="form-control" type="time" name="timeEnd" placeholder="13:45:00" id="example-time-input" required>
+                        <input class="form-control" type="time" name="reserva[timeEnd]" placeholder="13:45:00" id="example-time-input" required>
                     </div>
                 </div>
             </div>

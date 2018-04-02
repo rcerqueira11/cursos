@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20180402060440) do
     t.string "nombre"
     t.string "localizacion"
     t.string "cod"
-    t.integer "fk_edificio"
+    t.integer "edificio_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -37,19 +37,12 @@ ActiveRecord::Schema.define(version: 20180402060440) do
   end
 
   create_table "reserva_ecs", force: :cascade do |t|
-    t.integer "fk_usuario"
-    t.integer "fk_esp_comun"
+    t.integer "usuario_id"
+    t.integer "espacio_comun_id"
     t.date "fecha"
     t.string "t_inicio"
     t.string "t_fin"
-    t.string "fk_status_reserva"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "tipo_propietarios", force: :cascade do |t|
-    t.string "cod"
-    t.string "descripcion"
+    t.integer "status_reserva_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -59,7 +52,8 @@ ActiveRecord::Schema.define(version: 20180402060440) do
     t.string "apellido"
     t.boolean "solvente"
     t.string "email"
-    t.integer "fk_tipo_propietario"
+    t.boolean "propietario"
+    t.integer "edificio_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

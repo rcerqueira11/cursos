@@ -5,8 +5,8 @@ class CreateUsuarios < ActiveRecord::Migration[5.1]
       t.string :apellido
       t.boolean :solvente
       t.string :email
-      t.integer :fk_tipo_propietario
-
+      t.boolean :propietario
+      t.integer :edificio_id
       t.timestamps
     end
   end

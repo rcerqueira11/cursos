@@ -1,4 +1,4 @@
 class EspacioComun < ApplicationRecord
-    belongs_to :edicio
-    has_many :reserva_ec
+    belongs_to :edificio
+    has_many :reserva_ecs
 end

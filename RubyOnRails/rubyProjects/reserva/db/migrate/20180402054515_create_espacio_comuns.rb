@@ -4,7 +4,7 @@ class CreateEspacioComuns < ActiveRecord::Migration[5.1]
       t.string :nombre
       t.string :localizacion
       t.string :cod
-      t.integer :fk_edificio
+      t.integer :edificio_id
 
       t.timestamps
     end

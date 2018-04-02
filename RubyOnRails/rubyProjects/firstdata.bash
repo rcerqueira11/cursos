@@ -25,8 +25,8 @@ Usuario.create nombre:'Enio', apellido:'Diaz', solvente:true, email:'prop@gmail.
 Usuario.create nombre:'Amable', apellido:'Rivas', solvente:false, email:'co.prop@gmail.com', fk_tipo_propietario:2
 
 
-rails g resource Reserva fk_usuario:integer fk_esp_comun:integer fecha:date t_inicio:string t_fin:string fk_status_reserva
-
+rails g resource ReservaEcs fk_usuario:integer fk_esp_comun:integer fecha:date t_inicio:string t_fin:string fk_status_reserva:integer
+ReservaEcs  fk_usuario:integer fk_esp_comun:integer fecha:date t_inicio:string t_fin:string fk_status_reserva:1
 
 
 
