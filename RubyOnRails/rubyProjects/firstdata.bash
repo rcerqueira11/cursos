@@ -28,6 +28,8 @@ Usuario.create nombre:'Amable', apellido:'Rivas', solvente:false, email:'co.prop
 rails g resource ReservaEcs fk_usuario:integer fk_esp_comun:integer fecha:date t_inicio:string t_fin:string fk_status_reserva:integer
 ReservaEcs  fk_usuario:integer fk_esp_comun:integer fecha:date t_inicio:string t_fin:string fk_status_reserva:1
 
+rails g resource ReservaEcs fk_usuario:integer fk_esp_comun:integer fecha:date t_inicio:string t_fin:string fk_status_reserva:integer
 
 
 
+rails g scaffold Reservar usuario_id:integer espacio_comun_id:integer fecha:Date t_inicio:time t_fin:time estatus_reserva_id:integer

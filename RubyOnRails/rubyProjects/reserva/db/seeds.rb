@@ -21,3 +21,6 @@ EspacioComun.create(nombre:'Salon de Fiesta', localizacion:'P1 Ala 5', cod:'LPLM
 EspacioComun.create(nombre:'Discoteca', localizacion:'Piso 4, todo el piso', cod:'LPLMS-DT', edificio_id:2 )
 Usuario.create(nombre:'Enio', apellido:'Diaz', solvente:true, email:'prop@gmail.com', propietario:true, edificio_id:1)
 Usuario.create(nombre:'Amable', apellido:'Rivas', solvente:false, email:'co.prop@gmail.com', propietario:false, edificio_id:2)
+Reservar.create(usuario_id: '1',espacio_comun_id: '2',fecha: Time.now + 3.days,t_inicio: '1:30pm',t_fin: '3:30pm',estatus_reserva_id: '1')
+Reservar.create(usuario_id: '1',espacio_comun_id: '4',fecha: Time.now + 5.days,t_inicio: '1:30pm',t_fin: '3:30pm',estatus_reserva_id: '1')
+Reservar.create(usuario_id: '2',espacio_comun_id: '3',fecha: Time.now + 7.days,t_inicio: '2:30pm',t_fin: '4:30pm',estatus_reserva_id: '2')
