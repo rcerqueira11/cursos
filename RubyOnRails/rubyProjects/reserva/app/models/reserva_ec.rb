@@ -1,0 +1,2 @@
+class ReservaEc < ApplicationRecord
+end

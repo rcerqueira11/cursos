@@ -1,0 +1,2 @@
+class ReservaECsController < ApplicationController
+end

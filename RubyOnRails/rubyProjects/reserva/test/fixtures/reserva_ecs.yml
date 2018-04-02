@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fk_usuario: 1
+  fk_esp_comun: 1
+  fecha: 2018-04-02
+  t_inicio: MyString
+  t_fin: MyString
+  fk_status_reserva: MyString
+
+two:
+  fk_usuario: 1
+  fk_esp_comun: 1
+  fecha: 2018-04-02
+  t_inicio: MyString
+  t_fin: MyString
+  fk_status_reserva: MyString

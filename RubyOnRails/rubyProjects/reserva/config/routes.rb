@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :reserva_ecs
+  resources :usuarios
   resources :espacio_comuns
   resources :edificios
   resources :estado_reservas
