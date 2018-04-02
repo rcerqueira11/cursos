@@ -1,0 +1,2 @@
+class TipoPropietario < ApplicationRecord
+end

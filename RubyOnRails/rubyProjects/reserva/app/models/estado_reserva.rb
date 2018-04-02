@@ -1,0 +1,2 @@
+class EstadoReserva < ApplicationRecord
+end

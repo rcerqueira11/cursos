@@ -1,0 +1,2 @@
+class EstadoReservasController < ApplicationController
+end

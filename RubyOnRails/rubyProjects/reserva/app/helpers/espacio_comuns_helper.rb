@@ -1,0 +1,2 @@
+module EspacioComunsHelper
+end

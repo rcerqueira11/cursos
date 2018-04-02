@@ -1,0 +1,2 @@
+class EdificiosController < ApplicationController
+end

@@ -1,0 +1,2 @@
+class EspacioComunsController < ApplicationController
+end

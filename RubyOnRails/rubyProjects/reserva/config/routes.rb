@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :espacio_comuns
+  resources :edificios
+  resources :estado_reservas
+  resources :tipo_propietarios
   root 'home#index'
 
   post '/reservas' => 'home#temp'
