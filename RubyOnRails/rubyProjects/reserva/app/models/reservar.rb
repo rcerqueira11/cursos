@@ -1,2 +1,0 @@
-class Reservar < ApplicationRecord
-end

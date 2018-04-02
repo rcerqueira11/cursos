@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Usuario:</strong>
+  <%= @reservacion.usuario_id %>
+</p>
+
+<p>
+  <strong>Espacio comun:</strong>
+  <%= @reservacion.espacio_comun_id %>
+</p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @reservacion.fecha %>
+</p>
+
+<p>
+  <strong>T inicio:</strong>
+  <%= @reservacion.t_inicio %>
+</p>
+
+<p>
+  <strong>T fin:</strong>
+  <%= @reservacion.t_fin %>
+</p>
+
+<p>
+  <strong>Estatus reserva:</strong>
+  <%= @reservacion.estatus_reserva_id %>
+</p>
+
+<%= link_to 'Edit', edit_reservacion_path(@reservacion) %> |
+<%= link_to 'Back', reservacions_path %>

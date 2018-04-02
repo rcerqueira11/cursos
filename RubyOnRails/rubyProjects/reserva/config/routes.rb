@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
-  resources :reservars
+  resources :reservacions
   resources :usuarios
   resources :espacio_comuns
   resources :edificios
   resources :estado_reservas
   resources :tipo_propietarios
 
-  root 'reserva_e_cs#index'
+  root 'reservacion#index'
 
   post '/reservas' => 'home#temp'
 
