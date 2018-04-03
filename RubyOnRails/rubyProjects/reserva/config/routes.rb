@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :estado_reservas
   resources :tipo_propietarios
 
-  root 'reservacion#index'
+  root 'reservacions#index'
 
   post '/reservas' => 'home#temp'
 
