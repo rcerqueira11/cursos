@@ -19,7 +19,7 @@
   <tbody>
     <% @reservacions.each do |reservacion| %>
       <tr>
-        <td><%= Usuario.find(1).email %></td>
+        <td><%= Usuario.find(reservacion.usuario_id).email %></td>
 
         <td><%= Edificio.find(EspacioComun.find(reservacion.espacio_comun_id).edificio_id).nombre %></td>
         <td><%= EspacioComun.find(reservacion.espacio_comun_id).nombre %></td>
@@ -37,4 +37,3 @@
 
 <br>
 
-<%= link_to 'New Reservacion', new_reservacion_path %>

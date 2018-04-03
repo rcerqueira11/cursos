@@ -24,16 +24,51 @@ class ReservacionsController < ApplicationController
   # POST /reservacions
   # POST /reservacions.json
   def create
+
+
     @reservacion = Reservacion.new(reservacion_params)
-    byebug
-    respond_to do |format|
-      if @reservacion.save
-        format.html { redirect_to @reservacion, notice: 'Reservacion was successfully created.' }
-        format.json { render :show, status: :created, location: @reservacion }
+    
+    # Verificar usuario es solvente
+    usuario = Usuario.find(@reservacion.usuario_id)
+    #Verificar tiempo inicio es menor  a tiempo fin
+    tiempo_correcto =  @reservacion.t_fin.utc.strftime( "%H%M%S%N" ) > @reservacion.t_inicio.utc.strftime( "%H%M%S%N" )
+
+    # Verficar que no exista otra reserva para el mismo fecha y hora 
+    existe_igual = Reservacion.where(:espacio_comun_id=>@reservacion.espacio_comun_id,:fecha=>@reservacion.fecha, :t_inicio=>@reservacion.t_inicio, :t_fin=>@reservacion.t_fin).length > 0
+    
+    # if inicio existe negar
+    existe_inicio_igual = Reservacion.where(:espacio_comun_id=>@reservacion.espacio_comun_id, :fecha=>@reservacion.fecha, :t_inicio=>@reservacion.t_inicio).length > 0
+    
+    # if end time menos a tiempo fin en otro reserv negar
+    creando_en_medio = Reservacion.where("t_fin > ?",@reservacion.t_inicio).where(:espacio_comun_id=>@reservacion.espacio_comun_id,:fecha=>@reservacion.fecha ) > 0
+    #validar existencias
+
+    existe_bloqueante = existe_igual or existe_inicio_igual or creando_en_medio
+    
+    if usuario.solvente
+      if tiempo_correcto and !existe_bloqueante 
+        respond_to do |format|
+          if @reservacion.save
+            format.html { redirect_to @reservacion, notice: 'Reservacion was successfully created.' }
+            format.json { render :show, status: :created, location: @reservacion }
+          else
+            format.html { render :new }
+            format.json { render json: @reservacion.errors, status: :unprocessable_entity }
+          end
+        end
       else
         format.html { render :new }
-        format.json { render json: @reservacion.errors, status: :unprocessable_entity }
+        if !tiempo_correcto
+          format.json { render json: @reservacion.errors, status: 'Esta hora es incorrecta' }
+        end
+
+        if existe_bloqueante
+          format.json { render json: @reservacion.errors, status: 'Esta fecha ya esta ocupada' }
+        end
       end
+    else 
+      format.html { render :new }
+      format.json { render json: @reservacion.errors, status: 'Usuario no esta solvente' }
     end
   end
 
@@ -69,7 +104,6 @@ class ReservacionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reservacion_params
-      byebug
       params.require(:reservacion).permit(:usuario_id, :espacio_comun_id, :fecha, :t_inicio, :t_fin, :estatus_reserva_id)
     end
 end
