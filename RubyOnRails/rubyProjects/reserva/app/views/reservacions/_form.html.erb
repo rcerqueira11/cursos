@@ -16,7 +16,7 @@
     <%= form.label :usuario_id %>
     <% usuario_array = Usuario.all.map { |usuario| [usuario.email, usuario.id] } %>
 
-<%= select_tag(:usuario_id, options_for_select(usuario_array), id: :reservacion_usuario_id, class: 'form-control')  %>
+<%= select_tag(:usuario_id, options_for_select(usuario_array), id: :reservacion_usuario_id, class: 'form-control',  name: 'reservacion[usuario_id]')  %>
   </div>
 
   <div class="field">
@@ -24,7 +24,7 @@
 
 <% espacio_array = EspacioComun.all.map { |espacio| [espacio.nombre, espacio.id] } %>
 
-<%= select_tag(:espacio_comun_id, options_for_select(espacio_array), id: :reservacion_espacio_comun_id, class: 'form-control') %>
+<%= select_tag(:espacio_comun_id, options_for_select(espacio_array), id: :reservacion_espacio_comun_id, class: 'form-control',name: 'reservacion[espacio_comun_id]' ) %>
     
   </div>
 
@@ -34,7 +34,7 @@
   </div>
 
   <div class="field">
-    <%= form.label :t_inicio %>
+    <%= form.label :t_inicio  %>
     <%= form.time_select :t_inicio, id: :reservacion_t_inicio, class: 'form-control' %>
   </div>
 
@@ -48,7 +48,7 @@
 
     <% reserva_array = EstadoReserva.all.map { |reserva| [reserva.descripcion, reserva.id] } %>
 
-    <%= select_tag(:estatus_reserva_id, options_for_select(reserva_array), id: :reservacion_estatus_reserva_id, class: 'form-control') %>
+    <%= select_tag(:estatus_reserva_id, options_for_select(reserva_array),id: :reservacion_estatus_reserva_id, class: 'form-control', name: 'reservacion[estatus_reserva_id]') %>
     
   </div>
 

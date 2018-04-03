@@ -33,3 +33,4 @@ rails g resource ReservaEcs fk_usuario:integer fk_esp_comun:integer fecha:date t
 
 
 rails g scaffold Reservar usuario_id:integer espacio_comun_id:integer fecha:Date t_inicio:time t_fin:time estatus_reserva_id:integer
+rails g scaffold Reservar usuario_id:integer espacio_comun_id:integer fecha:date t_inicio:time t_fin:time estatus_reserva_id:integer

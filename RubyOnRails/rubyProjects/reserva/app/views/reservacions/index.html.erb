@@ -6,10 +6,11 @@
   <thead class="thead-inverse">
     <tr>
       <th>Usuario</th>
+      <th>Edificio</th>
       <th>Espacio comun</th>
       <th>Fecha</th>
-      <th>T inicio</th>
-      <th>T fin</th>
+      <th>Tiempo inicio</th>
+      <th>Tiempo fin</th>
       <th>Estatus reserva</th>
       <th colspan="3">Opciones</th>
     </tr>
@@ -19,7 +20,9 @@
     <% @reservacions.each do |reservacion| %>
       <tr>
         <td><%= Usuario.find(1).email %></td>
-        <td><%= reservacion.espacio_comun_id %></td>
+
+        <td><%= Edificio.find(EspacioComun.find(reservacion.espacio_comun_id).edificio_id).nombre %></td>
+        <td><%= EspacioComun.find(reservacion.espacio_comun_id).nombre %></td>
         <td><%= reservacion.fecha %></td>
         <td><%= reservacion.t_inicio.strftime("%I:%M%p") %></td>
         <td><%= reservacion.t_fin.strftime("%I:%M%p") %></td>

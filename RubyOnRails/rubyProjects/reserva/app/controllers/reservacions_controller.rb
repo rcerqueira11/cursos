@@ -25,7 +25,7 @@ class ReservacionsController < ApplicationController
   # POST /reservacions.json
   def create
     @reservacion = Reservacion.new(reservacion_params)
-
+    byebug
     respond_to do |format|
       if @reservacion.save
         format.html { redirect_to @reservacion, notice: 'Reservacion was successfully created.' }
@@ -69,6 +69,7 @@ class ReservacionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reservacion_params
+      byebug
       params.require(:reservacion).permit(:usuario_id, :espacio_comun_id, :fecha, :t_inicio, :t_fin, :estatus_reserva_id)
     end
 end
