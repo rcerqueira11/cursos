@@ -2,8 +2,8 @@
 
 <h1>Reservacions</h1>
 
-<table>
-  <thead>
+<table class="table table-striped">
+  <thead class="thead-inverse">
     <tr>
       <th>Usuario</th>
       <th>Espacio comun</th>
@@ -11,19 +11,19 @@
       <th>T inicio</th>
       <th>T fin</th>
       <th>Estatus reserva</th>
-      <th colspan="3"></th>
+      <th colspan="3">Opciones</th>
     </tr>
   </thead>
 
   <tbody>
     <% @reservacions.each do |reservacion| %>
       <tr>
-        <td><%= reservacion.usuario_id %></td>
+        <td><%= Usuario.find(1).email %></td>
         <td><%= reservacion.espacio_comun_id %></td>
         <td><%= reservacion.fecha %></td>
-        <td><%= reservacion.t_inicio %></td>
-        <td><%= reservacion.t_fin %></td>
-        <td><%= reservacion.estatus_reserva_id %></td>
+        <td><%= reservacion.t_inicio.strftime("%I:%M%p") %></td>
+        <td><%= reservacion.t_fin.strftime("%I:%M%p") %></td>
+        <td><%= EstadoReserva.find(reservacion.estatus_reserva_id).descripcion %></td>
         <td><%= link_to 'Show', reservacion %></td>
         <td><%= link_to 'Edit', edit_reservacion_path(reservacion) %></td>
         <td><%= link_to 'Destroy', reservacion, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -1,4 +1,4 @@
-<%= form_with(model: reservacion, local: true) do |form| %>
+<%= form_with(model: reservacion, local: true, :html => {class:'form-control'}) do |form| %>
   <% if reservacion.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(reservacion.errors.count, "error") %> prohibited this reservacion from being saved:</h2>
@@ -11,37 +11,48 @@
     </div>
   <% end %>
 
+
   <div class="field">
     <%= form.label :usuario_id %>
-    <%= form.number_field :usuario_id, id: :reservacion_usuario_id %>
+    <% usuario_array = Usuario.all.map { |usuario| [usuario.email, usuario.id] } %>
+
+<%= select_tag(:usuario_id, options_for_select(usuario_array), id: :reservacion_usuario_id, class: 'form-control')  %>
   </div>
 
   <div class="field">
     <%= form.label :espacio_comun_id %>
-    <%= form.number_field :espacio_comun_id, id: :reservacion_espacio_comun_id %>
+
+<% espacio_array = EspacioComun.all.map { |espacio| [espacio.nombre, espacio.id] } %>
+
+<%= select_tag(:espacio_comun_id, options_for_select(espacio_array), id: :reservacion_espacio_comun_id, class: 'form-control') %>
+    
   </div>
 
   <div class="field">
     <%= form.label :fecha %>
-    <%= form.date_select :fecha, id: :reservacion_fecha %>
+    <%= form.date_select :fecha, id: :reservacion_fecha, class: 'form-control'%>
   </div>
 
   <div class="field">
     <%= form.label :t_inicio %>
-    <%= form.time_select :t_inicio, id: :reservacion_t_inicio %>
+    <%= form.time_select :t_inicio, id: :reservacion_t_inicio, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :t_fin %>
-    <%= form.time_select :t_fin, id: :reservacion_t_fin %>
+    <%= form.time_select :t_fin, id: :reservacion_t_fin, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :estatus_reserva_id %>
-    <%= form.number_field :estatus_reserva_id, id: :reservacion_estatus_reserva_id %>
+
+    <% reserva_array = EstadoReserva.all.map { |reserva| [reserva.descripcion, reserva.id] } %>
+
+    <%= select_tag(:estatus_reserva_id, options_for_select(reserva_array), id: :reservacion_estatus_reserva_id, class: 'form-control') %>
+    
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-primary' %>
   </div>
 <% end %>
