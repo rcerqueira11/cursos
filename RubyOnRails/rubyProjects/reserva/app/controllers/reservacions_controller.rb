@@ -40,11 +40,11 @@ class ReservacionsController < ApplicationController
     existe_inicio_igual = Reservacion.where(:espacio_comun_id=>@reservacion.espacio_comun_id, :fecha=>@reservacion.fecha, :t_inicio=>@reservacion.t_inicio).length > 0
     
     # if end time menos a tiempo fin en otro reserv negar
-    creando_en_medio = Reservacion.where("t_fin > ?",@reservacion.t_inicio).where(:espacio_comun_id=>@reservacion.espacio_comun_id,:fecha=>@reservacion.fecha ).length > 0
+    creando_en_medio_inicio = Reservacion.where("t_fin > ? AND t_inicio <= ?",@reservacion.t_inicio,@reservacion.t_inicio).where(:espacio_comun_id=>@reservacion.espacio_comun_id,:fecha=>@reservacion.fecha ).length > 0
+    creando_en_medio_fin = Reservacion.where("t_fin > ? AND t_inicio > ?",@reservacion.t_fin,@reservacion.t_fin).where(:espacio_comun_id=>@reservacion.espacio_comun_id,:fecha=>@reservacion.fecha ).length > 0
     #validar existencias
 
-    existe_bloqueante = existe_igual or existe_inicio_igual or creando_en_medio
-    # byebug
+    existe_bloqueante = (existe_igual or existe_inicio_igual or creando_en_medio_inicio or creando_en_medio_fin)
         
     
     if usuario.solvente
@@ -84,7 +84,7 @@ class ReservacionsController < ApplicationController
       # format.html { render :new }
       respond_to do |format|
         format.html { render :new }
-        format.json { render json: errors, status: 'Usuario no esta solvente' }
+        format.json { render json: errors, status: 'Para realizar reservaciones necesita estar solvente' }
         flash[:errors] = 'Usuario no esta solvente'
       end
       # flash[:reservacion.errors]
