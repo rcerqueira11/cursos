@@ -55,4 +55,10 @@
   <div class="actions">
     <%= form.submit class: 'btn btn-primary' %>
   </div>
+
+  <% if flash[:errors] %>
+    <ul>
+      <li class="error"><%= flash[:errors] %></li>
+    </ul>
+  <% end %>
 <% end %>

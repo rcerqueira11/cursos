@@ -40,10 +40,12 @@ class ReservacionsController < ApplicationController
     existe_inicio_igual = Reservacion.where(:espacio_comun_id=>@reservacion.espacio_comun_id, :fecha=>@reservacion.fecha, :t_inicio=>@reservacion.t_inicio).length > 0
     
     # if end time menos a tiempo fin en otro reserv negar
-    creando_en_medio = Reservacion.where("t_fin > ?",@reservacion.t_inicio).where(:espacio_comun_id=>@reservacion.espacio_comun_id,:fecha=>@reservacion.fecha ) > 0
+    creando_en_medio = Reservacion.where("t_fin > ?",@reservacion.t_inicio).where(:espacio_comun_id=>@reservacion.espacio_comun_id,:fecha=>@reservacion.fecha ).length > 0
     #validar existencias
 
     existe_bloqueante = existe_igual or existe_inicio_igual or creando_en_medio
+    # byebug
+        
     
     if usuario.solvente
       if tiempo_correcto and !existe_bloqueante 
@@ -57,18 +59,35 @@ class ReservacionsController < ApplicationController
           end
         end
       else
-        format.html { render :new }
+        # format.html { render :new }
         if !tiempo_correcto
-          format.json { render json: @reservacion.errors, status: 'Esta hora es incorrecta' }
+          respond_to do |format|
+            format.html { render :new }
+            format.json { render json: @reservacion.errors, status: 'Esta hora es incorrecta' }
+            flash[:errors] = 'Esta hora es incorrecta'
+          end
+      # flash[:reservacion.errors]
+          
         end
 
         if existe_bloqueante
-          format.json { render json: @reservacion.errors, status: 'Esta fecha ya esta ocupada' }
+          respond_to do |format|
+            format.html { render :new }
+            format.json { render json: @reservacion.errors, status: 'Esta fecha ya esta ocupada' }
+            flash[:errors] = 'Esta fecha ya esta ocupada' 
+          end
+      # flash[:reservacion.errors]
+          
         end
       end
     else 
-      format.html { render :new }
-      format.json { render json: @reservacion.errors, status: 'Usuario no esta solvente' }
+      # format.html { render :new }
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: errors, status: 'Usuario no esta solvente' }
+        flash[:errors] = 'Usuario no esta solvente'
+      end
+      # flash[:reservacion.errors]
     end
   end
 

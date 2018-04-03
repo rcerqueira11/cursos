@@ -14,4 +14,4 @@
 //= require turbolinks
 //= require_tree .
 
-console.log("holis")
+// console.log("holis")
