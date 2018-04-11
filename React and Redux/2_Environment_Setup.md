@@ -195,8 +195,9 @@
 - .editorconfig must be the name
 - set on the upper top of the project [Proyect Folder] -> .editorconfig
 - all have consistency in the spacing (Atom,Webstorm,VSCode)
+- web page `editorconfig.org`
 ```
-// editorconfig.org
+// .editorconfig
 root = true
 
 [*]

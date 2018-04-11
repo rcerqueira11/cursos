@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Usuario:</strong>
+  <%= Usuario.find(@reservacion.usuario_id).email %>
+</p>
+
+<p>
+  <strong>Espacio comun:</strong>
+  <%= EspacioComun.find(@reservacion.espacio_comun_id).nombre %>
+</p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @reservacion.fecha %>
+</p>
+
+<p>
+  <strong>Tiempo inicio:</strong>
+  <%= @reservacion.t_inicio.strftime("%I:%M%p") %>
+</p>
+
+<p>
+  <strong>Tiempo fin:</strong>
+  <%= @reservacion.t_fin.strftime("%I:%M%p") %>
+</p>
+
+<p>
+  <strong>Estatus reserva:</strong>
+  <%= EstadoReserva.find(@reservacion.estatus_reserva_id).descripcion %>
+</p>
+
+<%= link_to 'Edit', edit_reservacion_path(@reservacion) %> |
+<%= link_to 'Back', reservacions_path %>

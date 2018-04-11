@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Reservacions</h1>
+
+<table class="table table-striped">
+  <thead class="thead-inverse">
+    <tr>
+      <th>Usuario</th>
+      <th>Nombre</th>
+      <th>Edificio</th>
+      <th>Espacio comun</th>
+      <th>Fecha</th>
+      <th>Tiempo Reserva</th>
+      <th>Estatus reserva</th>
+      <th colspan="3">Opciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reservacions.each do |reservacion| %>
+      <tr>
+        <td><%= Usuario.find(reservacion.usuario_id).email %></td>
+        <td><%= Usuario.find(reservacion.usuario_id).nombre %> <%= Usuario.find(reservacion.usuario_id).apellido %></td>
+        <td><%= Edificio.find(EspacioComun.find(reservacion.espacio_comun_id).edificio_id).nombre %></td>
+        <td><%= EspacioComun.find(reservacion.espacio_comun_id).nombre %></td>
+        <td><%= reservacion.fecha %></td>
+        <td><%= reservacion.t_inicio.strftime("%I:%M%p") %> - <%= reservacion.t_fin.strftime("%I:%M%p") %></td>
+        <td><%= EstadoReserva.find(reservacion.estatus_reserva_id).descripcion %></td>
+        <td><%= link_to 'Show', reservacion %></td>
+        <td><%= link_to 'Edit', edit_reservacion_path(reservacion) %></td>
+        <td><%= link_to 'Destroy', reservacion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

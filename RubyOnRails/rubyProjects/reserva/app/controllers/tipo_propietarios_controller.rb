@@ -1,0 +1,2 @@
+class TipoPropietariosController < ApplicationController
+end

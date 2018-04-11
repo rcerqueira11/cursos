@@ -1,0 +1,76 @@
+<div class="modal fade" id="reservModal" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Crear Reserva</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+           <%= form_for :reservas, url: '/reservas', html:{ class:"form-horizontal"} do %>
+        <div class="modal-body">
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="example-search-input" class="col-form-label">Edificio</label>
+                    <div>
+                        <select class="form-control" name="reserva[nombreEdificio]" id="id_edificios" required>
+                            <%= @edificio.each do |e| %>
+                            <option value="<%= e.cod %>"> <%= e.nombre %> </option>
+                            <% end %>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+
+                    <label for="example-search-input" class="col-form-label">Area Comun</label>
+                    <div>
+                        <select class="form-control" name="reserva[nombreAreaComun]" id="id_areasComunes" required>
+                            <option value="<%= @espacio_comuns.cod %>"> <%= @espacio_comuns.nombre %> </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="example-email-input" class="col-form-label">Email</label>
+                    <div>
+                        <input class="form-control" name="reserva[email]" type="email" placeholder="bootstrap@example.com" id="example-email-input" required>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="example-date-input" class="col-form-label">Fecha</label>
+                    <div>
+                        <input class="form-control" name="reserva[date]" type="date" placeholder="2011-08-19" id="example-date-input" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="example-time-input" class="col-form-label">Hora Desde</label>
+                    <div>
+                        <input class="form-control" type="time" name="reserva[timeStart]" placeholder="13:45:00" id="example-time-input" required>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+
+                    <label for="example-time-input" class="col-form-label">Hora Hasta</label>
+                    <div>
+                        <input class="form-control" type="time" name="reserva[timeEnd]" placeholder="13:45:00" id="example-time-input" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Reservar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <% end %>
+
+        </div>
+    </div>
+</div>
