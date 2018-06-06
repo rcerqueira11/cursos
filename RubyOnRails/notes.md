@@ -11,3 +11,10 @@ common_spaces = CommonSpace.joins(:community).where(community_id: communities.ma
 ```rb
 ActionView::Base.full_sanitizer.sanitize(@string)
 ```
+
+
+## Order hash and return a hash
+
+```rb
+@hash= Hash[hash.sort_by { |k, _| _["date_start"]]
+```

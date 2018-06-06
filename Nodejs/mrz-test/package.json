@@ -1,0 +1,15 @@
+{
+  "name": "mrz-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "123mrz.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mrz": "^3.1.0",
+    "mrz-detection": "^0.3.3"
+  }
+}
