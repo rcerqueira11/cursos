@@ -38,3 +38,37 @@ var button_margin = () => {
   border:0px solid transparent; /* this was 1px earlier */
  }
 ```
+
+
+## Radio Button Colored
+
+```scss
+input[type='radio']:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #fff;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid $green_text;
+    }
+    input[type='radio']:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: $green_text;
+        content: '';
+        display: inline-block;
+        visibility: visible; // border: 2px solid white;
+    }
+    input[type='radio']:focus {
+        outline: none;
+    }
+```
