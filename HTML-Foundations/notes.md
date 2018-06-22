@@ -72,3 +72,24 @@ input[type='radio']:after {
         outline: none;
     }
 ```
+
+## Scrollable Table
+
+```css
+   table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    thead {
+        display: block;
+        overflow: auto;
+    }
+    tbody {
+        display: inline-block;
+        height: 200px; // width: 80%;
+        overflow: auto;
+    }
+    th,td {
+        width: 800px;
+    }
+```
