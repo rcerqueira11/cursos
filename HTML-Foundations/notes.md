@@ -93,3 +93,11 @@ input[type='radio']:after {
         width: 800px;
     }
 ```
+
+
+## Eliminar bottom border del thead
+```css
+th{
+    border-bottom: none !important;
+}
+```

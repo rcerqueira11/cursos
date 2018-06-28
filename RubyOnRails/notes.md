@@ -43,3 +43,27 @@ end
 
 
 ```
+
+
+## Creating migrations
+
+```bash
+rails g migration NombreDeLaMigracion
+
+```
+
+```rb
+#fecha_NombreDeLaMigracion.rb
+
+class NombreDeLaMigracion < ActiveRecord::Migration
+  def change
+    add_column :table, :column, :type
+    add_column :surveys, :closed, :boolean, default: false
+  end
+end
+
+```
+
+```bash
+rake db:migrate
+```
