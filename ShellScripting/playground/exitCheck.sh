@@ -1,0 +1,2 @@
+ls /not/here
+echo "$?"
