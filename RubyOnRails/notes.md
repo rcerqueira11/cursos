@@ -67,3 +67,16 @@ end
 ```bash
 rake db:migrate
 ```
+
+## Multiple paginators
+
+
+```rb
+@billed_mobile = @billed.paginate(page: params[:billed_page], per_page: 5)
+@no_billed_mobile =  @no_billed.paginate(page: params[:no_billed_page], per_page: 5)
+```
+
+```haml
+=automated_paginater(@billed_mobile, "billed_page")
+=automated_paginater(@no_billed_mobile, "no_billed_page")
+```
