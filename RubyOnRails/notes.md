@@ -69,7 +69,12 @@ rake db:migrate
 ```
 
 ## Multiple paginators
+```rb
+def automated_paginater(collection, param_name = 'page', number_of_links = 1)
+  will_paginate collection, previous_label: 'Anterior', param_name: param_name, next_label: 'Siguiente', inner_window:number_of_links, renderer: BootstrapPagination::Rails
+end
 
+```
 
 ```rb
 @billed_mobile = @billed.paginate(page: params[:billed_page], per_page: 5)
