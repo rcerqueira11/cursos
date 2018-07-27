@@ -85,3 +85,23 @@ end
 =automated_paginater(@billed_mobile, "billed_page")
 =automated_paginater(@no_billed_mobile, "no_billed_page")
 ```
+
+## Check changed values
+
+```
+claim.status_changed?  # returns true if 'status' attribute has changed
+claim.status_was       # returns the previous value of 'status' attribute
+claim.status_change    # => ['old value', 'new value'] returns the old and
+                       # new value for 'status' attribute
+
+claim.name = 'Bob'
+claim.changed # => ["name"]
+claim.changes # => {"name" => ["Bill", "Bob"]}
+```
+
+
+## Hash values to hash
+
+```rb
+a.values.reduce({}, :merge)
+```

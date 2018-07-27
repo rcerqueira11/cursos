@@ -101,3 +101,22 @@ th{
     border-bottom: none !important;
 }
 ```
+
+## Datetimepicker options set
+
+```js
+  $(document).on('ready',function(){
+      date = new Date();
+      tomorrow = date.setDate(date.getDate()+1);
+      $('#datetimepicker1').datetimepicker({
+        minDate: tomorrow ,
+        defaultDate: tomorrow,
+        format: 'DD/MM/YYYY',
+        locale: 'es',
+        widgetPositioning: {
+            horizontal: 'auto',
+            vertical: 'top'},
+      });
+  });
+
+```
