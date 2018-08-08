@@ -105,3 +105,9 @@ claim.changes # => {"name" => ["Bill", "Bob"]}
 ```rb
 a.values.reduce({}, :merge)
 ```
+
+## Date between the month
+
+```rb
+where("start_at >= ? AND start_at <= ?", Time.zone.now.beginning_of_month, Time.zone.now.end_of_month)
+```
