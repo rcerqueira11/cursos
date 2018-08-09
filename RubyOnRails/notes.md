@@ -111,3 +111,22 @@ a.values.reduce({}, :merge)
 ```rb
 where("start_at >= ? AND start_at <= ?", Time.zone.now.beginning_of_month, Time.zone.now.end_of_month)
 ```
+
+## Avoid where in loop
+
+```rb
+  answers_array = []
+  question_ids = params[:answers].values.map { |v| v[:question_id] }.uniq
+  answers = @survey.answers.where(question_id: question_ids, user_id: current_user.id)
+  params[:answers].values.each do |answer_params|
+    if answer_params[:option_id]
+      answer = answers.detect { |a| a.question_id == answer_params[:question_id].to_i && a.user_id == current_user.id }
+      answer ||= Answer.new(question_id: answer_params[:question_id], user_id: current_user.id )
+      answer.option_id = answer_params[:option_id]
+      answers_array << answer
+      # errors[:base] << "La respuestas de la #{k}° moción tiene un valor inválido" unless answer.save
+    end
+  end
+  Answer.import(answers_array.reject(&:id))
+  answers_array.select(&:id).each(&:save)
+```

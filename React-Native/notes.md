@@ -1,4 +1,4 @@
-## Problem fix
+## [FIX] Plugin/Preset files are not allowed to export objects, only functions.
 
 react-native seems to require installing versions of react-native, react, and expo that are all specifically compatible with each other
 
