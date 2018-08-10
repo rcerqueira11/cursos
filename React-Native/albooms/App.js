@@ -6,8 +6,8 @@ import AlbumList from './src/components/AlbumList';
 export default class App extends React.Component {
   render() {
     return (
-      <View>
-        <Header headerText={'Hola'}/>
+      <View style={{ flex: 1}}>
+        <Header headerText={'Albums List'}/>
         <AlbumList />
 
       </View>
@@ -18,12 +18,12 @@ export default class App extends React.Component {
 
 // api = http://rallycoding.herokuapp.com/api/music_albums
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  // container: {
+  //   flex: 1,
+  //   backgroundColor: '#fff',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  // },
 });
 
 ////////////////////////////////////////////////
