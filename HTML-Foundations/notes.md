@@ -120,3 +120,45 @@ th{
   });
 
 ```
+
+### Center in the middle with flex box
+
+```css
+    .profiles {
+        .in_middle {
+        height: 90vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        }
+    }
+```
+
+### Center data in the middle of a panel
+
+```css
+.panel {
+    width: 133px;
+    height: 133px;
+    display: flex;
+    .panel-body {
+      width: 132px;
+      height: 132px;
+      cursor: pointer;
+      display: flex;
+      div {
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        div {
+          flex: 1;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+```
