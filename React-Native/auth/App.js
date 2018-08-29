@@ -12,8 +12,6 @@ export default class App extends React.Component {
     firebase.initializeApp(firebaseApiKey)
   }
 
-
-
   render() {
     return (
       <View >
