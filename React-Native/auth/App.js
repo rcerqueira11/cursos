@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import axios from 'axios';
 import firebase from 'firebase';
-import { Header, Buttom, Spinner } from './src/components/common';
+import { Header, Buttom, Spinner, CardSection } from './src/components/common';
 import LoginForm from './src/components/LoginForm';
 import { firebaseApiKey } from './apiKeys/apikeys'
 
@@ -24,17 +24,19 @@ export default class App extends React.Component {
   }
 
   logOut(){
-    firebase.auth().logOut()
+    firebase.auth().signOut()
   }
 
   renderContent() {
     switch (this.state.loggedIn) {
       case true:
         return (
-          <Buttom
-            functionOnPress={this.logOut.bind(this)}
-            buttomName={"Log out"}
-            />
+          <CardSection>
+            <Buttom
+              functionOnPress={this.logOut.bind(this)}
+              buttomName={"Log out"}
+              />
+          </CardSection>
         );
       case false:
         return <LoginForm />;
