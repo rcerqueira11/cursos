@@ -28,5 +28,5 @@ const styles = {
   }
 }
 
-const
+
 export default connect(null, actions)(ListItem);
