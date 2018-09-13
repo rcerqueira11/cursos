@@ -48,3 +48,18 @@ export default (state = INITIAL_STATE , action) => {
 }
 ```
 
+## Syncronous vs Asyncronous Action Creators
+
+- actually we have syncronous actions
+- we have to wait to the ajax in the action
+- we use `Redux Thunk`
+
+`Redux Thunk`: used to handle any asynchornous action creators
+
+### **Action creators rules**
+
+|Normal Action| Action with Thunk|
+---|----|
+| Action creators are functions | Action creators are functions |
+| Must return an action | Must return an function |
+| An action is an object with a 'type' property | This function will be called with 'dispatch' |
