@@ -130,3 +130,47 @@ where("start_at >= ? AND start_at <= ?", Time.zone.now.beginning_of_month, Time.
   Answer.import(answers_array.reject(&:id))
   answers_array.select(&:id).each(&:save)
 ```
+
+### Rescue
+
+```rb
+begin
+rescue => e
+  puts e
+  Rollbar.log("error",e)
+  Rollbar.error(e, community_id: self.community_id)
+  self.error = "Ha ocurrido un error importando el Excel" # en la fila #{row_counter}"
+  self.error += (errors.to_s.gsub(']','').gsub('[','').gsub('"',''))
+  # self.error += e.backtrace.join("\n")
+  # self.error += e.to_s
+  self.imported = false
+  self.save
+  self.send_email
+end
+```
+
+## Polymorphic table
+
+```rb
+# id.rb
+#  id                 :integer          not null, primary key
+#  identificable_id   :integer
+#  identificable_type :string
+#  identity           :string
+#  identity_type      :string`
+class Identification < ActiveRecord::Base
+  belongs_to :identificable, polymorphic: true
+
+  validates_uniqueness_of :identity_type, scope: [:identificable_id, :identificable_type], message: " ya utilizada"
+
+  validates :identity, uniqueness: true
+
+end
+
+#user
+has_many :identifications, as: :identificable
+
+
+
+
+```
