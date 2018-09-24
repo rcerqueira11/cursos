@@ -63,3 +63,27 @@ export default (state = INITIAL_STATE , action) => {
 | Action creators are functions | Action creators are functions |
 | Must return an action | Must return an function |
 | An action is an object with a 'type' property | This function will be called with 'dispatch' |
+
+
+### createStore
+
+createStore(
+  reducers,
+  {}, if you want an initial state
+  applyMiddleware(ReduxThunk) store enchancer
+  )
+
+
+##
+
+action creator ->
+actions creator returns a function ->
+redux thunk sees that we return a function and calls it with dispatch ->
+we do our login request ->
+...wait ->
+...wait ->
+request complete, user logged in ->
+.then runs ->
+deispatch our action
+
+- inside of our .then() we will manually dispatch our action

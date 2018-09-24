@@ -1,0 +1,15 @@
+version: '3.6'
+
+services:
+
+  manager:
+    container_name: manager
+    build: ./
+    command: expo start
+    working_dir: /usr/src/manager
+    environment:
+      - NODE_ENV=dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/usr/src/manager
