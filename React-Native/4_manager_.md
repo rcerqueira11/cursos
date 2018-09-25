@@ -87,3 +87,56 @@ request complete, user logged in ->
 deispatch our action
 
 - inside of our .then() we will manually dispatch our action
+
+- here we send in the dispatch the action after the promise resolve
+
+```js
+export const loginUser = ({email, password}) => {
+    return (dispatch) => {
+        firebase.auth().signInWithEmailAndPassword(email,password)
+        .then(user => {
+            dispatch({
+                type: LOGIN_USER_SUCCESS,
+                payload: user
+            })
+        })
+    }
+}
+```
+
+- now we wired to login form
+
+1. we import it `import { emailChanged, passwordChanged, loginUser } from "../actions";`
+
+2. we added to the export
+
+    ```js
+    export default connect(mapStateToProps, {
+      emailChanged,
+      passwordChanged,
+      loginUser
+      })(LoginForm);
+    ```
+3. add the function to the button
+    ```js
+      <CardSection>
+          <Buttom
+          functionOnPress={this.onButtonPress.bind(this)}
+          buttomName={"Log in"}
+          />
+      </CardSection>
+    ```
+
+4. create the function
+    ```js
+      class LoginForm extends Component {
+        ...
+
+        onButtonPress(){
+          const { email, password } = this.props;
+
+          this.props.loginUser({ email, password})
+        }
+    ```
+
+- we can dispatch AS MANY ACTIONS we like from a SINGLE ACTION CREATOR
