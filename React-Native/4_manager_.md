@@ -140,3 +140,20 @@ export const loginUser = ({email, password}) => {
     ```
 
 - we can dispatch AS MANY ACTIONS we like from a SINGLE ACTION CREATOR
+
+Error:
+```js
+case LOGIN_USER_SUCCESS:
+  asdasd;
+  return { ...state, user: action.payload, error: '' };
+
+```
+
+- throws errors fail and is catched and go to the next .catch or next section of the program and we can see this kind o error with getting and console log the error
+
+```js
+catch((error) => {
+  console.log(error)
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+  ...
+```
