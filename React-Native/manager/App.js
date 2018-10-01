@@ -8,6 +8,7 @@ import { Header } from './src/components/common';
 import ReduxThunk from "redux-thunk";
 import { firebaseApiKey } from './src/apiKeys/apikeys';
 import LoginForm from './src/components/LoginForm'
+import Router from './src/Router'
 
 export default class App extends React.Component {
 
@@ -18,7 +19,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
-        <LoginForm/>
+        <Router/>
       </Provider>
     );
   }

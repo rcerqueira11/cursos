@@ -157,3 +157,44 @@ catch((error) => {
   firebase.auth().createUserWithEmailAndPassword(email, password)
   ...
 ```
+
+## To delete the sign up input values you can
+
+```js
+ case LOGIN_USER_SUCCESS:
+      return { ...state,
+        user: action.payload,
+        error: '',
+        loading: false,
+        email: '',
+        password: '',
+      };
+```
+
+but its like the same state that we have in the initial state so we could just set it like
+
+```js
+  return { ...state, ...INITIAL_STATE, user: action.payload  };
+```
+
+##  Dealing with navigation
+
+- react-native-router-flux
+- `npm install --save react-native-router-flux`
+
+this library works with Scenes, son for login , employee, employeeCreate will be 3 scenes
+
+- `key`: call actions.login() to show this screen
+- `component`: show the component '{componentName}'
+- `titile`: make a navbar and give it a title of '"titleInBrackets"'
+- `initial`: thisi is the first screen to show
+
+```js
+<Scene
+  key="login"
+  component={LoginForm}
+  title="Login"
+  initial
+/>
+
+```
