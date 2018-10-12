@@ -1,4 +1,4 @@
-## Async Await 
+## Async Await
 
 - we avoid thins like
     - chaining
@@ -7,7 +7,7 @@
 
 - `await` is used insid of out function, but before we use it we have to mark our funcion as `async`
 
-- `async` change how our code works and returns a promise 
+- `async` change how our code works and returns a promise
 
 ```js
 const getStatusAlt = async (userId)=> {
@@ -29,15 +29,15 @@ console.log(getStatusAlt())
 
 - await will wait until the promise resolve or reject
 
-- await does NOT return a promise 
+- await does NOT return a promise
 
-- if resolve the result will be in user as the resolve value 
+- if resolve the result will be in user as the resolve value
 
 - if reject i will throw an error and the function stop executing
 
 ```js
 const getStatusAlt = async (userId) => {
-   
+
     const user = await getUser(userId);
     const grades = await getGrades(user.schoolId);
 
@@ -58,4 +58,4 @@ getStatusAlt(2).then((status) => {
 
 ```
 
-- there is no top level await 
+- there is no top level await
