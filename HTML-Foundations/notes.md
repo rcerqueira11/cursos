@@ -162,3 +162,63 @@ th{
   }
 
 ```
+
+
+## Push to right
+
+```css
+
+.to_right{
+    float: right;
+    position:absolute;
+    right:0px;
+}
+
+```
+
+## center links
+```html
+    li
+        a
+            span
+            span
+            span
+```
+```scss
+    span{
+        overflow-wrap: break-word;
+
+        &.ltext {text-align: left;}
+        &.icon {
+        margin-right: $icon_margin_links;
+        }
+        &.caret-icon{
+        float:right;
+        position: absolute;
+        right: 5px;
+        }
+    }
+
+    ul {
+        li {
+            a {
+                padding: 15px 0;
+                font-weight: bold;
+                padding-left: $padding_left_links;
+                padding-right: 5px;
+                font-size: $link_font_size;
+                // display: block;
+                display: inline-flex;
+                align-items: center;
+                // justify-content: space-evenly;
+                height: 100%;
+                width: 100%;
+                &:hover {
+                color: $active_focused_link_color;
+                background: $active_focused_link_bg_color;
+                }
+
+             }
+        }
+    }
+```
