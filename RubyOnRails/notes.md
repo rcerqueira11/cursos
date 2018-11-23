@@ -174,3 +174,11 @@ has_many :identifications, as: :identificable
 
 
 ```
+
+
+## Paginate will_paginate bootstrap with ajax loaded
+
+In js.erb file
+```rb
+$('.pagination a').attr('data-remote', 'true');
+```
