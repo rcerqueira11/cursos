@@ -21,3 +21,11 @@ mkdir -p /tmp/parent/bak
 ```bash
 cp -v /source1 /source2
 ```
+
+## basename command
+
+- Quita cualquier componente de directorio lider y devuelve solo el nombre del archivo
+
+```bash
+$(basename ${1})
+```
