@@ -75,3 +75,6 @@ How do you reduce the size of your sites files?
 
 
 ###  The traveling deliveryman
+
+- Lets consider downloading frecuency
+- Reducing the number of components a page requieres, reduces the number of http requests it have to make

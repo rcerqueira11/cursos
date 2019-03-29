@@ -13,7 +13,7 @@ echo "Git add all"
 git add --all
 
 echo "Git commit"
-git commit -m "$Comentario"
+git commit -m "[SENIOR_PATH] $Comentario"
 
 echo "git push"
 git push
