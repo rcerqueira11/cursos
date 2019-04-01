@@ -36,7 +36,7 @@ How do you reduce the size of your sites files?
 - Try to choose simple illustrations over highly detailed photographs
 - Always lower JPEG image quality (30-60%) (image optane)
 - Resize image based on size it will be displayed, if css say 500 resize the image to 500
-- Display differen size images for different backgrounds (media queries)\
+- Display differen size images for different backgrounds (media queries)
     ```css
     body{
         background: yellow;
@@ -51,7 +51,7 @@ How do you reduce the size of your sites files?
 
     @media screen and (max-width: 500px){
         body{
-            background: url('./large-background') no-repear center center fixed;
+            background: url('./large-background-500') no-repear center center fixed;
             background-size: cover;
         }
     }
@@ -60,7 +60,7 @@ How do you reduce the size of your sites files?
   - faster access of images in their servers
   - upload them and it will give you a url with the image optimezed
 - Remove image metadata
-  - [verexif] (www.verexif.com/en/index.php)
+  - [verexif](www.verexif.com/en/index.php)
 
 #### Resources
 
@@ -70,6 +70,7 @@ How do you reduce the size of your sites files?
 - [jpeg-optimizer](jpeg-optimizer.com)  exp 65
 - [tinypng](tinypng.com)
 - (imgix)[imgix.com]
+- [Minifiew JS] (https://www.minifier.org/)
 - [Media Queries](https://css-tricks.com/snippets/css/media-queries-for-standard-devices/)
 - [Media queries cheat sheet](http://www.bsidestudios.com/blog/media-queries-common-sizes-cheat-sheet)
 
@@ -78,3 +79,21 @@ How do you reduce the size of your sites files?
 
 - Lets consider downloading frecuency
 - Reducing the number of components a page requieres, reduces the number of http requests it have to make
+- browser download 2-6 files at a time also have limits in the total size of the file
+- [Max Parallel Requests Per Browser](https://stackoverflow.com/questions/985431/max-parallel-http-connections-in-a-browser)
+
+#### Max Number of default simultaneous persistent connections per server/proxy:
+```
+Firefox 2:  2
+Firefox 3+: 6
+Opera 9.26: 4
+Opera 12:   6
+Safari 3:   4
+Safari 5:   6
+IE 7:       2
+IE 8:       6
+IE 10:      8
+Chrome:     6
+```
+
+> if media query does not work add `<meta name="viewport" content="width=device-width, initial-scale=1">` to the html file
