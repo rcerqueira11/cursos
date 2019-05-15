@@ -108,3 +108,4 @@ Chrome:     6
 
 DOM -> CSSDOM -> Render Tree -> Layout -> Paint
 DOM -> CSSDOM -> (DOM CONTENT LOADED) -> Render Tree -> Layout -> Paint -> LOAD
+
