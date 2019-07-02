@@ -76,7 +76,7 @@ DOM -> CSSDOM -> (DOM CONTENT LOADED) -> Render Tree -> Layout -> Paint -> LOAD
 
 ### Less Specificity
 
-1. Needs to calculate more y it is more specific
+1. Needs to calculate more if it is more specific
 
 
 ```css
@@ -91,4 +91,24 @@ a.important{
 ```
 
 
+
+## Optimize JS File
+
+- JS is a Parser blocker
+
+1. Load Scripts asynchronously
+   1. `<script async>`
+   2. Says to the explorer to download the js asyncronously
+   3. does not block the html parsing
+   4. Added to something that doesnt affect the DOM or CCSDOM
+   5. Use to external script that does not know our code
+   6. Or js that are not esencial to our user experience (google analytics, or tracking)
+
+
+2. Defer loading of scripts
+   1. `<script defer>`
+   2. will wait to execute after the html has been parsed, then start executing
+   3. Script not so important
+3. Minimize DOM manipulation
+4. Avoid long running Javascript
 
