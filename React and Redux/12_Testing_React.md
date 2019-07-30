@@ -92,7 +92,7 @@
 
 ### Comparasion
 
-|React Test Utils|JSDOM|Cheerio|Enzyme|
+||React Test Utils|JSDOM|Cheerio|Enzyme|
 |--|--|--|--|--|
 |Run test in|Node|Node|Node|Node|
 |Dependencies|None|None|None|JSDOM,Cheerios,React Test Utils|
