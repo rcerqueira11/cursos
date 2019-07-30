@@ -14,7 +14,7 @@
     - highly configurable and has a large ecosystem of support
     - Mocha need an assetion libraries
         - Chai (uses chain base api)
-        - expect (npm) 
+        - expect (npm)
         -   |Chai|Expect|
             |--|--|
             |to.equal|toBe|
@@ -23,7 +23,7 @@
             |to.not.exist|toNotExist|
             |to.be.above|ToBeGreaterThan|
             |No spy|Spy buitl in|
-- Jasmine 
+- Jasmine
 - Jest
 - tape
     - simplest library of the bunch
@@ -57,11 +57,11 @@
 |shallowRedner|renderIntoDocument|
 |--|--|
 |let us render just the component that we are testing withou rendein any of his children|when you need click and changes event|
-|constrain yourself to testing a component as a unit|can use JSDOM| 
+|constrain yourself to testing a component as a unit|can use JSDOM|
 |ensure that your test arent indirectly asserting on behavior of child components||
-|Render single component|Render component and children| 
-|No DOM required|DOM Required| 
-|Fast and Simple |Supports simulating interactions| 
+|Render single component|Render component and children|
+|No DOM required|DOM Required|
+|Fast and Simple |Supports simulating interactions|
 
 #### DOM Interactions
 
@@ -70,14 +70,14 @@
 
 - scryRenderedDomComponentsWithTag
     - funs components by tag name
- 
+
 - Simulate
     - once you have reference to a specific element, yu can simulate intreactions on the element using the Simulate funcion
     - Clicks
     - Keypresses
     - Etc.
 
-### Enzyme 
+### Enzyme
 
 - [Github](https://github.com/airbnb/enzyme)
 
@@ -92,7 +92,7 @@
 
 ### Comparasion
 
-||REact Test Utils|JSDOM|Cheerio|Enzyme|
+|React Test Utils|JSDOM|Cheerio|Enzyme|
 |--|--|--|--|--|
 |Run test in|Node|Node|Node|Node|
 |Dependencies|None|None|None|JSDOM,Cheerios,React Test Utils|
@@ -103,21 +103,21 @@
 
 ## Where to Test
 
-- Browser 
+- Browser
     - Karma (popular test runner for running tests in a real deal browser)
 - Headless Browser
     - Phantom JS
 - In-memory DOM
     - JSDOM simulates an actual browser by creating a DOM in memory that we can interact with
     - fast
-    - quick to set up 
+    - quick to set up
     - allows us to just run our test via Node
 
 ### Naming Test Files
 - fileName.spec.js
 - fileName.test.js
 
-### Where Do Test Fules Belong?
+### Where Do Test Files Belong?
 
 - Mocha default: /test
 - We'll place test alongside the file under test. Why?
@@ -157,7 +157,7 @@
 
 1. we create a file in the folder course to test course form `CourseForm.test.js`
 
-2. we import what we need 
+2. we import what we need
     ```js
     import expect from 'expect';
     import React from 'react';
@@ -193,7 +193,7 @@
     let output = renderer.getRenderOutput();
 
     // return an object with the props that we passed
-    // the output 
+    // the output
     // and the renderer in case we need it
     return {
         props,
@@ -219,14 +219,14 @@
         it('Save button is labeled "Save" when not saving', () => {
             const {output} = setup(false);
             const submitButton = output.props.children[5];
-            //value of the submit button 
+            //value of the submit button
             expect(submitButton.props.value).toBe('Save');
         });
 
         it('Save button is labeled "Saving..." when saving', () => {
             const {output} = setup(true);
             const submitButton = output.props.children[5];
-            //value of the submit button 
+            //value of the submit button
             expect(submitButton.props.value).toBe('Saving...');
         });
     });
@@ -243,7 +243,7 @@
     import TestUtils from 'react-addons-test-utils';
     import CourseForm from './CourseForm';
     ```
-    
+
     - `import TestUtils from 'react-addons-test-utils'` Test utils is used by enzyme but not necessary need to be explicitly imported
 
 
