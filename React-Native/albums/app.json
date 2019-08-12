@@ -1,4 +1,4 @@
 {
-  "name": "albums",
-  "displayName": "albums"
+  "expo": {"name": "albums",
+          "displayName": "albums"}
 }

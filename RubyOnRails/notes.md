@@ -182,3 +182,31 @@ In js.erb file
 ```rb
 $('.pagination a').attr('data-remote', 'true');
 ```
+
+
+## Select ajax loading
+
+```js
+$("#base_package_country_code").on("change" , function(){
+      var country_code = $(this).val();
+      if (country_code){
+        $.ajax({
+          url: "#{country_code_currency_options_admin_base_packages_url}",
+          method: "GET",
+          dataType: "json",
+          data: {country_code: country_code},
+          error: function (xhr, status, error) {
+            console.error('AJAX Error: ' + status + error);
+          },
+          success: function (response) {
+            var currencies = response["currencies"];
+            $("#currency_type").empty();
+            $("#currency_type").append('<option> Seleccione tipo de moneda</option>');
+            for(var i=0; i< currencies.length; i++){
+              $("#currency_type").append('<option value="' + currencies[i] + '">' + currencies[i] + '</option>');
+            }
+          }
+        });
+      }
+    });
+```
