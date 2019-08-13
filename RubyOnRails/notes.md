@@ -210,3 +210,49 @@ $("#base_package_country_code").on("change" , function(){
       }
     });
 ```
+
+
+# toggle js
+
+
+## controller
+```rb
+  def toggle_active
+    return redirect_to(admin_base_packages_path, alert: t('messages.errors.commons.update')) unless @base_package
+    @base_package.active = !@base_package.active
+    @base_package.save
+    respond_to do |format|
+      format.html { redirect_to admin_base_packages_path, notice:  t('messages.notices.admin.base_package.successfully_updated')}
+      format.js
+    end
+  end
+```
+
+
+## js
+``` js
+<% if @base_package.errors.present? %>
+  <% if @base_package.errors.messages.key?(:base) %>
+    $('#base_package_modal #text_container').html(`<%= raw(t('messages.errors.commons.update', name: @base_package.name)) %>`);
+    $('#base_package_modal').modal('show');
+  <% else %>
+    $.notify({
+        message: `<%= raw(t('messages.errors.commons.update', errors: @base_package.errors.full_messages.join('<br>'))) %>`,
+        icon: "fa fa-times"
+      }, {
+        type: "danger"
+      });
+  <% end %>
+<% else %>
+	$('#<%= @base_package.id %>').replaceWith('<%= j render(@base_package) %>');
+<% end %>
+```
+
+## routes
+```rb
+resources
+  member do
+    patch 'toggle_active'
+  end
+end
+```
