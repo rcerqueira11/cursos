@@ -256,3 +256,11 @@ resources
   end
 end
 ```
+
+
+## Fix forean key 1 exists
+
+```
+re_index = %(SELECT setval('table_name_id_seq', (SELECT max(id) FROM table_name));)
+ActiveRecord::Base.connection.execute(re_index)
+```
