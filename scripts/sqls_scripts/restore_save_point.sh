@@ -3,7 +3,7 @@ echo "comunidadfeliz_development"
 nombre_bd="comunidadfeliz_development"
 sqls_path="/home/rcerqueira/Proyectos/ComunidadFeliz/scripts/sqls/"
 PARAMETER=$1
-NUMB=${PARAMETER-1}
+NUMB=${PARAMETER:-1}
 nombre_sql=$(ls $sqls_path -t | head -n$NUMB | tail -n 1)
 sql_path_name="$sqls_path$nombre_sql"
 echo $sql_path_name
