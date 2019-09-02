@@ -1,9 +1,21 @@
 
-nombre_bd="comunidadfeliz_development"
-fecha=$(date +%Y%m%d_%H%M%S)
-sqls_path="/home/rcerqueira/Proyectos/ComunidadFeliz/scripts/sqls/"
-[ -d $sqls_path ] || mkdir $sqls_path
+SQLS_PATH="/home/rcerqueira/Proyectos/ComunidadFeliz/scripts/sqls/"
 
-echo "Bajando dump de $nombre_bd"
-PGPASSWORD='comunidad-feliz' pg_dump -h localhost -p 5432 -U comunidadfeliz "$nombre_bd" > $sqls_path'dump_'$nombre_bd'_'$fecha'.sql'
+
+#BD CREDENTIALS
+echo "comunidadfeliz_development"
+DB_NAME="comunidadfeliz_development"
+DB_PASSWORD='comunidad-feliz'
+DB_USER='comunidadfeliz'
+DB_HOST='localhost'
+DB_PORT='5432'
+
+#DUMP DIR AND NAME
+FECHA=$(date +%Y%m%d_%H%M%S)
+[ -d $SQLS_PATH ] || mkdir $SQLS_PATH
+DUMP_NAME='dump_'$DB_NAME'_'$FECHA'.sql'
+DUMP_NAME_DIR=$SQLS_PATH$DUMP_NAME
+
+echo "Bajando dump de $DB_NAME"
+PGPASSWORD=$DB_PASSWORD pg_dump -h $DB_HOST -p 5432 -U $DB_USER "$DB_NAME" > $DUMP_NAME_DIR && echo "Creado $DUMP_NAME"
 
