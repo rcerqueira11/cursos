@@ -1,17 +1,13 @@
 // All the knowladge
 const graphql = require('graphql');
-const _ = require('lodash');
+const axios = require('axios');
+
 const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
   GraphQLSchema
 } = graphql;
-
-const users = [
-  { id: '23', firstName: 'Bill', age: 20},
-  { id: '47', firstName: 'Samantha', age: 21}
-];
 
 const UserType = new GraphQLObjectType({
   name: 'User', //describe type we are defining
@@ -22,7 +18,6 @@ const UserType = new GraphQLObjectType({
   }
 });
 
-
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
@@ -31,7 +26,8 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLString } },
       //args is present in args
       resolve(parentValue, args) {
-        return _.find(users, { id: args.id });
+        return axios.get(`http://localhost:3000/users/${args.id}`)
+          .then(resp => resp.data) //cause axios returns {data: { firstName..}} but graphql does not know that
       }
     }
   }
