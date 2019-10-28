@@ -1,23 +1,21 @@
 #!/bin/bash
 
-TEST=(
-    WEB-1905/general
-    WEB-1906/create_controller
-    WEB-1907/partial_quick_form
-    WEB-1908/partial_form
-    WEB-1909/partial_index
-    WEB-1910/delete_soft
-    WEB-1911/translate_module
-    WEB-1912/search_form
-    WEB-1913/download_excel
-    WEB-1914/import_excel
+BRANCH_NAMES=(
+    WEB-1/ejemplo1
+    WEB-2/ejemplo2
+    WEB-3/ejemplo3
+    WEB-4/ejemplo4
+    WEB-5/ejemplo5
+    WEB-6/ejemplo6
+    WEB-7/ejemplo7
+    WEB-8/ejemplo8
 )
 
-for i in "${!TEST[@]}"; do
+for i in "${!BRANCH_NAMES[@]}"; do
     if [ "$i" -eq "0" ]
     then
-        git checkout ${TEST[$i]} && git merge develop && git push
+        git checkout ${BRANCH_NAMES[$i]} && git merge develop && git push origin ${BRANCH_NAMES[$i]}
     else
-        git checkout ${TEST[$i]} && git merge ${TEST[$i-1]} && git push
+        git checkout ${BRANCH_NAMES[$i]} && git merge ${BRANCH_NAMES[$i-1]} && git push origin ${BRANCH_NAMES[$i]}
     fi
 done
