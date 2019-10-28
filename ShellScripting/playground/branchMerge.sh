@@ -16,8 +16,8 @@ TEST=(
 for i in "${!TEST[@]}"; do
     if [ "$i" -eq "0" ]
     then
-        echo "git checkout ${TEST[$i]} && git merge develop && git push"
+        git checkout ${TEST[$i]} && git merge develop && git push
     else
-        echo "git checkout ${TEST[$i]} && git merge ${TEST[$i-1]} && git push"
+        git checkout ${TEST[$i]} && git merge ${TEST[$i-1]} && git push
     fi
 done
