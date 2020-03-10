@@ -9,7 +9,7 @@ import toastr from 'toastr';
 export class ManageCoursePage extends React.Component{
     constructor(props,context){
         super(props, context);
-        
+
         this.state ={
             course: Object.assign({}, props.course),
             errors: {},
@@ -60,16 +60,16 @@ export class ManageCoursePage extends React.Component{
             this.setState({saving: false});
             });
         }
-    
+
     redirect(){
         this.setState({saving: false});
         toastr.success('Course saved');
         this.context.router.push('/courses');
     }
-    
+
     render(){
         return (
-                <CourseForm 
+                <CourseForm
                     allAuthors={this.props.authors}
                     onChange={this.updateCourseState}
                     onSave={this.saveCourse}
@@ -106,8 +106,6 @@ function mapStateToProps(state, ownProps){
     if (courseId && state.courses.length > 0){
         course = getCourseById(state.courses, courseId);
     }
-
-    
 
     return{
         course: course,
