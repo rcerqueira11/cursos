@@ -1,0 +1,36 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Client",
+        "type": "shell",
+        "command": "npm start",
+        "options": {
+          "cwd": "/home/cerqueira/Proyectos/CF/ReactComponents/ReactTemp"
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "new",
+          "group": "terminal"
+        },
+      },
+      {
+        "label": "Server",
+        "type": "shell",
+        "command": "railss",
+        "options": {
+          "cwd": "/home/cerqueira/Proyectos/CF/ComunidadFeliz/Web"
+        },
+        "presentation": {
+          "reveal": "always",
+          "panel": "new",
+          "group": "terminal"
+
+        }
+      },
+      {
+        "label": "Start server",
+        "dependsOn": ["Client", "Server"]
+      }
+    ]
+  }
