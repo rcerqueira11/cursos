@@ -31,12 +31,12 @@ var HelloWorld = React.createClass({
 
     ```html
     //Works fine with ES5 createClass
-    <div onClick={this.habdleClick}></div>
+    <div onClick={this.handleClick}></div>
     ```
 
     ```html
     //Requires explicit bind with ES6 Class
-    <div onClick={this.habdleClick.bind(this)}></div>
+    <div onClick={this.handleClick.bind(this)}></div>
     ```
 
     #### Recomended
@@ -58,11 +58,11 @@ var HelloWorld = React.createClass({
     - If you're willing to utilize experimental class fields and static properties, you can declare them withing your class
     - You have to enable Stage 1 suppor to this in babel
 
-- Set initial state in constructor 
+- Set initial state in constructor
 
 ## ES5 Stateless Component
 
-```js 
+```js
 var HelloWorld = function(props){
     return(
         <h1> Hello World </h1>
@@ -74,7 +74,7 @@ var HelloWorld = function(props){
 ## ES5 Stateless Functional Component
 
 - const to avoid our component is accidentaly reasigned
-```js 
+```js
 const HelloWorld = (props) => {
     return(
         <h1> Hello World </h1>
@@ -91,7 +91,7 @@ const HelloWorld = (props) => {
     - Presentational componets focused on the UI rather than the behavior
     - Avoid use state in presentational components
 - High signal-to-noise ratio (less typing)
-    - Can use a single linet return statement
+    - Can use a single line return statement
 - Enhance code completion/ intellisense
 - Bloated components are obvious
 - Easy to understand
@@ -104,7 +104,7 @@ const HelloWorld = (props) => {
 
 - Stateless does not actually create a component instance (ref will return null)
 - Nested functions in stateless comp can hurt performance, because every render creates a new instance of that function
-- If needed a nested funtion in the stateless component you can should convert it to a calss-based component
+- If needed a nested funtion in the stateless component you can should convert it to a class-based component
 
 | **Class Components** | **Stateless Components** |
 |-------|-------|
@@ -113,7 +113,7 @@ const HelloWorld = (props) => {
 |Lifecycle Methods||
 |Child functions (for performance)||
 
-## Other Ways to Create Components 
+## Other Ways to Create Components
 
 - Object.create
 - Mixins
@@ -137,9 +137,9 @@ const HelloWorld = (props) => {
 - Receives functions and data tha ther need froma container component
 - Typically know nothing about redux
     - make them more reusable and easier to understand
-    - just rely on props to display UI 
+    - just rely on props to display UI
     - have no dependencies on the rest of the app (redux, actions, stores)
-    - Does NOT specify how the data is loaded or mutated 
+    - Does NOT specify how the data is loaded or mutated
 - Typically functional components have no need for state
 
 | **Container Components** | **Presentation Components** |
@@ -162,7 +162,7 @@ const HelloWorld = (props) => {
 > ` "When you notice that some components don't use props they receive but merely forward them down.. it's a good time to introduce some container components." - Dan Abramov`
 
 
-## Summary 
+## Summary
 
 - ES5 createClass
 - ES6 Class

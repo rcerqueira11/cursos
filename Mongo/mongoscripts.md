@@ -116,6 +116,6 @@ newSC.forEach(function (element) {
 
 })
 newSC
-//db.configuration.update({}, { $set: { 'supportedCountries': newSupportedCountries }})
+//db.configuration.update({}, { $set: { 'supportedCountries': newSupportedCountries }}) 
 
 ```
